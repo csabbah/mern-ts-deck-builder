@@ -3,6 +3,8 @@ import express, { Request, Response } from "express";
 const app = express();
 const PORT: number = 3003;
 
+const db = require("../config/connection");
+
 app.get("/", (req: Request, res: Response) => {
   res.setHeader("cookies", "hi");
   console.log(res.getHeaders());
