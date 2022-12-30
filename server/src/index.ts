@@ -1,9 +1,8 @@
 import express, { Request, Response } from "express";
+import Deck from "./models/Deck";
 
 const app = express();
 const PORT: number = 3003;
-
-const db = require("../config/connection");
 
 app.get("/", (req: Request, res: Response) => {
   res.setHeader("cookies", "hi");
@@ -17,6 +16,11 @@ app.get("/:id", (req: Request, res: Response) => {
   res.send(`Endpoint param =${param}`);
 });
 
-app.listen(PORT, function () {
-  console.log(`Listening on port ${PORT}`);
+const db = require("../config/connection");
+
+// Once DB is open, run the server
+db.once("open", () => {
+  app.listen(PORT, function () {
+    console.log(`Listening on port ${PORT}`);
+  });
 });
