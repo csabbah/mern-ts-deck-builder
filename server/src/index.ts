@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import Deck from "./models/Deck";
 
-const app = express();
+const app: Express = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
