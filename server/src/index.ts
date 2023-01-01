@@ -2,9 +2,11 @@ import express, { Express, Request, Response } from "express";
 import Deck from "./models/Deck";
 
 const app: Express = express();
+const cors = require("cors");
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
+app.use(cors({ credentials: "true" }));
 const PORT: number = 3003;
 
 app.get("/", (req: Request, res: Response) => {
