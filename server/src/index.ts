@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import { Model, Models } from "mongoose";
 import Deck from "./models/Deck";
 
 const app: Express = express();
@@ -6,7 +7,7 @@ const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors({ credentials: "true" }));
+app.use(cors({ origin: "*" }));
 const PORT: number = 3003;
 
 app.get("/", (req: Request, res: Response) => {
@@ -14,6 +15,12 @@ app.get("/", (req: Request, res: Response) => {
   console.log(res.getHeaders());
 
   res.send("Hello World");
+});
+
+app.get("/decks", async (req: Request, res: Response) => {
+  const decks = await Deck.find({});
+
+  res.json(decks);
 });
 
 app.post("/decks", async (req: Request, res: Response) => {
@@ -30,7 +37,7 @@ app.post("/decks", async (req: Request, res: Response) => {
   res.json(newDeck);
 });
 
-app.get("/:id", (req: Request, res: Response) => {
+app.get("/deck/:id", (req: Request, res: Response) => {
   let param = req.params.id;
   res.send(`Endpoint param =${param}`);
 });
