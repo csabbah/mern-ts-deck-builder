@@ -37,9 +37,22 @@ app.post("/decks", async (req: Request, res: Response) => {
   res.json(newDeck);
 });
 
-app.get("/deck/:id", (req: Request, res: Response) => {
-  let param = req.params.id;
-  res.send(`Endpoint param =${param}`);
+// app.get("/deck/:id", (req: Request, res: Response) => {
+//   let param = req.params.id;
+
+//   const deleteDeck = Deck.findByIdAndDelete({ param });
+//   console.log(deleteDeck);
+
+//   res.json(`${deleteDeck} was deleted`);
+// });
+
+app.delete("/deck/:id", async (req: Request, res: Response) => {
+  let deckId = req.params.id;
+
+  const deleteDeck = await Deck.findByIdAndDelete(deckId);
+
+  console.log(deckId, deleteDeck);
+  res.json(`${deleteDeck} was deleted`);
 });
 
 const db = require("../config/connection");
