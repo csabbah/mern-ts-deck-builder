@@ -20,11 +20,11 @@ function App() {
         "Content-Type": "application/json",
       },
     });
-
-    const deck: deck = await response.json();
-
-    setDecks([...decks, deck]);
-
+    // Get the deck that was created
+    const newDeck: deck = await response.json();
+    // Update state array with the new deck
+    setDecks([...decks, newDeck]);
+    // Clear form data
     setTitle("");
   };
 
