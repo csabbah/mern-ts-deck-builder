@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { deleteDeck } from "./api/deleteDeck";
+import { getDecks } from "./api/getDecks";
+import { postDeck } from "./api/postDeck";
 
 import "./App.css";
 
-type deck = {
+export type deck = {
   _id: string;
   title: string;
 };
@@ -15,15 +18,8 @@ function App() {
   const handleCreateDeck = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:3003/decks", {
-      method: "POST",
-      body: JSON.stringify({ title: title }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
     // Get the deck that was created
-    const newDeck: deck = await response.json();
+    const newDeck: deck = await postDeck(title);
     // Update state array with the new deck
     setDecks([...decks, newDeck]);
     // Clear form data
@@ -31,24 +27,15 @@ function App() {
   };
 
   const handleDeleteDeck = async (deckId: string) => {
-    await fetch(`http://localhost:3003/deck/${deckId}`, {
-      method: "DELETE",
-    });
+    await deleteDeck(deckId);
     setDecks(decks.filter((deck) => deck._id !== deckId));
   };
 
   useEffect(() => {
     async function fetchDecks() {
-      const response = await fetch("http://localhost:3003/decks");
-      const newDecks = await response.json();
+      const newDecks = await getDecks();
       setDecks(newDecks);
-
-      // Promise method
-      // const newDecks = await fetch("http://localhost:3003/decks").then(
-      //   (response) => response.json()
-      // );
     }
-
     fetchDecks();
   }, []);
 
