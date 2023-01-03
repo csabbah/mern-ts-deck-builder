@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import "./App.css";
 
 type deck = {
@@ -58,10 +60,19 @@ function App() {
             // Only render valid data (deck.title)
             (deck) =>
               deck.title && (
-                <li key={deck._id}>
-                  {deck.title}{" "}
-                  <button onClick={() => handleDeleteDeck(deck._id)}>X</button>
-                </li>
+                <Link key={deck._id} to={`decks/${deck._id}`}>
+                  <li>
+                    {deck.title}{" "}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDeleteDeck(deck._id);
+                      }}
+                    >
+                      X
+                    </button>
+                  </li>
+                </Link>
               )
           )}
       </ul>
