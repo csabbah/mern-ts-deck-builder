@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import "./App.css";
 import { postCard } from "./api/postCard";
 import { getDeck } from "./api/getDeck";
+import { deleteCard } from "./api/deleteCard";
 
 export type deck = {
   _id: string;
@@ -31,10 +32,12 @@ export default function Deck() {
     setText("");
   };
 
-  //   const handleDeleteDeck = async (deckId: string) => {
-  //     await deleteDeck(deckId);
-  //     setDecks(decks.filter((deck) => deck._id !== deckId));
-  //   };
+  const handleDeleteCard = async (deckId: string, cardIndex: number) => {
+    if (!deckId) return;
+    const newDeck = await deleteCard(deckId, cardIndex);
+    setCards(newDeck.cards);
+    // setDecks(decks.cards(cards));
+  };
 
   useEffect(() => {
     // If deckId changes, re-run the useEffect
@@ -50,7 +53,19 @@ export default function Deck() {
   return (
     <div className="App">
       {deck && deck.title}
-      <ul className="decks">{cards && cards.map((card) => card)}</ul>
+      <ul className="decks">
+        {cards &&
+          cards.map((card, index) => (
+            <li key={index}>
+              {card}
+              <button
+                onClick={() => handleDeleteCard(deck! && deck._id, index)}
+              >
+                X
+              </button>
+            </li>
+          ))}
+      </ul>
       <form onSubmit={handleCreateCard}>
         <label htmlFor="card-text">Card Text</label>
         <input

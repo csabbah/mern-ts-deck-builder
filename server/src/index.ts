@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import { createCardForDeckController } from "./controllers/createCardForDeckController";
 
 import { createDeckController } from "./controllers/createDeckController";
+import { deleteCardOnDeckController } from "./controllers/deleteCardOnDeckController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
 import { getDeckController } from "./controllers/getDeckController";
 import { getDecksController } from "./controllers/getDecksController";
@@ -26,6 +27,7 @@ app.post("/decks", createDeckController);
 app.delete("/decks/:deckId", deleteDeckController);
 app.get("/decks/:deckId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
+app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);
 
 const db = require("../config/connection");
 
