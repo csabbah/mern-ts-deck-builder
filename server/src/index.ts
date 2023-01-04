@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import { createCardForDeckController } from "./controllers/createCardForDeckController";
 
 import { createDeckController } from "./controllers/createDeckController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
@@ -12,18 +13,17 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 const PORT: number = 3003;
 
-app.get("/", (req: Request, res: Response) => {
-  res.setHeader("cookies", "hi");
-  console.log(res.getHeaders());
+// app.get("/", (req: Request, res: Response) => {
+//   res.setHeader("cookies", "hi");
+//   console.log(res.getHeaders());
 
-  res.send("Hello World");
-});
+//   res.send("Hello World");
+// });
 
 app.get("/decks", getDeckController);
-
 app.post("/decks", createDeckController);
-
 app.delete("/deck/:id", deleteDeckController);
+app.post("/decks/:deckId/cards", createCardForDeckController);
 
 const db = require("../config/connection");
 
