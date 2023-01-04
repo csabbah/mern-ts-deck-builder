@@ -6,8 +6,8 @@ export type deck = {
   title: string;
 };
 
-export async function getDecks(): Promise<deck[]> {
-  const response = await fetch(`${API_URL}/decks`);
+export async function getDeck(deckId: string): Promise<deck> {
+  const response = await fetch(`${API_URL}/decks/${deckId}`);
   return response.json();
 
   // Promise method

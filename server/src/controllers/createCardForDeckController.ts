@@ -14,8 +14,8 @@ export async function createCardForDeckController(req: Request, res: Response) {
   // Other method
   //   const deck = await Deck.findById(deckId);
   //   if (!deck) return res.status(400).send("NO deck with this id found");
-  //   deck?.cards.push(text);
-  //   await deck?.save();
+  //   deck.cards.push(text);
+  //   await deck.save();
 
-  return { updatedDeck };
+  res.json(updatedDeck);
 }

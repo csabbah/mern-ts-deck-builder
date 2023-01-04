@@ -4,6 +4,7 @@ import { createCardForDeckController } from "./controllers/createCardForDeckCont
 import { createDeckController } from "./controllers/createDeckController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
 import { getDeckController } from "./controllers/getDeckController";
+import { getDecksController } from "./controllers/getDecksController";
 
 const app: Express = express();
 const cors = require("cors");
@@ -20,9 +21,10 @@ const PORT: number = 3003;
 //   res.send("Hello World");
 // });
 
-app.get("/decks", getDeckController);
+app.get("/decks", getDecksController);
 app.post("/decks", createDeckController);
-app.delete("/deck/:id", deleteDeckController);
+app.delete("/decks/:deckId", deleteDeckController);
+app.get("/decks/:deckId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 
 const db = require("../config/connection");
