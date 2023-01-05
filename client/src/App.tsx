@@ -40,41 +40,44 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <ul className="decks">
-        {decks &&
-          decks.map(
-            // Only render valid data (deck.title)
-            (deck) =>
-              deck.title && (
-                <Link key={deck._id} to={`decks/${deck._id}`}>
-                  <li>
-                    {deck.title}{" "}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDeleteDeck(deck._id);
-                      }}
-                    >
-                      X
-                    </button>
-                  </li>
-                </Link>
-              )
-          )}
-      </ul>
-      <form onSubmit={handleCreateDeck}>
-        <label htmlFor="deck-title">Deck Title</label>
-        <input
-          id="deck-title"
-          value={title}
-          placeholder="Add Title"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <button>Create Deck</button>
-      </form>
+    <div className="container">
+      <div className="App">
+        <h1>Your Decks</h1>
+        <ul className="decks">
+          {decks &&
+            decks.map(
+              // Only render valid data (deck.title)
+              (deck) =>
+                deck.title && (
+                  <Link key={deck._id} to={`decks/${deck._id}`}>
+                    <li>
+                      {deck.title}{" "}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDeleteDeck(deck._id);
+                        }}
+                      >
+                        X
+                      </button>
+                    </li>
+                  </Link>
+                )
+            )}
+        </ul>
+        <form onSubmit={handleCreateDeck}>
+          <label htmlFor="deck-title">Deck Title</label>
+          <input
+            id="deck-title"
+            value={title}
+            placeholder="Add Title"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setTitle(e.target.value);
+            }}
+          />
+          <button>Create Deck</button>
+        </form>
+      </div>
     </div>
   );
 }
