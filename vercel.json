@@ -1,8 +1,8 @@
 {
-  "version": 2,
+  "version": 3,
   "builds": [
     {
-      "src": "./server/index.ts",
+      "src": "./server/build/src/index.js",
       "use": "@vercel/node"
     },
     {
@@ -14,7 +14,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "./server/index.ts"
+      "destination": "./server/build/src/index.js"
     }
   ]
 }
