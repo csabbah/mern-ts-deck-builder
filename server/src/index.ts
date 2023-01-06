@@ -29,7 +29,7 @@ app.get("/decks/:deckId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);
 
-const db = require("../config/connection");
+const db = require("./config/connection");
 
 // Once DB is open, run the server
 db.once("open", () => {
