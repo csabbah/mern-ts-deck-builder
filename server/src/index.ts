@@ -1,6 +1,5 @@
 import express, { Express, Request, Response } from "express";
 import { createCardForDeckController } from "./controllers/createCardForDeckController";
-import cors from "cors";
 
 import { createDeckController } from "./controllers/createDeckController";
 import { deleteCardOnDeckController } from "./controllers/deleteCardOnDeckController";
@@ -8,16 +7,13 @@ import { deleteDeckController } from "./controllers/deleteDeckController";
 import { getDeckController } from "./controllers/getDeckController";
 import { getDecksController } from "./controllers/getDecksController";
 
-const PORT: number = 3003;
+const app: Express = express();
+const cors = require("cors");
 
-const app = express();
-
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors({ origin: "*" }));
+const PORT: number = 3003;
 
 // app.get("/", (req: Request, res: Response) => {
 //   res.setHeader("cookies", "hi");
