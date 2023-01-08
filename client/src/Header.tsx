@@ -4,13 +4,13 @@ export function Header() {
     <div className="Header">
       <div className="container">
         <div>
-          <a href="/">FlashCardSage</a>
+          <a href="/">FlashCard</a>
         </div>
         <div>
           <a href="/">Decks</a>
         </div>
         <div>
-          <a href="/login">Login</a>
+          <a href="/">Login</a>
         </div>
       </div>
     </div>

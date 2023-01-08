@@ -1,6 +1,8 @@
 .Deck {
+  margin-top: 75px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 
@@ -11,15 +13,22 @@
 
 .Deck form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+.decks {
+  padding: 0;
 }
 
 .cards {
   display: grid;
   width: 600px;
   margin: 0 auto;
+  padding: 0;
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
   color: black;
@@ -44,4 +53,28 @@
   right: 10px;
   top: 10px;
   font-size: 10px;
+}
+
+@media (max-width: 740px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    width: 90vw;
+    padding: 0;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    width: 100vw;
+  }
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+    width: 90vw;
+    padding: 0;
+  }
+
+  .Deck form {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
 }

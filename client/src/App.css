@@ -1,4 +1,5 @@
 .App {
+  margin-top: 75px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -6,9 +7,11 @@
 
 .App form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
+  margin-top: 25px;
+  margin-bottom: 50px;
 }
 
 .App h1 {
@@ -44,4 +47,28 @@
   right: 10px;
   top: 10px;
   font-size: 10px;
+}
+
+@media (max-width: 740px) {
+  .decks {
+    grid-template-columns: repeat(2, 1fr);
+    width: 90vw;
+    padding: 0;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    width: 100vw;
+  }
+  .decks {
+    grid-template-columns: repeat(1, 1fr);
+    width: 90vw;
+    padding: 0;
+  }
+
+  .App form {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
 }
