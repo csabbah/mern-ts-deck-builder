@@ -65,7 +65,12 @@ input {
   text-indent: 10px;
   border: none;
   border-radius: 8px;
-  color: white;
+  color: rgb(40, 40, 40);
+  background-color: rgb(201, 201, 201);
+}
+
+input::placeholder {
+  color: rgb(40, 40, 40);
 }
 
 button {
@@ -102,6 +107,6 @@ button {
   }
 
   input {
-    width: 90vw;
+    width: 88vw;
   }
 }
