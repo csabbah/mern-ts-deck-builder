@@ -23,12 +23,13 @@
   display: grid;
   width: 600px;
   margin: 0 auto;
-  gap: 10px;
+  gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   color: black;
 }
 
 .decks li {
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   display: flex;
   justify-content: center;
