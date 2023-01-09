@@ -52,14 +52,14 @@ function App() {
                   <Link key={deck._id} to={`decks/${deck._id}`}>
                     <li>
                       {deck.title}{" "}
-                      <button
+                      <span
                         onClick={(e) => {
                           e.preventDefault();
                           handleDeleteDeck(deck._id);
                         }}
                       >
                         X
-                      </button>
+                      </span>
                     </li>
                   </Link>
                 )
