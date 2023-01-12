@@ -10,7 +10,7 @@ export function Header() {
           <a href="/">Decks</a>
         </div>
         <div>
-          <a href="/">Login</a>
+          <a href="/signup">Sign up</a>
         </div>
       </div>
     </div>
