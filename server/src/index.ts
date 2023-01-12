@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import { createCardForDeckController } from "./controllers/createCardForDeckController";
 
 import { createDeckController } from "./controllers/createDeckController";

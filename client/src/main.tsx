@@ -6,10 +6,12 @@ import "./index.css";
 
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import { Header } from "./Header";
+import Signup from "./Signup";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/decks/:deckId", element: <Deck /> },
+  { path: "/signup", element: <Signup /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
