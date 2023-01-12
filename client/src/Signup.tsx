@@ -1,8 +1,7 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import "./Signup.css";
 
 import { postUser } from "./api/userApi/postUser";
-import { PassThrough } from "stream";
 
 export type User = {
   username: string;
@@ -18,8 +17,8 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("This executed");
     const user: User = await postUser(userData.username, userData.password);
+
     console.log(user);
   };
 

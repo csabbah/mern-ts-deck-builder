@@ -14,5 +14,8 @@
   "devDependencies": {
     "@types/node": "^18.11.18",
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
   }
 }
