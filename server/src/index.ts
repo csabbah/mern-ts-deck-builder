@@ -7,6 +7,8 @@ import { deleteDeckController } from "./controllers/deleteDeckController";
 import { getDeckController } from "./controllers/getDeckController";
 import { getDecksController } from "./controllers/getDecksController";
 
+import { createUser } from "./controllers/userController/createUser";
+
 const app: Express = express();
 const cors = require("cors");
 
@@ -24,6 +26,7 @@ const PORT: number = 3003;
 
 app.get("/decks", getDecksController);
 app.post("/decks", createDeckController);
+app.post("/user", createUser);
 app.delete("/decks/:deckId", deleteDeckController);
 app.get("/decks/:deckId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
