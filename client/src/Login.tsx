@@ -17,9 +17,14 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const user: User = await login(userData.username, userData.password);
+    const user = await login(userData.username, userData.password);
 
-    console.log(user);
+    if (user) {
+      // Essentially if login is successful, add the token to localStorage
+      localStorage.setItem("token", user.token);
+      // And redirect to this page
+      window.location.href = "./user-data";
+    }
   };
 
   return (

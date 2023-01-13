@@ -21,7 +21,7 @@ export async function loginUser(req: Request, res: Response) {
     const token = jwt.sign({ data: payload }, JWT_SECRET);
 
     if (res.status(201)) {
-      return res.status(200).json(token);
+      return res.status(200).json({ token });
     } else {
       return res.status(400).json("Login error");
     }

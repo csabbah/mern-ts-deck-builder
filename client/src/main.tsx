@@ -8,12 +8,14 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import { Header } from "./Header";
 import Signup from "./Signup";
 import Login from "./Login";
+import User from "./User";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/decks/:deckId", element: <Deck /> },
   { path: "/signup", element: <Signup /> },
   { path: "/login", element: <Login /> },
+  { path: "/userData", element: <User /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
