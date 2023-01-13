@@ -6,6 +6,8 @@ export type User = {
   password: string;
 };
 
+import { login } from "./api/userApi/login";
+
 export default function Login() {
   const [userData, setUserData] = useState<User>({
     username: "",
@@ -15,7 +17,9 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(userData);
+    const user: User = await login(userData.username, userData.password);
+
+    console.log(user);
   };
 
   return (
