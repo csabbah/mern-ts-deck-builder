@@ -22,6 +22,8 @@ export default function Login() {
     if (user) {
       // Essentially if login is successful, add the token to localStorage
       localStorage.setItem("token", user.token);
+      localStorage.setItem("loggedIn", JSON.stringify(true));
+
       // And redirect to this page
       window.location.href = "./user-data";
     }
