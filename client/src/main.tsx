@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   { path: "/decks/:deckId", element: <Deck /> },
   { path: "/signup", element: <Signup /> },
   { path: "/login", element: <Login /> },
-  { path: "/userData", element: <User /> },
+  { path: "/user-data", element: <User /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

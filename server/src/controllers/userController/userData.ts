@@ -10,12 +10,13 @@ export async function userData(req: Request, res: Response) {
   try {
     const user = jwt.verify(token, JWT_SECRET);
     const username = user.username;
-    User.findOne({ username })
+
+    User.findOne(username)
       .then((data) => {
-        res.send({ status: "ok", data });
+        return res.send({ data });
       })
       .catch((err) => res.status(400).json("Error"));
   } catch (err) {
-    res.status(400).json("Error");
+    res.json("Error");
   }
 }

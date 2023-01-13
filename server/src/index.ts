@@ -28,8 +28,8 @@ const PORT: number = 3003;
 
 app.get("/decks", getDecksController);
 app.post("/decks", createDeckController);
-app.post("/user-data", userData);
 
+app.post("/user-data", userData);
 app.post("/user", createUser);
 app.post("/login-user", loginUser);
 
