@@ -9,6 +9,7 @@ import { getDecksController } from "./controllers/getDecksController";
 
 import { createUser } from "./controllers/userController/createUser";
 import { loginUser } from "./controllers/userController/loginUser";
+import { userData } from "./controllers/userController/userData";
 
 const app: Express = express();
 const cors = require("cors");
@@ -27,6 +28,7 @@ const PORT: number = 3003;
 
 app.get("/decks", getDecksController);
 app.post("/decks", createDeckController);
+app.post("/userData", userData);
 
 app.post("/user", createUser);
 app.post("/login-user", loginUser);
