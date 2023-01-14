@@ -17,15 +17,23 @@ export default function User() {
     decks: [],
   });
 
+  const logout = () => {
+    localStorage.clear();
+    window.location.href = "./login";
+  };
+
   const getUser = async () => {
     try {
       const dbUser = await userData();
+      if (dbUser.data == "token expired") {
+        return logout();
+      }
       setData(dbUser.data);
-      console.log(dbUser);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getUser();
   }, []);
