@@ -19,7 +19,7 @@ export default function Login() {
 
     const user = await login(userData.username, userData.password);
 
-    if (user) {
+    if (user.token) {
       // Essentially if login is successful, add the token to localStorage
       localStorage.setItem("token", user.token);
       localStorage.setItem("loggedIn", JSON.stringify(true));

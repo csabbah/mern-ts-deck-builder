@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import User from "../../models/User";
 
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = "mysecretsshhhhh";
 const bcrypt = require("bcryptjs");
 
 export async function createUser(req: Request, res: Response) {
@@ -16,7 +18,12 @@ export async function createUser(req: Request, res: Response) {
       return res.status(400).json("User exist!");
     }
     const newUser = await User.create({ username, password: encryptedPass });
-    res.status(200).json(newUser);
+
+    const token = jwt.sign({ username: username }, JWT_SECRET, {
+      expiresIn: 10,
+    });
+
+    res.status(200).json({ newUser, token });
   } catch (err) {
     res.status(400).json("Error");
   }

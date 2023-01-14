@@ -20,8 +20,8 @@ export default function User() {
   const getUser = async () => {
     try {
       const dbUser = await userData();
-
       setData(dbUser.data);
+      console.log(dbUser);
     } catch (err) {
       console.log(err);
     }
@@ -30,21 +30,9 @@ export default function User() {
     getUser();
   }, []);
 
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = "./login";
-  };
-
   return (
     <div style={{ paddingTop: "70px" }}>
-      {data ? (
-        <div>
-          Logged in as: {data.username}{" "}
-          <button onClick={() => logout()}>Logout</button>
-        </div>
-      ) : (
-        "not logged in"
-      )}
+      {data ? <div>Logged in as: {data.username} </div> : "not logged in"}
     </div>
   );
 }

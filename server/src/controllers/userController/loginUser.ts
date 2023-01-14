@@ -1,15 +1,13 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import User from "../../models/User";
 
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "vdsaivndsignag2309jaoisndf";
+const JWT_SECRET = "mysecretsshhhhh";
 const bcrypt = require("bcryptjs");
 
 export async function loginUser(req: Request, res: Response) {
   const username: string = req.body.username;
   const password: string = req.body.password;
-
-  const payload = { username, password };
 
   const userExist = await User.findOne({ username });
 
@@ -18,10 +16,12 @@ export async function loginUser(req: Request, res: Response) {
   }
 
   if (await bcrypt.compare(password, userExist.password)) {
-    const token = jwt.sign({ data: payload }, JWT_SECRET);
+    const token = jwt.sign({ username: userExist.username }, JWT_SECRET, {
+      expiresIn: 10,
+    });
 
     if (res.status(201)) {
-      return res.status(200).json({ token });
+      return res.status(200).json({ token, userExist });
     } else {
       return res.status(400).json("Login error");
     }

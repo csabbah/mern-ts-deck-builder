@@ -6,12 +6,14 @@ import { postUser } from "./api/userApi/postUser";
 export type User = {
   username: string;
   password: string;
+  token: string;
 };
 
 export default function Signup() {
   const [userData, setUserData] = useState<User>({
     username: "",
     password: "",
+    token: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,7 +21,12 @@ export default function Signup() {
 
     const user: User = await postUser(userData.username, userData.password);
 
-    console.log(user);
+    console.log(user.token);
+    localStorage.setItem("token", user.token);
+    localStorage.setItem("loggedIn", JSON.stringify(true));
+
+    // And redirect to this page
+    window.location.href = "./user-data";
   };
 
   return (
