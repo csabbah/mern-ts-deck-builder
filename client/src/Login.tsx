@@ -51,6 +51,13 @@ export default function Login() {
         />
         <button type="submit">Submit</button>
       </form>
+      <button
+        onClick={() => {
+          window.location.href = "./reset-pass";
+        }}
+      >
+        Forgot Password
+      </button>
     </div>
   );
 }

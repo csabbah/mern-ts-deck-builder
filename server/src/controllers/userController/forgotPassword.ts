@@ -22,6 +22,6 @@ export async function forgotPassword(req: Request, res: Response) {
       { expiresIn: "5m" }
     );
     const link = `${API_URL}/reset-password/${userExists._id}/${token}`;
-    console.log(link);
+    res.json({ resetLink: link });
   } catch (err) {}
 }
