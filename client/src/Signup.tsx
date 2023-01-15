@@ -11,6 +11,7 @@ import {
 
 export type User = {
   username: string;
+  email: string;
   password: string;
   token: string;
   mobile: string;
@@ -26,6 +27,7 @@ export type Verify = {
 export default function Signup() {
   const [userData, setUserData] = useState<User>({
     username: "",
+    email: "",
     password: "",
     token: "",
     mobile: "",
@@ -41,7 +43,11 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const user: User = await postUser(userData.username, userData.password);
+    const user: User = await postUser(
+      userData.email,
+      userData.username,
+      userData.password
+    );
 
     localStorage.setItem("token", user.token);
     localStorage.setItem("loggedIn", JSON.stringify(true));
@@ -119,6 +125,14 @@ export default function Signup() {
           }
           placeholder="Username"
           id="username"
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUserData({ ...userData, email: e.target.value })
+          }
+          placeholder="Email"
+          id="email"
         />
         <label htmlFor="password">Password</label>
         <input

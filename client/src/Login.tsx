@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 
 export type User = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -10,14 +10,14 @@ import { login } from "./api/userApi/login";
 
 export default function Login() {
   const [userData, setUserData] = useState<User>({
-    username: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const user = await login(userData.username, userData.password);
+    const user = await login(userData.email, userData.password);
 
     if (user.token) {
       // Essentially if login is successful, add the token to localStorage
@@ -33,13 +33,13 @@ export default function Login() {
     <div className="login-container">
       Login
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">Email</label>
         <input
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUserData({ ...userData, username: e.target.value })
+            setUserData({ ...userData, email: e.target.value })
           }
-          placeholder="Username"
-          id="username"
+          placeholder="Email"
+          id="email"
         />
         <label htmlFor="password">Password</label>
         <input

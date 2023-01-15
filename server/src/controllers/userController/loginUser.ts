@@ -6,17 +6,17 @@ const JWT_SECRET = "mysecretsshhhhh";
 const bcrypt = require("bcryptjs");
 
 export async function loginUser(req: Request, res: Response) {
-  const username: string = req.body.username;
+  const email: string = req.body.email;
   const password: string = req.body.password;
 
-  const userExist = await User.findOne({ username });
+  const userExist = await User.findOne({ email });
 
   if (!userExist) {
     return res.status(400).json("User not found!");
   }
 
   if (await bcrypt.compare(password, userExist.password)) {
-    const token = jwt.sign({ username: userExist.username }, JWT_SECRET, {
+    const token = jwt.sign({ email: userExist.email }, JWT_SECRET, {
       expiresIn: 10,
     });
 

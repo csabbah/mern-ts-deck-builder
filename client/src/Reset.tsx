@@ -4,7 +4,7 @@ import { resetPass } from "./api/userApi/resetPass";
 import { updatePass } from "./api/userApi/updatePass";
 
 export default function Reset() {
-  const [username, setUsername] = useState<string>("");
+  const [email, setUserEmail] = useState<string>("");
   const [newPass, setNewPass] = useState<string>("");
 
   const [showReset, setShowReset] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export default function Reset() {
     // Check if the users account exists, if so, show the reset form
     // And extract the token we passed using our resetPass api
     try {
-      const data = await resetPass(username);
+      const data = await resetPass(email);
       setShowReset(true);
       setResetLink(data.resetLink);
     } catch (err) {
@@ -40,11 +40,11 @@ export default function Reset() {
       Reset Password
       {!showReset ? (
         <form onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
-            id="username"
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter Username"
+            id="email"
+            onChange={(e) => setUserEmail(e.target.value)}
+            placeholder="Enter Email"
           />
           <button type="submit">Submit</button>
         </form>

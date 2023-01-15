@@ -7,19 +7,24 @@ const bcrypt = require("bcryptjs");
 
 export async function createUser(req: Request, res: Response) {
   const username: string = req.body.username;
+  const email: string = req.body.email;
   const password: string = req.body.password;
 
   const encryptedPass = await bcrypt.hash(password, 10);
 
   try {
-    const isExist = await User.findOne({ username });
+    const isExist = await User.findOne({ email });
 
     if (isExist) {
       return res.status(400).json("User exist!");
     }
-    const newUser = await User.create({ username, password: encryptedPass });
+    const newUser = await User.create({
+      email,
+      username,
+      password: encryptedPass,
+    });
 
-    const token = jwt.sign({ username: username }, JWT_SECRET, {
+    const token = jwt.sign({ email: email }, JWT_SECRET, {
       expiresIn: 10,
     });
 

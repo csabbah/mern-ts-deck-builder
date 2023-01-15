@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 export type User = {
   _id: string;
   username: string;
+  email: string;
   password: string;
   decks: string[];
 };
@@ -13,6 +14,7 @@ export default function User() {
   const [data, setData] = useState<User>({
     _id: "",
     username: "",
+    email: "",
     password: "",
     decks: [],
   });

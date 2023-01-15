@@ -19,8 +19,8 @@ export async function userData(req: Request, res: Response) {
       return res.send({ status: "error", data: "token expired" });
     }
 
-    const username = user.username;
-    User.findOne({ username: username })
+    const email = user.email;
+    User.findOne({ email: email })
       .then((data) => {
         return res.send({ status: "ok", data: data });
       })

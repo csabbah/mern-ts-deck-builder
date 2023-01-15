@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import User from "../../models/User";
 
-import { API_URL } from "../../utils/config";
-
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "mysecretsshhhhh";
 const bcrypt = require("bcryptjs");
 
-// We rerun the bycrypt We used initial to create a user
+// We rerun the bcrypt We used initial to create a user
 export async function updatePassword(req: Request, res: Response) {
   const id: string = req.params.id;
   const token: string = req.params.token;

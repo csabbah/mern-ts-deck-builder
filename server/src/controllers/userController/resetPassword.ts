@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import User from "../../models/User";
 
-import { API_URL } from "../../utils/config";
-
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "mysecretsshhhhh";
 const bcrypt = require("bcryptjs");
