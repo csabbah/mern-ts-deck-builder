@@ -68,7 +68,9 @@ export default function Signup() {
 
   const onSignInSubmit = () => {
     onCaptchVerify();
-    const phoneNumber = "+1" + userData.mobile; // This is our user state object that contains their sign up info
+    // This is our user state object that contains their sign up info
+    // + 1 is the area code
+    const phoneNumber = "+1" + userData.mobile;
     const appVerifier = (window as any).recaptchaVerifier;
 
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -126,6 +128,7 @@ export default function Signup() {
           placeholder="Password"
           id="password"
         />
+        {/* This input is for adding your number and activating the captcha */}
         <div>
           <label htmlFor="phone-number">Phone Number</label>
           <input
@@ -140,6 +143,7 @@ export default function Signup() {
             placeholder="Enter phone number"
             id="phone-number"
           />
+          {/* verifyButton will be set to true if mobile number length is == 10 */}
           {verification.verifyButton && (
             <button
               style={{
@@ -157,6 +161,8 @@ export default function Signup() {
             </button>
           )}
         </div>
+        {/* If verifyOtp is true, that means the code has been sent 
+        so we show this input which handles Verifying the otp */}
         {verification.verifyOtp && (
           <div>
             <label htmlFor="verification-code">Verification Code</label>
