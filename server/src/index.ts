@@ -8,7 +8,9 @@ import { getDeckController } from "./controllers/getDeckController";
 import { getDecksController } from "./controllers/getDecksController";
 
 import { createUser } from "./controllers/userController/createUser";
+import { forgotPassword } from "./controllers/userController/forgotPassword";
 import { loginUser } from "./controllers/userController/loginUser";
+import { resetPassword } from "./controllers/userController/resetPassword";
 import { userData } from "./controllers/userController/userData";
 
 const app: Express = express();
@@ -32,6 +34,8 @@ app.post("/decks", createDeckController);
 app.post("/user-data", userData);
 app.post("/user", createUser);
 app.post("/login-user", loginUser);
+app.post("/forgot-password", forgotPassword);
+app.get("/reset-password/:id/:token", resetPassword);
 
 app.delete("/decks/:deckId", deleteDeckController);
 app.get("/decks/:deckId", getDeckController);
