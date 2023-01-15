@@ -48,6 +48,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 button:hover {
   border-color: #646cff;
 }
@@ -66,7 +71,7 @@ input {
   border: none;
   border-radius: 8px;
   color: rgb(39, 39, 39);
-  background-color: rgb(220, 220, 220) !important;
+  background-color: rgb(220, 220, 220);
 }
 
 input::placeholder {
@@ -80,7 +85,7 @@ button {
   padding: 10px 20px;
   border-radius: 8px;
   color: rgb(39, 39, 39);
-  background-color: rgb(220, 220, 220) !important;
+  background-color: rgb(220, 220, 220);
 }
 
 @media (prefers-color-scheme: light) {

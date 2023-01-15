@@ -12,6 +12,7 @@ const UserSchema = new Schema(
         ref: "Deck",
       },
     ],
+    mobile: { type: Number },
   }, // set this to use virtual below
   {
     toJSON: {
