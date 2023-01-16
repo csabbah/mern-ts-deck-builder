@@ -11,6 +11,7 @@ import Login from "./Login";
 import User from "./User";
 import ResetPass from "./ResetPass";
 import ForgotPass from "./ForgotPass";
+import { NotFound } from "./NotFound";
 
 const localLoggedIn = localStorage.getItem("loggedIn");
 const loggedIn: boolean = localLoggedIn && JSON.parse(localLoggedIn);
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             </>
           )}
           {loggedIn && <Route path="/user-data" element={<User />} />}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
