@@ -10,7 +10,6 @@ import { getDecksController } from "./controllers/getDecksController";
 import { createUser } from "./controllers/userController/createUser";
 import { forgotPassword } from "./controllers/userController/forgotPassword";
 import { loginUser } from "./controllers/userController/loginUser";
-import { resetPassword } from "./controllers/userController/resetPassword";
 import { updatePassword } from "./controllers/userController/updatePassword";
 import { userData } from "./controllers/userController/userData";
 
@@ -35,8 +34,8 @@ app.post("/decks", createDeckController);
 app.post("/user-data", userData);
 app.post("/user", createUser);
 app.post("/login-user", loginUser);
+
 app.post("/forgot-password", forgotPassword);
-app.get("/reset-password/:id/:token", resetPassword);
 app.post("/reset-password/:id/:token", updatePassword);
 
 app.delete("/decks/:deckId", deleteDeckController);

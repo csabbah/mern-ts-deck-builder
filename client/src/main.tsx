@@ -9,7 +9,8 @@ import { Header } from "./Header";
 import Signup from "./Signup";
 import Login from "./Login";
 import User from "./User";
-import Reset from "./Reset";
+import ResetPass from "./ResetPass";
+import ForgotPass from "./ForgotPass";
 
 const localLoggedIn = localStorage.getItem("loggedIn");
 const loggedIn: boolean = localLoggedIn && JSON.parse(localLoggedIn);
@@ -22,7 +23,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/decks/:deckId" element={<Deck />} />
-          <Route path="/reset-pass" element={<Reset />} />
+          <Route path="/reset-password" element={<ForgotPass />} />
+          <Route path="/reset-password/:id/:token" element={<ResetPass />} />
           {!loggedIn && (
             <>
               <Route path="/signup" element={<Signup />} />
