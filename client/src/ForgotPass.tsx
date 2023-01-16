@@ -9,7 +9,11 @@ export default function ForgotPass() {
     e.preventDefault();
     try {
       alert("Email sent!");
-      await resetPass(email);
+      const apiLink = await resetPass(email);
+
+      // Clear local (incase a previous older token is there)
+      localStorage.clear();
+      localStorage.setItem("resetToken", apiLink);
     } catch (err) {
       console.log(err);
     }

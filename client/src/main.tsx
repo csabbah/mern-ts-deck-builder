@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Route path="/" element={<App />} />
           <Route path="/decks/:deckId" element={<Deck />} />
           <Route path="/reset-password" element={<ForgotPass />} />
-          <Route path="/reset-password/:id/:token" element={<ResetPass />} />
+          <Route path="/reset-password/:id/:resetId" element={<ResetPass />} />
           {!loggedIn && (
             <>
               <Route path="/signup" element={<Signup />} />

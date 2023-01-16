@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { updatePass } from "./api/userApi/updatePass";
 
 export default function ResetPass() {
   const [newPass, setNewPass] = useState<string>("");
+  const [apiLink, setApiLink] = useState<string | null>(
+    localStorage.getItem("resetToken")
+  );
 
   // Execute the post method to update the users account
   const handlePassChange = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (apiLink === null) {
+      return alert("Token is missing, please try again!");
+    }
+
     try {
-      const status = await updatePass(window.location.href, newPass);
+      const status = await updatePass(apiLink!, newPass);
       if (status.status == "Something went wrong!") {
         alert("Token expired, please try again!");
       } else {
         alert("Password successfully updated!");
       }
+
       window.location.href = "/login";
     } catch (err) {
       console.log(err);
@@ -24,7 +33,11 @@ export default function ResetPass() {
   return (
     <div style={{ paddingTop: "70px" }}>
       Reset Password
-      <form onSubmit={(e) => handlePassChange(e)}>
+      <form
+        onSubmit={(e) => {
+          handlePassChange(e);
+        }}
+      >
         <label htmlFor="newPass">Enter New Password</label>
         <input
           id="newPass"

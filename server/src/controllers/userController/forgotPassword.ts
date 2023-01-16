@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User from "../../models/User";
 
 import { API_URL } from "../../utils/config";
+import { CLIENT_URL } from "../../utils/config";
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "mysecretsshhhhh";
@@ -22,10 +23,12 @@ export async function forgotPassword(req: Request, res: Response) {
       { expiresIn: "5m" }
     );
 
-    // Remove the periods from the token (temporarily) so we can load the route path
-    // '.' are treated as file extensions so they don't work with react router
-    const updatedToken = token.replace(/\./g, "encrypted24492024");
-    const link = `${API_URL}/reset-password/${userExists._id}/${updatedToken}`;
+    // This link is for the frontend route (to be sent via email)
+    const link = `${CLIENT_URL}/reset-password/${userExists._id}/${Math.floor(
+      Math.random() * 10000000000000
+    )}`;
+    // This is to be used to update the password in the updatePassword fetch function
+    const apiLink = `${API_URL}/reset-password/${userExists._id}/${token}`;
 
     var nodemailer = require("nodemailer");
 
@@ -52,6 +55,7 @@ export async function forgotPassword(req: Request, res: Response) {
       }
     });
 
-    // res.json({ resetLink: link });
+    // Send the API link to be used for later
+    res.json(apiLink);
   } catch (err) {}
 }
