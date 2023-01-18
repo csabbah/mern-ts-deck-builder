@@ -14,7 +14,10 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
         </div>
         <div>
           {loggedIn ? (
-            <a onClick={() => logout()}>Logout</a>
+            <>
+              <a href="/user-data">Account</a> -{" "}
+              <a onClick={() => logout()}>Logout</a>
+            </>
           ) : (
             <>
               <a href="/login">Login</a> - <a href="/signup">Sign up</a>
