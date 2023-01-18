@@ -20,12 +20,15 @@ export default function ResetPass() {
       const status = await updatePass(apiLink!, newPass);
       if (status.status == "Something went wrong!") {
         alert("Token expired, please try again!");
+        localStorage.clear();
       } else {
         alert("Password successfully updated!");
+        localStorage.clear();
       }
 
       window.location.href = "/login";
     } catch (err) {
+      localStorage.clear();
       console.log(err);
     }
   };
