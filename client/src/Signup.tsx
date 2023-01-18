@@ -58,6 +58,7 @@ export default function Signup() {
 
   const auth = getAuth(app); // We pass the app from the firebase-config file
   const onCaptchVerify = () => {
+    // By doing window.recaptchaVerifier, we're making this variable accessible anywhere
     (window as any).recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
       {
@@ -80,6 +81,7 @@ export default function Signup() {
     const appVerifier = (window as any).recaptchaVerifier;
 
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      // By doing window.confirmationResult, we're making this variable accessible anywhere
       .then((confirmationResult) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
@@ -159,20 +161,22 @@ export default function Signup() {
           />
           {/* verifyButton will be set to true if mobile number length is == 10 */}
           {verification.verifyButton && (
-            <button
-              style={{
-                backgroundColor: verification.verified
-                  ? "green"
-                  : "rgb(220, 220, 220)",
-              }}
-              onClick={() => {
-                onSignInSubmit();
-              }}
-              type="button"
-              value="Verify"
-            >
-              {verification.verified ? "Verified" : "Verify"}
-            </button>
+            <div>
+              <button
+                style={{
+                  backgroundColor: verification.verified
+                    ? "green"
+                    : "rgb(220, 220, 220)",
+                }}
+                onClick={() => {
+                  onSignInSubmit();
+                }}
+                type="button"
+                value="Verify"
+              >
+                {verification.verified ? "Verified" : "Verify"}
+              </button>
+            </div>
           )}
         </div>
         {/* If verifyOtp is true, that means the code has been sent 
@@ -193,9 +197,16 @@ export default function Signup() {
             </button>
           </div>
         )}
-        <button disabled={!verification.verified} type="submit">
-          Submit
-        </button>
+        {!verification.verified ? (
+          <button
+            onClick={(e) => e.preventDefault()}
+            style={{ opacity: "0.5" }}
+          >
+            Submit
+          </button>
+        ) : (
+          <button type="submit">Suces</button>
+        )}
       </form>
     </div>
   );
