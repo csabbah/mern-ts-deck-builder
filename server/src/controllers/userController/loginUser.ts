@@ -16,9 +16,13 @@ export async function loginUser(req: Request, res: Response) {
   }
 
   if (await bcrypt.compare(password, userExist.password)) {
-    const token = jwt.sign({ email: userExist.email }, JWT_SECRET, {
-      expiresIn: 10,
-    });
+    const token = jwt.sign(
+      { email: userExist.email, id: userExist._id },
+      JWT_SECRET,
+      {
+        expiresIn: "60m",
+      }
+    );
 
     if (res.status(201)) {
       return res.status(200).json({ token, userExist });

@@ -28,7 +28,7 @@ const PORT: number = 3003;
 //   res.send("Hello World");
 // });
 
-app.get("/decks", getDecksController);
+app.get("/decks/:userId", getDecksController);
 app.post("/decks", createDeckController);
 
 app.post("/user-data", userData);
@@ -38,7 +38,7 @@ app.post("/login-user", loginUser);
 app.post("/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", updatePassword);
 
-app.delete("/decks/:deckId", deleteDeckController);
+app.delete("/decks/:deckId/:userId", deleteDeckController);
 app.get("/decks/:deckId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);

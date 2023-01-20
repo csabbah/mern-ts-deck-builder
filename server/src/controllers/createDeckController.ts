@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import Deck from "../models/Deck";
+import User from "../models/User";
 
 export async function createDeckController(req: Request, res: Response) {
   const title: string = req.body.title;
+  const userId: string = req.body.id;
 
   // 2 Ways to create a model:
   // First method
@@ -12,5 +14,11 @@ export async function createDeckController(req: Request, res: Response) {
   // Second method
   const newDeck = await Deck.create({ title });
 
-  res.json(newDeck);
+  const updateUserArr = await User.findOneAndUpdate(
+    { _id: userId },
+    { $addToSet: { decks: newDeck } },
+    { new: true }
+  ).populate("decks");
+
+  res.json(updateUserArr);
 }

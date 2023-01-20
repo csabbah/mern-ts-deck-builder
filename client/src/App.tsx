@@ -1,43 +1,63 @@
-import React, { useState, useEffect } from "react";
+import { stringify } from "querystring";
+import React, { useState, useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck } from "./api/deleteDeck";
 import { getDecks } from "./api/getDecks";
 import { postDeck } from "./api/postDeck";
+import { userData } from "./api/userApi/userData";
 
 import "./App.css";
 
 export type deck = {
   _id: string;
   title: string;
+  cards: string[];
+};
+export type user = {
+  _id: string;
+  username: string;
+  email: string;
+  decks: deck[];
 };
 
+import { getProfile } from "./utils/auth";
+
 function App() {
+  const [user, setUser] = useState<user | null>(null);
+  const [userId, setUserId] = useState<string>("");
+
   const localLoggedIn = localStorage.getItem("loggedIn");
   const loggedIn: boolean = localLoggedIn && JSON.parse(localLoggedIn);
 
-  const [decks, setDecks] = useState<deck[]>([]);
   const [title, setTitle] = useState<string>("");
 
   const handleCreateDeck = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Get the deck that was created
-    const newDeck: deck = await postDeck(title);
+    const newUser: user = await postDeck(title, userId);
     // Update state array with the new deck
-    setDecks([...decks, newDeck]);
+    setUser(newUser);
+
     // Clear form data
     setTitle("");
   };
 
   const handleDeleteDeck = async (deckId: string) => {
-    await deleteDeck(deckId);
-    setDecks(decks.filter((deck) => deck._id !== deckId));
+    const newUser: user = await deleteDeck(deckId, userId);
+    setUser(newUser);
   };
 
   useEffect(() => {
+    if (!loggedIn) return;
+
+    // user id
+    let { id } = getProfile();
+    setUserId(id);
+
     async function fetchDecks() {
-      const newDecks = await getDecks();
-      setDecks(newDecks);
+      const userData = await getDecks(id);
+      setUser(userData);
     }
     fetchDecks();
   }, []);
@@ -49,8 +69,8 @@ function App() {
           <>
             <h1>Your Decks</h1>
             <ul className="decks">
-              {decks &&
-                decks.map(
+              {user?.decks ? (
+                user?.decks.map(
                   // Only render valid data (deck.title)
                   (deck) =>
                     deck.title && (
@@ -68,7 +88,10 @@ function App() {
                         </li>
                       </Link>
                     )
-                )}
+                )
+              ) : (
+                <p style={{ color: "white" }}>Loading your decks...</p>
+              )}
             </ul>
           </>
         )}

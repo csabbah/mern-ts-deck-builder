@@ -24,8 +24,8 @@ export async function createUser(req: Request, res: Response) {
       password: encryptedPass,
     });
 
-    const token = jwt.sign({ email: email }, JWT_SECRET, {
-      expiresIn: 10,
+    const token = jwt.sign({ email: email, id: newUser._id }, JWT_SECRET, {
+      expiresIn: "60m",
     });
 
     res.status(200).json({ newUser, token });
