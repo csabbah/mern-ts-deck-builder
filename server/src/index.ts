@@ -39,7 +39,7 @@ app.post("/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", updatePassword);
 
 app.delete("/decks/:deckId/:userId", deleteDeckController);
-app.get("/decks/:deckId", getDeckController);
+app.get("/decks/:deckId/:userId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);
 

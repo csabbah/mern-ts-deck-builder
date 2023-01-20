@@ -41,7 +41,7 @@ export default function User() {
   }, []);
 
   return (
-    <div style={{ paddingTop: "70px" }}>
+    <div style={{ paddingTop: "70px", margin: "0 auto" }}>
       {data ? <div>Logged in as: {data.username} </div> : "not logged in"}
     </div>
   );

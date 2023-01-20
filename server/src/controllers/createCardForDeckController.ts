@@ -3,6 +3,7 @@ import Deck from "../models/Deck";
 
 export async function createCardForDeckController(req: Request, res: Response) {
   const deckId: string = req.params.deckId;
+
   const { text } = req.body;
 
   const updatedDeck = await Deck.findByIdAndUpdate(

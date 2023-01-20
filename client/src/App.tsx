@@ -1,10 +1,8 @@
-import { stringify } from "querystring";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck } from "./api/deleteDeck";
 import { getDecks } from "./api/getDecks";
 import { postDeck } from "./api/postDeck";
-import { userData } from "./api/userApi/userData";
 
 import "./App.css";
 
@@ -74,7 +72,7 @@ function App() {
                   // Only render valid data (deck.title)
                   (deck) =>
                     deck.title && (
-                      <Link key={deck._id} to={`decks/${deck._id}`}>
+                      <Link key={deck._id} to={`decks/${deck._id}/${userId}`}>
                         <li>
                           {deck.title}{" "}
                           <span
