@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 export type User = {
   email: string;
@@ -51,13 +52,9 @@ export default function Login() {
         />
         <button type="submit">Submit</button>
       </form>
-      <button
-        onClick={() => {
-          window.location.href = "./reset-password";
-        }}
-      >
+      <Link style={{ color: "white" }} to={`/reset-password`}>
         Forgot Password
-      </button>
+      </Link>{" "}
     </div>
   );
 }

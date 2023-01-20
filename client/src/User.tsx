@@ -9,6 +9,7 @@ export type User = {
 };
 
 import { userData } from "./api/userApi/userData";
+import { logout } from "./utils/auth";
 
 export default function User() {
   const [data, setData] = useState<User>({
@@ -18,11 +19,6 @@ export default function User() {
     password: "",
     decks: [],
   });
-
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = "./login";
-  };
 
   const getUser = async () => {
     try {

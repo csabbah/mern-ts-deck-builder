@@ -14,7 +14,7 @@ export type deck = {
 };
 
 export default function Deck() {
-  const [deck, setDeck] = useState<deck | undefined>(undefined);
+  const [deck, setDeck] = useState<deck | null>(null);
   const [text, setText] = useState<string>("");
 
   const { deckId } = useParams();
@@ -39,7 +39,7 @@ export default function Deck() {
   useEffect(() => {
     // If deckId changes, re-run the useEffect
     async function fetchDecks() {
-      if (!deckId && !userId) return;
+      if (!deckId || !userId) return;
       const deck: deck = await getDeck(deckId!, userId!);
       setDeck(deck);
     }
@@ -54,9 +54,7 @@ export default function Deck() {
           deck.cards.map((card, index) => (
             <li key={index}>
               {card}
-              <span onClick={() => handleDeleteCard(deck! && deck._id, index)}>
-                X
-              </span>
+              <span onClick={() => handleDeleteCard(deck!._id, index)}>X</span>
             </li>
           ))}
       </ul>

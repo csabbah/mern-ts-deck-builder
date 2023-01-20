@@ -1,26 +1,24 @@
 import "./Header.css";
+import { Link } from "react-router-dom";
 
+import { logout } from "./utils/auth";
 export function Header({ loggedIn }: { loggedIn: boolean }) {
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = "./login";
-  };
-
   return (
     <div className="Header">
       <div className="container">
         <div>
-          <a href="/">Decks</a>
+          <Link to={`/`}>Decks</Link>
         </div>
         <div>
           {loggedIn ? (
             <>
-              <a href="/user-data">Account</a> -{" "}
+              <Link to={`/user-data`}>Account</Link>{" "}
               <a onClick={() => logout()}>Logout</a>
             </>
           ) : (
             <>
-              <a href="/login">Login</a> - <a href="/signup">Sign up</a>
+              <Link to={`/login`}>Login</Link>{" "}
+              <Link to={`/signup`}>Sign up</Link>
             </>
           )}
         </div>

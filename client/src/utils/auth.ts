@@ -10,3 +10,8 @@ export const getProfile = (): user => {
 
   return decode(userToken!);
 };
+
+export const logout = () => {
+  localStorage.clear();
+  window.location.href = "./login";
+};
