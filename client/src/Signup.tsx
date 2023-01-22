@@ -145,8 +145,8 @@ export default function Signup() {
           id="password"
         />
         {/* This input is for adding your number and activating the captcha */}
-        <div>
-          <label htmlFor="phone-number">Phone Number</label>
+        <>
+          <label htmlFor="mobile">Mobile</label>
           <input
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setUserData({ ...userData, mobile: e.target.value });
@@ -156,8 +156,8 @@ export default function Signup() {
                 setVerification({ ...verification, verifyButton: false });
               }
             }}
-            placeholder="Enter phone number"
-            id="phone-number"
+            placeholder="Mobile"
+            id="mobile"
           />
           {/* verifyButton will be set to true if mobile number length is == 10 */}
           {verification.verifyButton && (
@@ -178,11 +178,11 @@ export default function Signup() {
               </button>
             </div>
           )}
-        </div>
+        </>
         {/* If verifyOtp is true, that means the code has been sent 
         so we show this input which handles Verifying the otp */}
         {verification.verifyOtp && (
-          <div>
+          <>
             <label htmlFor="verification-code">Verification Code</label>
             <input
               type="number"
@@ -195,7 +195,7 @@ export default function Signup() {
             <button onClick={() => verifyCode()} type="button" value="Verify">
               Verify Code
             </button>
-          </div>
+          </>
         )}
         {!verification.verified ? (
           <button
