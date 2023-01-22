@@ -18,7 +18,6 @@ export type User = {
 };
 
 export type Verify = {
-  verifyButton: boolean;
   verifyOtp: boolean;
   otp: string;
   verified: boolean;
@@ -34,7 +33,6 @@ export default function Signup() {
   });
 
   const [verification, setVerification] = useState<Verify>({
-    verifyButton: false,
     verifyOtp: false,
     otp: "",
     verified: false,
@@ -43,17 +41,25 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const user: User = await postUser(
-      userData.email,
-      userData.username,
-      userData.password
-    );
+    if (!userData.username || !userData.email || !userData.password) {
+      return setDisplayErr(true);
+    }
 
-    localStorage.setItem("token", user.token);
-    localStorage.setItem("loggedIn", JSON.stringify(true));
+    try {
+      const user: User = await postUser(
+        userData.email,
+        userData.username,
+        userData.password
+      );
 
-    // And redirect to this page
-    window.location.href = "./user-data";
+      localStorage.setItem("token", user.token);
+      localStorage.setItem("loggedIn", JSON.stringify(true));
+
+      // And redirect to this page
+      window.location.href = "./user-data";
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const auth = getAuth(app); // We pass the app from the firebase-config file
@@ -74,26 +80,30 @@ export default function Signup() {
   };
 
   const onSignInSubmit = () => {
-    onCaptchVerify();
-    // This is our user state object that contains their sign up info
-    // + 1 is the area code
-    const phoneNumber = "+1" + userData.mobile;
-    const appVerifier = (window as any).recaptchaVerifier;
+    if (userData.mobile.length < 10) {
+      return setDisplayErr(true);
+    }
 
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-      // By doing window.confirmationResult, we're making this variable accessible anywhere
-      .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        (window as any).confirmationResult = confirmationResult;
-        alert("OTP sent");
-        setVerification({ ...verification, verifyOtp: true });
-        // ...
-      })
-      .catch((error) => {
-        // Error; SMS not sent
-        // ...
-      });
+    // onCaptchVerify();
+    // // This is our user state object that contains their sign up info
+    // // + 1 is the area code
+    // const phoneNumber = "+1" + userData.mobile;
+    // const appVerifier = (window as any).recaptchaVerifier;
+
+    // signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    //   // By doing window.confirmationResult, we're making this variable accessible anywhere
+    //   .then((confirmationResult) => {
+    //     // SMS sent. Prompt user to type the code from the message, then sign the
+    //     // user in with confirmationResult.confirm(code).
+    //     (window as any).confirmationResult = confirmationResult;
+    //     alert("OTP sent");
+    //     setVerification({ ...verification, verifyOtp: true });
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     // Error; SMS not sent
+    //     // ...
+    //   });
   };
 
   const verifyCode = () => {
@@ -115,6 +125,8 @@ export default function Signup() {
       });
   };
 
+  const [displayErr, setDisplayErr] = useState<boolean>(false);
+
   return (
     <div className="signup-container">
       <div id="recaptcha-container"></div>
@@ -122,62 +134,102 @@ export default function Signup() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="username">Username</label>
         <input
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUserData({ ...userData, username: e.target.value })
-          }
+          style={{
+            border: `1.5px solid ${
+              displayErr && userData.username == "" ? "red" : ""
+            }`,
+          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setDisplayErr(false);
+            setUserData({ ...userData, username: e.target.value });
+          }}
           placeholder="Username"
           id="username"
         />
+        {displayErr && userData.username == "" && (
+          <p style={{ color: "red", marginTop: "-15px", marginBottom: "10px" }}>
+            Missing data
+          </p>
+        )}
         <label htmlFor="email">Email</label>
         <input
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUserData({ ...userData, email: e.target.value })
-          }
+          style={{
+            border: `1.5px solid ${
+              displayErr && userData.email == "" ? "red" : ""
+            }`,
+          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setDisplayErr(false);
+            setUserData({ ...userData, email: e.target.value });
+          }}
           placeholder="Email"
           id="email"
         />
+        {displayErr && userData.email == "" && (
+          <p style={{ color: "red", marginTop: "-15px", marginBottom: "10px" }}>
+            Missing data
+          </p>
+        )}
         <label htmlFor="password">Password</label>
         <input
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUserData({ ...userData, password: e.target.value })
-          }
+          style={{
+            border: `1.5px solid ${
+              displayErr && userData.password == "" ? "red" : ""
+            }`,
+          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setDisplayErr(false);
+            setUserData({ ...userData, password: e.target.value });
+          }}
           placeholder="Password"
           id="password"
         />
+        {displayErr && userData.password == "" && (
+          <p style={{ color: "red", marginTop: "-15px", marginBottom: "10px" }}>
+            Missing data
+          </p>
+        )}
         {/* This input is for adding your number and activating the captcha */}
         <>
           <label htmlFor="mobile">Mobile</label>
           <input
+            type="number"
+            style={{
+              border: `1.5px solid ${
+                displayErr && userData.mobile.length < 10 ? "red" : ""
+              }`,
+            }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setDisplayErr(false);
               setUserData({ ...userData, mobile: e.target.value });
-              if (userData.mobile.length == 9) {
-                setVerification({ ...verification, verifyButton: true });
-              } else {
-                setVerification({ ...verification, verifyButton: false });
-              }
             }}
             placeholder="Mobile"
             id="mobile"
           />
-          {/* verifyButton will be set to true if mobile number length is == 10 */}
-          {verification.verifyButton && (
-            <div>
-              <button
-                style={{
-                  backgroundColor: verification.verified
-                    ? "green"
-                    : "rgb(220, 220, 220)",
-                }}
-                onClick={() => {
-                  onSignInSubmit();
-                }}
-                type="button"
-                value="Verify"
-              >
-                {verification.verified ? "Verified" : "Verify"}
-              </button>
-            </div>
+          {displayErr && userData.mobile.length < 10 && (
+            <p
+              style={{ color: "red", marginTop: "-15px", marginBottom: "10px" }}
+            >
+              Must be a valid number
+            </p>
           )}
+          <div>
+            <button
+              style={{
+                marginTop: "0",
+                backgroundColor: verification.verified
+                  ? "green"
+                  : "rgb(220, 220, 220)",
+              }}
+              onClick={() => {
+                onSignInSubmit();
+              }}
+              type="button"
+              value="Verify"
+            >
+              {verification.verified ? "Verified" : "Verify"}
+            </button>
+          </div>
         </>
         {/* If verifyOtp is true, that means the code has been sent 
         so we show this input which handles Verifying the otp */}

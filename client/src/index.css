@@ -65,10 +65,9 @@ input {
   margin: auto;
   height: 38px;
   font-size: 18px;
-  resize: none;
   width: 450px;
   text-indent: 10px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 8px;
   color: rgb(39, 39, 39);
   background-color: rgb(220, 220, 220);

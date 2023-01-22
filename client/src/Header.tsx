@@ -17,7 +17,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
             </>
           ) : (
             <>
-              <Link to={`/login`}>Login</Link>{" "}
+              <Link to={`/login`}>Login</Link> -
               <Link to={`/signup`}>Sign up</Link>
             </>
           )}
