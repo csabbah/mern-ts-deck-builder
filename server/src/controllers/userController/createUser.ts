@@ -25,7 +25,7 @@ export async function createUser(req: Request, res: Response) {
     });
 
     const token = jwt.sign({ email: email, id: newUser._id }, JWT_SECRET, {
-      expiresIn: "60m",
+      expiresIn: 60,
     });
 
     res.status(200).json({ newUser, token });

@@ -12,6 +12,7 @@ import { login } from "./api/userApi/login";
 export default function Login() {
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
+  const [incorrectPass, setIncorrectPass] = useState<boolean>(false);
 
   const [userData, setUserData] = useState<User>({
     email: "",
@@ -28,6 +29,10 @@ export default function Login() {
     try {
       const user = await login(userData.email, userData.password);
 
+      if (user == "Password Incorrect") {
+        setIncorrectPass(true);
+      }
+
       if (user.token) {
         // Essentially if login is successful, add the token to localStorage
         localStorage.setItem("token", user.token);
@@ -41,6 +46,11 @@ export default function Login() {
     }
   };
 
+  const resetState = (): void => {
+    setDisplayErr(false);
+    setPostErr(false);
+    setIncorrectPass(false);
+  };
   return (
     <div className="form-wrapper">
       Login
@@ -53,8 +63,7 @@ export default function Login() {
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setDisplayErr(false);
-            setPostErr(false);
+            resetState();
             setUserData({ ...userData, email: e.target.value });
           }}
           placeholder="Email"
@@ -73,8 +82,7 @@ export default function Login() {
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setDisplayErr(false);
-            setPostErr(false);
+            resetState();
             setUserData({ ...userData, password: e.target.value });
           }}
           placeholder="Password"
@@ -86,9 +94,9 @@ export default function Login() {
           </p>
         )}
         <button type="submit">Submit</button>
-        {postErr && (
+        {(postErr || incorrectPass) && (
           <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
-            Something went wrong, try again
+            {postErr ? "Something went wrong, try again" : "Incorrect Password"}
           </p>
         )}
       </form>

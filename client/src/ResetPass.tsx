@@ -46,6 +46,11 @@ export default function ResetPass() {
     }
   };
 
+  const resetState = (): void => {
+    setDisplayErr(false);
+    setPostErr(false);
+    setPassErr(false);
+  };
   return (
     <div className="form-wrapper">
       Reset Password
@@ -63,9 +68,7 @@ export default function ResetPass() {
           }}
           id="newPass"
           onChange={(e) => {
-            setDisplayErr(false);
-            setPostErr(false);
-            setPassErr(false);
+            resetState();
             setNewPass(e.target.value);
           }}
           placeholder="Enter New Password"
@@ -78,9 +81,7 @@ export default function ResetPass() {
         <label htmlFor="confirmPass">Confirm Password</label>
         <input
           onChange={(e) => {
-            setDisplayErr(false);
-            setPostErr(false);
-            setPassErr(false);
+            resetState();
             setConfirmPass(e.target.value);
           }}
           style={{

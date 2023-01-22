@@ -87,26 +87,26 @@ export default function Signup() {
       return setDisplayErr(true);
     }
 
-    // onCaptchVerify();
-    // // This is our user state object that contains their sign up info
-    // // + 1 is the area code
-    // const phoneNumber = "+1" + userData.mobile;
-    // const appVerifier = (window as any).recaptchaVerifier;
+    onCaptchVerify();
+    // This is our user state object that contains their sign up info
+    // + 1 is the area code
+    const phoneNumber = "+1" + userData.mobile;
+    const appVerifier = (window as any).recaptchaVerifier;
 
-    // signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-    //   // By doing window.confirmationResult, we're making this variable accessible anywhere
-    //   .then((confirmationResult) => {
-    //     // SMS sent. Prompt user to type the code from the message, then sign the
-    //     // user in with confirmationResult.confirm(code).
-    //     (window as any).confirmationResult = confirmationResult;
-    //     alert("OTP sent");
-    //     setVerification({ ...verification, verifyOtp: true });
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     // Error; SMS not sent
-    //     // ...
-    //   });
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      // By doing window.confirmationResult, we're making this variable accessible anywhere
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        (window as any).confirmationResult = confirmationResult;
+        alert("OTP sent");
+        setVerification({ ...verification, verifyOtp: true });
+        // ...
+      })
+      .catch((error) => {
+        // Error; SMS not sent
+        // ...
+      });
   };
 
   const verifyCode = () => {
@@ -128,6 +128,10 @@ export default function Signup() {
       });
   };
 
+  const resetState = (): void => {
+    setDisplayErr(false);
+    setPostErr(false);
+  };
   return (
     <div className="signup-container">
       <div id="recaptcha-container"></div>
@@ -141,8 +145,7 @@ export default function Signup() {
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setDisplayErr(false);
-            setPostErr(false);
+            resetState();
             setUserData({ ...userData, username: e.target.value });
           }}
           placeholder="Username"
@@ -161,8 +164,7 @@ export default function Signup() {
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setDisplayErr(false);
-            setPostErr(false);
+            resetState();
             setUserData({ ...userData, email: e.target.value });
           }}
           placeholder="Email"
@@ -181,8 +183,7 @@ export default function Signup() {
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setDisplayErr(false);
-            setPostErr(false);
+            resetState();
             setUserData({ ...userData, password: e.target.value });
           }}
           placeholder="Password"
@@ -204,8 +205,7 @@ export default function Signup() {
               }`,
             }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setDisplayErr(false);
-              setPostErr(false);
+              resetState();
               setUserData({ ...userData, mobile: e.target.value });
             }}
             placeholder="Mobile"

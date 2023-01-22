@@ -12,7 +12,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
         <div>
           {loggedIn ? (
             <>
-              <Link to={`/user-data`}>Account</Link>{" "}
+              <Link to={`/user-data`}>Account</Link> -
               <a onClick={() => logout()}>Logout</a>
             </>
           ) : (
