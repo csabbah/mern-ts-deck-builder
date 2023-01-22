@@ -24,6 +24,8 @@ export type Verify = {
 };
 
 export default function Signup() {
+  const [postErr, setPostErr] = useState<boolean>(false);
+
   const [userData, setUserData] = useState<User>({
     username: "",
     email: "",
@@ -58,7 +60,7 @@ export default function Signup() {
       // And redirect to this page
       window.location.href = "./user-data";
     } catch (err) {
-      console.log(err);
+      setPostErr(true);
     }
   };
 
@@ -141,6 +143,7 @@ export default function Signup() {
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setDisplayErr(false);
+            setPostErr(false);
             setUserData({ ...userData, username: e.target.value });
           }}
           placeholder="Username"
@@ -160,6 +163,7 @@ export default function Signup() {
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setDisplayErr(false);
+            setPostErr(false);
             setUserData({ ...userData, email: e.target.value });
           }}
           placeholder="Email"
@@ -179,6 +183,7 @@ export default function Signup() {
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setDisplayErr(false);
+            setPostErr(false);
             setUserData({ ...userData, password: e.target.value });
           }}
           placeholder="Password"
@@ -201,6 +206,7 @@ export default function Signup() {
             }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setDisplayErr(false);
+              setPostErr(false);
               setUserData({ ...userData, mobile: e.target.value });
             }}
             placeholder="Mobile"
@@ -258,6 +264,11 @@ export default function Signup() {
           </button>
         ) : (
           <button type="submit">Submit</button>
+        )}
+        {postErr && (
+          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+            Something went wrong, try again
+          </p>
         )}
       </form>
     </div>
