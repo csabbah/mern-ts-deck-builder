@@ -25,6 +25,7 @@ export type Verify = {
 
 export default function Signup() {
   const [postErr, setPostErr] = useState<boolean>(false);
+  const [displayErr, setDisplayErr] = useState<boolean>(false);
 
   const [userData, setUserData] = useState<User>({
     username: "",
@@ -126,8 +127,6 @@ export default function Signup() {
         // ...
       });
   };
-
-  const [displayErr, setDisplayErr] = useState<boolean>(false);
 
   return (
     <div className="signup-container">

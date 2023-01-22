@@ -11,6 +11,8 @@ import { login } from "./api/userApi/login";
 
 export default function Login() {
   const [postErr, setPostErr] = useState<boolean>(false);
+  const [displayErr, setDisplayErr] = useState<boolean>(false);
+
   const [userData, setUserData] = useState<User>({
     email: "",
     password: "",
@@ -39,10 +41,8 @@ export default function Login() {
     }
   };
 
-  const [displayErr, setDisplayErr] = useState<boolean>(false);
-
   return (
-    <div className="login-container">
+    <div className="form-wrapper">
       Login
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="email">Email</label>
@@ -54,6 +54,7 @@ export default function Login() {
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setDisplayErr(false);
+            setPostErr(false);
             setUserData({ ...userData, email: e.target.value });
           }}
           placeholder="Email"
@@ -73,6 +74,7 @@ export default function Login() {
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setDisplayErr(false);
+            setPostErr(false);
             setUserData({ ...userData, password: e.target.value });
           }}
           placeholder="Password"

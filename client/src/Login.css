@@ -1,24 +1,24 @@
-.login-container {
+.form-wrapper {
   padding-top: 70px;
   height: 100vh;
   margin: auto auto;
 }
 
-.login-container form {
+.form-wrapper form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.login-container form input {
+.form-wrapper form input {
   margin-bottom: 15px;
 }
 
-.login-container form label:first-child {
+.form-wrapper form label:first-child {
   margin-top: 10px;
 }
 
-.login-container button {
+.form-wrapper button {
   margin-top: 0;
   margin-bottom: 10px;
 }

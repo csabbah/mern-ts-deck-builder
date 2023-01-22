@@ -4,16 +4,29 @@ import { updatePass } from "./api/userApi/updatePass";
 
 export default function ResetPass() {
   const [newPass, setNewPass] = useState<string>("");
+  const [confirmPass, setConfirmPass] = useState<string>("");
+  const [passErr, setPassErr] = useState<boolean>(false);
+
   const [apiLink, setApiLink] = useState<string | null>(
     localStorage.getItem("resetToken")
   );
+
+  const [postErr, setPostErr] = useState<boolean>(false);
+  const [displayErr, setDisplayErr] = useState<boolean>(false);
 
   // Execute the post method to update the users account
   const handlePassChange = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (newPass != confirmPass) {
+      return setPassErr(true);
+    }
+    if (newPass == "") {
+      return setDisplayErr(true);
+    }
+
     if (apiLink === null) {
-      return alert("Token is missing, please try again!");
+      return setPostErr(true);
     }
 
     try {
@@ -29,12 +42,12 @@ export default function ResetPass() {
       window.location.href = "/login";
     } catch (err) {
       localStorage.clear();
-      console.log(err);
+      setPostErr(true);
     }
   };
 
   return (
-    <div style={{ paddingTop: "70px" }}>
+    <div className="form-wrapper">
       Reset Password
       <form
         onSubmit={(e) => {
@@ -43,13 +56,61 @@ export default function ResetPass() {
       >
         <label htmlFor="newPass">Enter New Password</label>
         <input
+          style={{
+            border: `1.5px solid ${
+              (displayErr || passErr) && (newPass == "" || passErr) ? "red" : ""
+            }`,
+          }}
           id="newPass"
-          onChange={(e) => setNewPass(e.target.value)}
+          onChange={(e) => {
+            setDisplayErr(false);
+            setPostErr(false);
+            setPassErr(false);
+            setNewPass(e.target.value);
+          }}
           placeholder="Enter New Password"
         />
+        {(displayErr || passErr) && (newPass == "" || passErr) && (
+          <p style={{ color: "red", marginTop: "-10px", marginBottom: "10px" }}>
+            {newPass == "" ? "Missing data" : ""}
+          </p>
+        )}
         <label htmlFor="confirmPass">Confirm Password</label>
-        <input id="confirmPass" placeholder="ConfirmPassword" />
+        <input
+          onChange={(e) => {
+            setDisplayErr(false);
+            setPostErr(false);
+            setPassErr(false);
+            setConfirmPass(e.target.value);
+          }}
+          style={{
+            border: `1.5px solid ${
+              (displayErr || passErr) && (confirmPass == "" || passErr)
+                ? "red"
+                : ""
+            }`,
+          }}
+          id="confirmPass"
+          placeholder="ConfirmPassword"
+        />
+        {(displayErr || passErr) && (confirmPass == "" || passErr) && (
+          <p style={{ color: "red", marginTop: "-10px", marginBottom: "10px" }}>
+            {confirmPass == "" ? "Missing data" : ""}
+          </p>
+        )}
         <button type="submit">Submit</button>
+        {postErr && (
+          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+            {apiLink === null
+              ? "Token missing, trying again!"
+              : "Something went wrong, try again"}
+          </p>
+        )}
+        {passErr && (
+          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+            Passwords don't match!
+          </p>
+        )}
       </form>
     </div>
   );
