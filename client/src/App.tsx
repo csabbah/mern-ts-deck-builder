@@ -21,6 +21,9 @@ export type user = {
 import { getProfile } from "./utils/auth";
 
 function App() {
+  const [displayErr, setDisplayErr] = useState<boolean>(false);
+  const [postErr, setPostErr] = useState<boolean>(false);
+
   const [user, setUser] = useState<user | null>(null);
   const [userId, setUserId] = useState<string>("");
 
@@ -32,13 +35,22 @@ function App() {
   const handleCreateDeck = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Get the deck that was created
-    const newUser: user = await postDeck(title, userId);
-    // Update state array with the new deck
-    setUser(newUser);
+    if (title == "") {
+      return setDisplayErr(true);
+    }
 
-    // Clear form data
-    setTitle("");
+    try {
+      // Get the deck that was created
+      const newUser: user = await postDeck(title, userId);
+      // Update state array with the new deck
+      setUser(newUser);
+
+      // Clear form data
+      setTitle("");
+    } catch (err) {
+      setPostErr(true);
+      setTitle("");
+    }
   };
 
   const handleDeleteDeck = async (deckId: string) => {
@@ -59,6 +71,11 @@ function App() {
     }
     fetchDecks();
   }, []);
+
+  const resetState = (): void => {
+    setDisplayErr(false);
+    setPostErr(false);
+  };
 
   return (
     <div className="container">
@@ -106,14 +123,34 @@ function App() {
           <form onSubmit={handleCreateDeck}>
             <label htmlFor="deck-title">Deck Title</label>
             <input
+              style={{
+                border: `1.5px solid ${displayErr && title == "" ? "red" : ""}`,
+              }}
               id="deck-title"
               value={title}
               placeholder="Add Title"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                resetState();
                 setTitle(e.target.value);
               }}
             />
+            {displayErr && title == "" && (
+              <p
+                style={{
+                  color: "red",
+                  marginTop: "0",
+                  marginBottom: "0",
+                }}
+              >
+                Missing data
+              </p>
+            )}
             <button>Create Deck</button>
+            {postErr && (
+              <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+                Something went wrong, try again
+              </p>
+            )}
           </form>
         )}
       </div>

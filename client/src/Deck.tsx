@@ -14,6 +14,9 @@ export type deck = {
 };
 
 export default function Deck() {
+  const [displayErr, setDisplayErr] = useState<boolean>(false);
+  const [postErr, setPostErr] = useState<boolean>(false);
+
   const [deck, setDeck] = useState<deck | null>(null);
   const [text, setText] = useState<string>("");
 
@@ -23,11 +26,19 @@ export default function Deck() {
   const handleCreateCard = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const updatedDeck: deck = await postCard(deckId!, text);
-    setDeck(updatedDeck);
+    if (text == "") {
+      return setDisplayErr(true);
+    }
 
-    // Clear form data
-    setText("");
+    try {
+      const updatedDeck: deck = await postCard(deckId!, text);
+      setDeck(updatedDeck);
+
+      // Clear form data
+      setText("");
+    } catch (err) {
+      setText("");
+    }
   };
 
   const handleDeleteCard = async (deckId: string, cardIndex: number) => {
@@ -46,6 +57,11 @@ export default function Deck() {
     fetchDecks();
   }, [deckId]);
 
+  const resetState = (): void => {
+    setDisplayErr(false);
+    setPostErr(false);
+  };
+
   return (
     <div className="Deck">
       <h1>{deck && deck.title}</h1>
@@ -62,14 +78,34 @@ export default function Deck() {
       <form onSubmit={handleCreateCard}>
         <label htmlFor="card-text">Card Text</label>
         <input
+          style={{
+            border: `1.5px solid ${displayErr && text == "" ? "red" : ""}`,
+          }}
           id="card-text"
           value={text}
           placeholder="Add text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            resetState();
             setText(e.target.value);
           }}
         />
+        {displayErr && text == "" && (
+          <p
+            style={{
+              color: "red",
+              marginTop: "0",
+              marginBottom: "0",
+            }}
+          >
+            Missing data
+          </p>
+        )}
         <button>Create Card</button>
+        {postErr && (
+          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+            Something went wrong, try again
+          </p>
+        )}
       </form>
     </div>
   );
