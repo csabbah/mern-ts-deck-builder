@@ -26,6 +26,7 @@ export type Verify = {
 export default function Signup() {
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
+  const [phoneErr, setPhoneErr] = useState<boolean>(false);
 
   const [userData, setUserData] = useState<User>({
     username: "",
@@ -74,8 +75,6 @@ export default function Signup() {
         size: "invisible",
         callback: () => {
           onSignInSubmit();
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // ...
         },
       },
       auth
@@ -103,9 +102,8 @@ export default function Signup() {
         setVerification({ ...verification, verifyOtp: true });
         // ...
       })
-      .catch((error) => {
-        // Error; SMS not sent
-        // ...
+      .catch(() => {
+        setPhoneErr(true);
       });
   };
 
@@ -122,16 +120,15 @@ export default function Signup() {
       })
       .catch((error: string) => {
         alert("Invalid OTP!");
-
-        // User couldn't sign in (bad verification code?)
-        // ...
       });
   };
 
   const resetState = (): void => {
     setDisplayErr(false);
     setPostErr(false);
+    setPhoneErr(false);
   };
+
   return (
     <div className="signup-container">
       <div id="recaptcha-container"></div>
@@ -234,6 +231,11 @@ export default function Signup() {
             >
               {verification.verified ? "Verified" : "Verify"}
             </button>
+            {phoneErr && (
+              <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+                Too many attempts, try again later.
+              </p>
+            )}
           </div>
         </>
         {/* If verifyOtp is true, that means the code has been sent 
