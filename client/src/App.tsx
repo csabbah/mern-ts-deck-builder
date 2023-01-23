@@ -79,11 +79,11 @@ function App() {
 
   return (
     <div className="container">
-      <div className="App">
+      <div className="Card-wrapper">
         {loggedIn && (
           <>
             <h1>Your Decks</h1>
-            <ul className="decks">
+            <ul className="cards">
               {user?.decks ? (
                 user?.decks.map(
                   // Only render valid data (deck.title)

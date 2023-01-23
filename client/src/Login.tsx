@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Login.css";
 import { Link } from "react-router-dom";
 
 export type User = {
@@ -13,6 +12,7 @@ export default function Login() {
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [incorrectPass, setIncorrectPass] = useState<boolean>(false);
+  const [notFound, setNotFound] = useState<boolean>(false);
 
   const [userData, setUserData] = useState<User>({
     email: "",
@@ -33,6 +33,10 @@ export default function Login() {
         setIncorrectPass(true);
       }
 
+      if (user == "User not found!") {
+        setNotFound(true);
+      }
+
       if (user.token) {
         // Essentially if login is successful, add the token to localStorage
         localStorage.setItem("token", user.token);
@@ -50,6 +54,7 @@ export default function Login() {
     setDisplayErr(false);
     setPostErr(false);
     setIncorrectPass(false);
+    setNotFound(false);
   };
   return (
     <div className="form-wrapper">
@@ -94,9 +99,13 @@ export default function Login() {
           </p>
         )}
         <button type="submit">Submit</button>
-        {(postErr || incorrectPass) && (
+        {(postErr || incorrectPass || notFound) && (
           <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
-            {postErr ? "Something went wrong, try again" : "Incorrect Password"}
+            {postErr
+              ? "Something went wrong, try again"
+              : notFound
+              ? "User not found"
+              : "Incorrect Password"}
           </p>
         )}
       </form>

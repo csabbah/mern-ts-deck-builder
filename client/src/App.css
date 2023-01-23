@@ -1,11 +1,11 @@
-.App {
+.Card-wrapper {
   padding-top: 70px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.App form {
+.Card-wrapper form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,12 +14,12 @@
   margin-bottom: 50px;
 }
 
-.App h1 {
+.Card-wrapper h1 {
   font-size: 32px;
   text-align: center;
 }
 
-.decks {
+.cards {
   display: grid;
   width: 600px;
   margin: 0 auto;
@@ -28,7 +28,7 @@
   color: black;
 }
 
-.decks li {
+.cards li {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   display: flex;
@@ -43,7 +43,7 @@
   padding-top: 30px;
 }
 
-.decks li span {
+.cards li span {
   color: black;
   position: absolute;
   right: 20px;
@@ -52,7 +52,7 @@
 }
 
 @media (max-width: 740px) {
-  .decks {
+  .cards {
     grid-template-columns: repeat(2, 1fr);
     width: 90vw;
     padding: 0;
@@ -62,13 +62,13 @@
   h1 {
     width: 100vw;
   }
-  .decks {
+  .cards {
     grid-template-columns: repeat(1, 1fr);
     width: 90vw;
     padding: 0;
   }
 
-  .App form {
+  .Card-wrapper form {
     display: flex;
     flex-direction: column;
     width: 100vw;

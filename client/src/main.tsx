@@ -16,6 +16,8 @@ import { NotFound } from "./NotFound";
 const localLoggedIn = localStorage.getItem("loggedIn");
 const loggedIn: boolean = localLoggedIn && JSON.parse(localLoggedIn);
 
+const resetToken = localStorage.getItem("resetToken");
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Router>
@@ -27,7 +29,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Route path="/decks/:deckId/:userId" element={<Deck />} />
           )}
           <Route path="/reset-password" element={<ForgotPass />} />
-          <Route path="/reset-password/:id/:resetId" element={<ResetPass />} />
+          {resetToken && (
+            <Route
+              path="/reset-password/:id/:resetId"
+              element={<ResetPass />}
+            />
+          )}
+
           {!loggedIn && (
             <>
               <Route path="/signup" element={<Signup />} />

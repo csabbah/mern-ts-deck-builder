@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Signup.css";
 
 import { postUser } from "./api/userApi/postUser";
 import app from "./utils/firebase-config";
@@ -130,7 +129,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-container">
+    <div className="form-wrapper">
       <div id="recaptcha-container"></div>
       Sign up
       <form onSubmit={(e) => handleSubmit(e)}>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import "./Deck.css";
-
 import { postCard } from "./api/postCard";
 import { getDeck } from "./api/getDeck";
 import { deleteCard } from "./api/deleteCard";
@@ -63,7 +61,7 @@ export default function Deck() {
   };
 
   return (
-    <div className="Deck">
+    <div className="Card-wrapper">
       <h1>{deck && deck.title}</h1>
       <ul className="cards">
         {deck &&
