@@ -93,12 +93,13 @@ function App() {
                         <li>
                           {deck.title}{" "}
                           <span
+                            className="delete-item"
                             onClick={(e) => {
                               e.preventDefault();
                               handleDeleteDeck(deck._id);
                             }}
                           >
-                            X
+                            &times;
                           </span>
                         </li>
                       </Link>

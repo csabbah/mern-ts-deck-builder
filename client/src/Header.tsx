@@ -11,12 +11,12 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
         <div>
           {loggedIn ? (
             <>
-              <Link to={`/user-data`}>Account</Link> -
+              <Link to={`/user-data`}>Account</Link> /{" "}
               <a onClick={() => logout()}>Logout</a>
             </>
           ) : (
             <>
-              <Link to={`/login`}>Login</Link> -
+              <Link to={`/login`}>Login</Link> /{" "}
               <Link to={`/signup`}>Sign up</Link>
             </>
           )}

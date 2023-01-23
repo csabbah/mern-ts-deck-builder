@@ -68,7 +68,12 @@ export default function Deck() {
           deck.cards.map((card, index) => (
             <li key={index}>
               {card}
-              <span onClick={() => handleDeleteCard(deck!._id, index)}>X</span>
+              <span
+                className="delete-item"
+                onClick={() => handleDeleteCard(deck!._id, index)}
+              >
+                &times;
+              </span>
             </li>
           ))}
       </ul>

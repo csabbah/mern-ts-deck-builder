@@ -101,8 +101,9 @@ export default function Signup() {
         setVerification({ ...verification, verifyOtp: true });
         // ...
       })
-      .catch(() => {
-        setPhoneErr(true);
+      .catch((err) => {
+        if (err == "FirebaseError: Firebase: Error (auth/too-many-requests).")
+          setPhoneErr(true);
       });
   };
 
@@ -214,29 +215,32 @@ export default function Signup() {
               Must be a valid number
             </p>
           )}
-          <div>
+          {verification.verified ? (
             <button
-              style={{
-                marginTop: "0",
-                backgroundColor: verification.verified
-                  ? "green"
-                  : "rgb(220, 220, 220)",
-              }}
-              onClick={() => {
-                onSignInSubmit();
-              }}
-              type="button"
-              value="Verify"
+              style={{ backgroundColor: "green", marginTop: "0" }}
+              onClick={(e) => e.preventDefault()}
             >
-              {verification.verified ? "Verified" : "Verify"}
+              Verified
             </button>
-            {phoneErr && (
-              <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
-                Too many attempts, try again later.
-              </p>
-            )}
-          </div>
+          ) : (
+            <div>
+              <button
+                onClick={() => {
+                  onSignInSubmit();
+                }}
+                type="button"
+                value="Verify"
+              >
+                Verify
+              </button>
+            </div>
+          )}
         </>
+        {phoneErr && (
+          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+            Too many attempts, try again later.
+          </p>
+        )}
         {/* If verifyOtp is true, that means the code has been sent 
         so we show this input which handles Verifying the otp */}
         {verification.verifyOtp && (
