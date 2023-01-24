@@ -23,7 +23,6 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 const PORT: number = 3003;
 
-app.get("/test", (req, res) => res.json({ test: "yo" }));
 app.get("/decks/:userId", getDecksController);
 app.post("/decks", createDeckController);
 
