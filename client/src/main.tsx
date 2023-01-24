@@ -12,6 +12,7 @@ import User from "./User";
 import ResetPass from "./ResetPass";
 import ForgotPass from "./ForgotPass";
 import { NotFound } from "./NotFound";
+import { useEffect } from "react";
 
 const localLoggedIn = localStorage.getItem("loggedIn");
 const loggedIn: boolean = localLoggedIn && JSON.parse(localLoggedIn);
@@ -28,7 +29,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           {loggedIn && (
             <Route path="/decks/:deckId/:userId" element={<Deck />} />
           )}
-          <Route path="/reset-password" element={<ForgotPass />} />
+          {!loggedIn && (
+            <Route path="/reset-password" element={<ForgotPass />} />
+          )}
           {resetToken && (
             <Route
               path="/reset-password/:id/:resetId"
@@ -42,7 +45,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
               <Route path="/login" element={<Login />} />
             </>
           )}
-          {loggedIn && <Route path="/user-data" element={<User />} />}
+          <Route path="/user-data" element={<User />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

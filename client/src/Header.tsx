@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import { logout } from "./utils/auth";
 export function Header({ loggedIn }: { loggedIn: boolean }) {

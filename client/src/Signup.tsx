@@ -59,7 +59,8 @@ export default function Signup() {
       localStorage.setItem("loggedIn", JSON.stringify(true));
 
       // And redirect to this page
-      window.location.href = "./user-data";
+      const currentPage = window.location.origin;
+      window.location.href = `${currentPage}/user-data`;
     } catch (err) {
       setPostErr(true);
     }

@@ -39,7 +39,8 @@ export default function ResetPass() {
         localStorage.clear();
       }
 
-      window.location.href = "/login";
+      const currentPage = window.location.origin;
+      window.location.href = `${currentPage}/login`;
     } catch (err) {
       localStorage.clear();
       setPostErr(true);

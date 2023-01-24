@@ -19,7 +19,6 @@ export default function ForgotPass() {
         "Email sent! If account exists, you should receive an email shortly."
       );
       const apiLink = await resetPass(email);
-
       // Clear local (incase a previous older token is there)
       localStorage.clear();
       localStorage.setItem("resetToken", apiLink);

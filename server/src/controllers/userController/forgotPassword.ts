@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import User from "../../models/User";
 
-import { API_URL } from "../../utils/config";
-import { CLIENT_URL } from "../../utils/config";
+// import { API_URL } from "../../utils/config";
+// import { CLIENT_URL } from "../../utils/config";
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "mysecretsshhhhh";
@@ -30,11 +30,18 @@ export async function forgotPassword(req: Request, res: Response) {
     );
 
     // This link is for the frontend route (to be sent via email)
-    const link = `${CLIENT_URL}/reset-password/${userExists._id}/${Math.floor(
-      Math.random() * 10000000000000
-    )}`;
+    const link = `csflashdeckcards.com/reset-password/${
+      userExists._id
+    }/${Math.floor(Math.random() * 10000000000000)}`;
     // This is to be used to update the password in the updatePassword fetch function
-    const apiLink = `${API_URL}/reset-password/${userExists._id}/${token}`;
+    const apiLink = `api.csflashdeckcards.com/reset-password/${userExists._id}/${token}`;
+
+    // // This link is for the frontend route (to be sent via email)
+    // const link = `${CLIENT_URL}/reset-password/${userExists._id}/${Math.floor(
+    //   Math.random() * 10000000000000
+    // )}`;
+    // // This is to be used to update the password in the updatePassword fetch function
+    // const apiLink = `${API_URL}/reset-password/${userExists._id}/${token}`;
 
     var nodemailer = require("nodemailer");
 
