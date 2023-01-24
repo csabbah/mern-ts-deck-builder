@@ -35,7 +35,7 @@ app.post("/user-data", userData);
 app.post("/user", createUser);
 app.post("/login-user", loginUser);
 
-app.post("/forgot-password", forgotPassword);
+app.post("/forgot-password", cors(), forgotPassword);
 app.post("/reset-password/:id/:token", updatePassword);
 
 app.delete("/decks/:deckId/:userId", deleteDeckController);
