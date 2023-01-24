@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 const PORT: number = 3003;
 
+app.get("/test", (req, res) => res.json({ test: "yo" }));
 app.get("/decks/:userId", getDecksController);
 app.post("/decks", createDeckController);
 
@@ -38,11 +39,10 @@ app.get("/decks/:deckId/:userId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);
 
-app.use(express.static(path.join(__dirname, "../../client/dist")));
+app.use(express.static("./public_html/client/dist"));
 app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
+  res.sendFile(path.join(__dirname, "./public_html/dist/index.html"))
 );
-app.get("/test", (req, res) => res.json("test"));
 
 const db = require("./config/connection");
 
