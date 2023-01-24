@@ -9,6 +9,8 @@ export type User = {
 import { login } from "./api/userApi/login";
 
 export default function Login() {
+  const [redirect, setRedirect] = useState<boolean>(false);
+
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [incorrectPass, setIncorrectPass] = useState<boolean>(false);
@@ -43,7 +45,8 @@ export default function Login() {
         localStorage.setItem("loggedIn", JSON.stringify(true));
 
         // And redirect to this page
-        window.location.href = "./user-data";
+        const currentPage = window.location.origin;
+        window.location.href = `${currentPage}/user-data`;
       }
     } catch (err) {
       setPostErr(true);
