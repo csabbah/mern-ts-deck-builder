@@ -1,4 +1,6 @@
 import express, { Express } from "express";
+require("dotenv").config();
+import path from "path";
 import { createCardForDeckController } from "./controllers/createCardForDeckController";
 
 import { createDeckController } from "./controllers/createDeckController";
@@ -27,6 +29,14 @@ const PORT: number = 3003;
 
 //   res.send("Hello World");
 // });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../../client/dist")));
+}
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
+});
 
 app.get("/decks/:userId", getDecksController);
 app.post("/decks", createDeckController);
