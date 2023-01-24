@@ -8,6 +8,12 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = "mysecretsshhhhh";
 
 export async function forgotPassword(req: Request, res: Response) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
   const email: string = req.body.email;
 
   try {
