@@ -18,7 +18,7 @@ const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors({ credentials: true }));
+app.use(cors({ origin: "*" }));
 const PORT: number = 3003;
 
 // app.get("/", (req: Request, res: Response) => {
