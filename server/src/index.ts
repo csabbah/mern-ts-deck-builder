@@ -23,19 +23,6 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 const PORT: number = 3003;
 
-// app.get("/", (req: Request, res: Response) => {
-//   res.setHeader("cookies", "hi");
-//   console.log(res.getHeaders());
-
-//   res.send("Hello World");
-// });
-
-app.use(express.static(path.join(__dirname, "../../client/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
-});
-
 app.get("/decks/:userId", getDecksController);
 app.post("/decks", createDeckController);
 
@@ -50,6 +37,11 @@ app.delete("/decks/:deckId/:userId", deleteDeckController);
 app.get("/decks/:deckId/:userId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "/client/build/index.html"))
+);
 
 const db = require("./config/connection");
 
