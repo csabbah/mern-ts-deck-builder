@@ -23,5 +23,5 @@ export const loggedIn = (): boolean => {
 
 export const logout = () => {
   localStorage.clear();
-  window.location.href = "./login";
+  window.location.href = "/login";
 };

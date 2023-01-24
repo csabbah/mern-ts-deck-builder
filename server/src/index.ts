@@ -42,6 +42,7 @@ app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
 );
+app.get("/test", (req, res) => res.json("test"));
 
 const db = require("./config/connection");
 
