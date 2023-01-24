@@ -39,9 +39,9 @@ app.get("/decks/:deckId/:userId", getDeckController);
 app.post("/decks/:deckId/cards", createCardForDeckController);
 app.delete("/decks/:deckId/cards/:cardIndex", deleteCardOnDeckController);
 
-app.use(express.static("./public_html/client/dist"));
+app.use(express.static("../../client/dist"));
 app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "./public_html/dist/index.html"))
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
 );
 
 const db = require("./config/connection");
