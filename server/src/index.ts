@@ -18,7 +18,7 @@ const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({ credentials: true }));
 const PORT: number = 3003;
 
 // app.get("/", (req: Request, res: Response) => {
@@ -35,7 +35,7 @@ app.post("/user-data", userData);
 app.post("/user", createUser);
 app.post("/login-user", loginUser);
 
-app.post("/forgot-password", forgotPassword);
+app.post("/forgot-password", cors(), forgotPassword);
 app.post("/reset-password/:id/:token", updatePassword);
 
 app.delete("/decks/:deckId/:userId", deleteDeckController);
