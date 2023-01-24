@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { postUser } from "./api/userApi/postUser";
 import app from "./utils/firebase-config";
@@ -7,6 +7,7 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
+import { loggedIn } from "./utils/auth";
 
 export type User = {
   username: string;
@@ -59,8 +60,7 @@ export default function Signup() {
       localStorage.setItem("loggedIn", JSON.stringify(true));
 
       // And redirect to this page
-      const currentPage = window.location.origin;
-      window.location.href = `${currentPage}/user-data`;
+      window.location.href = `./user-data`;
     } catch (err) {
       setPostErr(true);
     }
@@ -123,6 +123,12 @@ export default function Signup() {
         alert("Invalid OTP!");
       });
   };
+
+  useEffect(() => {
+    if (loggedIn()) {
+      window.location.href = "./";
+    }
+  }, []);
 
   const resetState = (): void => {
     setDisplayErr(false);

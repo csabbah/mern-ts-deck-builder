@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { resetPass } from "./api/userApi/resetPass";
+import { loggedIn } from "./utils/auth";
 
 export default function ForgotPass() {
   const [email, setUserEmail] = useState<string>("");
@@ -26,6 +27,12 @@ export default function ForgotPass() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (loggedIn()) {
+      window.location.href = "./";
+    }
+  }, []);
 
   return (
     <div className="form-wrapper">

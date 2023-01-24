@@ -104,6 +104,11 @@ button {
   align-items: center;
 }
 
+.Header .container a,
+.Header .container Link {
+  cursor: pointer;
+}
+
 .page {
   display: flex;
   flex-direction: column;

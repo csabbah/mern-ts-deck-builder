@@ -11,6 +11,16 @@ export const getProfile = (): user => {
   return decode(userToken!);
 };
 
+export const loggedIn = (): boolean => {
+  const localLoggedIn = localStorage.getItem("loggedIn");
+  const loggedIn: boolean = localLoggedIn && JSON.parse(localLoggedIn);
+
+  if (loggedIn) {
+    return true;
+  }
+  return false;
+};
+
 export const logout = () => {
   localStorage.clear();
   window.location.href = "./login";

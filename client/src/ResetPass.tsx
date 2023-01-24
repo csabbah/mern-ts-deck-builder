@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { updatePass } from "./api/userApi/updatePass";
+import { loggedIn } from "./utils/auth";
 
 export default function ResetPass() {
   const [newPass, setNewPass] = useState<string>("");
@@ -39,8 +40,7 @@ export default function ResetPass() {
         localStorage.clear();
       }
 
-      const currentPage = window.location.origin;
-      window.location.href = `${currentPage}/login`;
+      window.location.href = `./login`;
     } catch (err) {
       localStorage.clear();
       setPostErr(true);
@@ -52,6 +52,13 @@ export default function ResetPass() {
     setPostErr(false);
     setPassErr(false);
   };
+
+  useEffect(() => {
+    if (!apiLink) {
+      window.location.href = "/";
+    }
+  }, []);
+
   return (
     <div className="form-wrapper">
       Reset Password

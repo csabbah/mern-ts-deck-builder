@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
-import { logout } from "./utils/auth";
-export function Header({ loggedIn }: { loggedIn: boolean }) {
+import { loggedIn, logout } from "./utils/auth";
+export function Header() {
   return (
     <div className="Header">
       <div className="container">
@@ -10,7 +9,7 @@ export function Header({ loggedIn }: { loggedIn: boolean }) {
           <Link to={`/`}>Decks</Link>
         </div>
         <div>
-          {loggedIn ? (
+          {loggedIn() ? (
             <>
               <Link to={`/user-data`}>Account</Link> /{" "}
               <a onClick={() => logout()}>Logout</a>

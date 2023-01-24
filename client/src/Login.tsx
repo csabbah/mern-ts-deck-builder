@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export type User = {
@@ -7,6 +7,7 @@ export type User = {
 };
 
 import { login } from "./api/userApi/login";
+import { loggedIn } from "./utils/auth";
 
 export default function Login() {
   const [redirect, setRedirect] = useState<boolean>(false);
@@ -45,8 +46,7 @@ export default function Login() {
         localStorage.setItem("loggedIn", JSON.stringify(true));
 
         // And redirect to this page
-        const currentPage = window.location.origin;
-        window.location.href = `${currentPage}/user-data`;
+        window.location.href = `./user-data`;
       }
     } catch (err) {
       setPostErr(true);
@@ -59,6 +59,12 @@ export default function Login() {
     setIncorrectPass(false);
     setNotFound(false);
   };
+
+  useEffect(() => {
+    if (loggedIn()) {
+      window.location.href = "./";
+    }
+  }, []);
   return (
     <div className="form-wrapper">
       Login
