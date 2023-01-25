@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { updatePass } from "./api/userApi/updatePass";
-import { loggedIn } from "./utils/auth";
 
 export default function ResetPass() {
   const [newPass, setNewPass] = useState<string>("");
   const [confirmPass, setConfirmPass] = useState<string>("");
   const [passErr, setPassErr] = useState<boolean>(false);
-
-  const [apiLink, setApiLink] = useState<string | null>(
-    localStorage.getItem("resetToken")
-  );
 
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
@@ -26,23 +21,15 @@ export default function ResetPass() {
       return setDisplayErr(true);
     }
 
-    if (apiLink === null) {
-      return setPostErr(true);
-    }
-
     try {
-      const status = await updatePass(apiLink!, newPass);
+      const status = await updatePass(window.location.href, newPass);
       if (status.status == "Something went wrong!") {
         alert("Token expired, please try again!");
-        localStorage.clear();
       } else {
         alert("Password successfully updated!");
-        localStorage.clear();
       }
-
-      window.location.href = `./login`;
+      // window.location.href = "/login";
     } catch (err) {
-      localStorage.clear();
       setPostErr(true);
     }
   };
@@ -52,12 +39,6 @@ export default function ResetPass() {
     setPostErr(false);
     setPassErr(false);
   };
-
-  useEffect(() => {
-    if (!apiLink) {
-      window.location.href = "/";
-    }
-  }, []);
 
   return (
     <div className="form-wrapper">
@@ -110,9 +91,7 @@ export default function ResetPass() {
         <button type="submit">Submit</button>
         {postErr && (
           <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
-            {apiLink === null
-              ? "Token missing, trying again!"
-              : "Something went wrong, try again"}
+            Something went wrong, try again
           </p>
         )}
         {passErr && (

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { postCard } from "./api/postCard";
 import { getDeck } from "./api/getDeck";
 import { deleteCard } from "./api/deleteCard";
+import { loggedIn } from "./utils/auth";
 
 export type deck = {
   _id: string;
@@ -59,6 +60,12 @@ export default function Deck() {
     setDisplayErr(false);
     setPostErr(false);
   };
+
+  useEffect(() => {
+    if (!loggedIn()) {
+      window.location.href = "/";
+    }
+  }, []);
 
   return (
     <div className="Card-wrapper">

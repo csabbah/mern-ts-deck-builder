@@ -62,9 +62,10 @@ export default function Login() {
 
   useEffect(() => {
     if (loggedIn()) {
-      window.location.href = "./";
+      window.location.href = "/";
     }
   }, []);
+
   return (
     <div className="form-wrapper">
       Login

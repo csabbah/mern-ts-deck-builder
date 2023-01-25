@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { resetPass } from "./api/userApi/resetPass";
-import { loggedIn } from "./utils/auth";
 
 export default function ForgotPass() {
   const [email, setUserEmail] = useState<string>("");
@@ -10,29 +9,13 @@ export default function ForgotPass() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!email) {
-      return setDisplayErr(true);
-    }
-
     try {
-      alert(
-        "Email sent! If account exists, you should receive an email shortly."
-      );
-      const apiLink = await resetPass(email);
-      // Clear local (incase a previous older token is there)
-      localStorage.clear();
-      localStorage.setItem("resetToken", apiLink);
+      await resetPass(email);
+      alert("If account exists, you should receive an email!");
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    if (loggedIn()) {
-      window.location.href = "./";
-    }
-  }, []);
 
   return (
     <div className="form-wrapper">
