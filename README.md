@@ -76,5 +76,5 @@ If you have questions about this application or general inquiry, please reach ou
 
 This project is covered under the MIT License.
 
-<img width="1637" alt="Preview" src="https://user-images.githubusercontent.com/91699101/211431879-d2331632-793a-43aa-aed0-8ee3fd89b36c.png">
+![Preview](https://user-images.githubusercontent.com/91699101/214469299-bc62b5f4-0f11-4fac-82d4-8a0ecc6e38df.png)
 
