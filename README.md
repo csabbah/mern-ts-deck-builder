@@ -15,7 +15,7 @@
 
 ## Description
 
-This deck builder application lets users easily create and customize their own decks.The application is optimized for both desktop and mobile devices, providing a seamless experience across platforms. Built using TypeScript, it's deployed on a secure domain using Hostinger and features a custom-built REST API hosted on a VPS. Data is persisted using a MongoDB Atlas cluster.
+Introducing a user-friendly deck building application that empowers authorized users to effortlessly create and personalize their own decks. The application features robust security measures such as phone verification using Firebase, login authentication utilizing Bcrypt and JWT, and a reset password function utilizing Node Mailer to send unique links to users for changing their passwords. Optimized for both desktop and mobile devices, the application offers a smooth, seamless experience across platforms. Built using TypeScript, it is deployed on a secure domain hosted by Hostinger and features a custom-built REST API hosted on a VPS. Data is securely stored using a MongoDB Atlas cluster.
 
 ## Installation
 
@@ -50,10 +50,13 @@ npm run develop
 - Mongoose
 - MongoDB
 - Node.js
-- Caddy
 - Hostinger
 - Vite
 - VPS
+- Firebase
+- Bycrypt
+- JWT
+- Nodemailer
 - Nodemon
 - Cors
 - Express
