@@ -37,8 +37,14 @@ export default function User() {
   }, []);
 
   return (
-    <div style={{ paddingTop: "70px", margin: "0 auto" }}>
-      {data ? <div>Logged in as: {data.username} </div> : "not logged in"}
+    <div className="user-data" style={{ paddingTop: "70px", margin: "0 auto" }}>
+      {data ? (
+        <div>
+          <span style={{ margin: "0" }}>Logged in as: {data.username}</span>
+        </div>
+      ) : (
+        <span style={{ margin: "0" }}>Not logged in</span>
+      )}
     </div>
   );
 }

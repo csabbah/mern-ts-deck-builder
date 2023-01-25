@@ -144,13 +144,13 @@ export default function Signup() {
   return (
     <div className="form-wrapper">
       <div id="recaptcha-container"></div>
-      Sign up
+      <p style={{ margin: "0" }}>Sign up</p>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="username">Username</label>
         <input
           style={{
             border: `1.5px solid ${
-              displayErr && userData.username == "" ? "red" : ""
+              displayErr && userData.username == "" ? "red" : "transparent"
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,7 +169,7 @@ export default function Signup() {
         <input
           style={{
             border: `1.5px solid ${
-              displayErr && userData.email == "" ? "red" : ""
+              displayErr && userData.email == "" ? "red" : "transparent"
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,7 +188,7 @@ export default function Signup() {
         <input
           style={{
             border: `1.5px solid ${
-              displayErr && userData.password == "" ? "red" : ""
+              displayErr && userData.password == "" ? "red" : "transparent"
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,7 +210,9 @@ export default function Signup() {
             type="number"
             style={{
               border: `1.5px solid ${
-                displayErr && userData.mobile.length < 10 ? "red" : ""
+                displayErr && userData.mobile.length < 10
+                  ? "red"
+                  : "transparent"
               }`,
             }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

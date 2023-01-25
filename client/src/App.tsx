@@ -112,7 +112,7 @@ function App() {
           </>
         )}
         {!loggedIn ? (
-          <div style={{ margin: "0 auto" }}>
+          <div className="login-to-view" style={{ margin: "0 auto" }}>
             <p>Login in to create and view your Decks</p>
             <div
               style={{ display: "flex", justifyContent: "center", gap: "15px" }}
@@ -126,7 +126,9 @@ function App() {
             <label htmlFor="deck-title">Deck Title</label>
             <input
               style={{
-                border: `1.5px solid ${displayErr && title == "" ? "red" : ""}`,
+                border: `1.5px solid ${
+                  displayErr && title == "" ? "red" : "transparent"
+                }`,
               }}
               id="deck-title"
               value={title}

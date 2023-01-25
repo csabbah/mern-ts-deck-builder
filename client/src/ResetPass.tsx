@@ -42,7 +42,7 @@ export default function ResetPass() {
 
   return (
     <div className="form-wrapper">
-      Reset Password
+      <p style={{ margin: "0" }}>Reset Password</p>
       <form
         onSubmit={(e) => {
           handlePassChange(e);
@@ -52,7 +52,9 @@ export default function ResetPass() {
         <input
           style={{
             border: `1.5px solid ${
-              (displayErr || passErr) && (newPass == "" || passErr) ? "red" : ""
+              (displayErr || passErr) && (newPass == "" || passErr)
+                ? "red"
+                : "transparent"
             }`,
           }}
           id="newPass"
@@ -77,7 +79,7 @@ export default function ResetPass() {
             border: `1.5px solid ${
               (displayErr || passErr) && (confirmPass == "" || passErr)
                 ? "red"
-                : ""
+                : "transparent"
             }`,
           }}
           id="confirmPass"

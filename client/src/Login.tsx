@@ -65,14 +65,14 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="form-wrapper">
-      Login
+    <div className="form-wrapper forgot">
+      <p style={{ margin: "0" }}>Login</p>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="email">Email</label>
         <input
           style={{
             border: `1.5px solid ${
-              displayErr && userData.email == "" ? "red" : ""
+              displayErr && userData.email == "" ? "red" : "transparent"
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +91,7 @@ export default function Login() {
         <input
           style={{
             border: `1.5px solid ${
-              displayErr && userData.password == "" ? "red" : ""
+              displayErr && userData.password == "" ? "red" : "transparent"
             }`,
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +117,7 @@ export default function Login() {
           </p>
         )}
       </form>
-      <Link style={{ color: "white" }} to={`/reset-password`}>
+      <Link className="forgot-pass" to={`/reset-password`}>
         Forgot Password
       </Link>{" "}
     </div>

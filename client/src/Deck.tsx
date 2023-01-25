@@ -89,7 +89,9 @@ export default function Deck() {
         <label htmlFor="card-text">Card Text</label>
         <input
           style={{
-            border: `1.5px solid ${displayErr && text == "" ? "red" : ""}`,
+            border: `1.5px solid ${
+              displayErr && text == "" ? "red" : "transparent"
+            }`,
           }}
           id="card-text"
           value={text}

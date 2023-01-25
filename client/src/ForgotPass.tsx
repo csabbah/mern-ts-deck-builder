@@ -9,6 +9,9 @@ export default function ForgotPass() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (email == "") {
+      return setDisplayErr(true);
+    }
     try {
       alert("If account exists, you should receive an email!");
       await resetPass(email.toLowerCase());
@@ -19,10 +22,15 @@ export default function ForgotPass() {
 
   return (
     <div className="form-wrapper">
-      Reset Password
+      <p style={{ margin: "0" }}>Reset Password</p>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="email">Email</label>
         <input
+          style={{
+            border: `1.5px solid ${
+              displayErr && email == "" ? "red" : "transparent"
+            }`,
+          }}
           id="email"
           onChange={(e) => {
             setDisplayErr(false);

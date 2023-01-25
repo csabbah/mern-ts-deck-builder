@@ -4,31 +4,169 @@
   line-height: 24px;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87) !important;
-  background-color: #242424 !important;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --var-text-body-light: #333;
+  --var-text-body-dark: rgba(255, 255, 255, 0.87);
+  --var-text-header-light: rgba(255, 255, 255, 0.87);
+  --var-text-header-dark: #333;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
+
+body.dark a,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark li,
+body.dark .cards span,
+body.light .user-data span,
+body.dark p {
+  color: #333;
+  transition: 0.5s all ease-in-out;
+}
+
+body.dark label {
+  color: rgba(255, 255, 255, 0.87);
+  transition: 0.5s all ease-in-out;
+}
+
+body.light label {
+  color: #333;
+  transition: 0.5s all ease-in-out;
+}
+
+body.light a,
+body.light h2,
+body.light h3,
+body.light h4,
+body.light h5,
+body.light li,
+body.light .cards span,
+body.dark .user-data span,
+body.light p {
+  color: rgba(255, 255, 255, 0.87);
+  transition: 0.5s all ease-in-out;
+}
+
+body.light .form-wrapper p {
+  color: #333;
+  transition: 0.5s all ease-in-out;
+}
+
+body.dark .form-wrapper p {
+  color: rgba(255, 255, 255, 0.87);
+  transition: 0.5s all ease-in-out;
+}
+
+body.light .forgot a {
+  color: #333 !important;
+}
+body.dark .forgot a {
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+body.dark h1 {
+  color: rgba(255, 255, 255, 0.87);
+  transition: 0.5s all ease-in-out;
+}
+
+body.light h1 {
+  color: #333;
+  transition: 0.5s all ease-in-out;
+}
+body.dark .cards li {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.87);
+  transition: 0.5s all ease-in-out;
+}
+
+body.light .cards li {
+  border: none;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  background-color: #333;
+  transition: 0.5s all ease-in-out;
+}
+
+body.dark button {
+  color: #333 !important;
+  background-color: rgba(238, 238, 238, 0.87) !important;
+  transition: 0.5s all ease-in-out;
+}
+body.light button {
+  color: rgba(238, 238, 238, 0.87);
+  background-color: #333 !important;
+  transition: 0.5s all ease-in-out;
+}
+
+body.light input,
+body.light input::placeholder,
+body.light textarea,
+body.light textarea::placeholder {
+  color: #333 !important;
+  background-color: rgb(227, 227, 227);
+  transition: 0.5s all ease-in-out;
+}
+
+body.dark input,
+body.dark input::placeholder,
+body.dark textarea,
+body.dark textarea::placeholder {
+  color: #333 !important;
+  transition: 0.5s all ease-in-out;
+}
+
+body.dark input,
+body.dark textarea {
+  color: #333 !important;
+  background-color: rgba(255, 255, 255, 0.87) !important;
+  transition: 0.5s all ease-in-out;
+}
+
+body.dark .Header .container {
+  background-color: rgba(255, 255, 255, 0.87) !important;
+  transition: 0.5s all ease-in-out;
+}
+
+body.light .Header .container {
+  background-color: #333 !important;
+  transition: 0.5s all ease-in-out;
+}
+
+body.light .login-to-view a,
+body.light .login-to-view p,
+body.light .not-found {
+  color: #333 !important;
+}
+
+body.dark .login-to-view a,
+body.dark .login-to-view p,
+body.dark .not-found {
+  color: rgba(255, 255, 255, 0.87) !important;
 }
 
 body {
   margin: 0;
-
   min-width: 320px;
   min-height: 100vh;
+}
+
+body.dark {
+  background-color: #242424 !important;
+  transition: 0.5s all ease-in-out;
+}
+
+body.light {
+  background-color: rgba(255, 255, 255, 0.87) !important;
+  transition: 0.5s all ease-in-out;
 }
 
 h1 {
@@ -70,7 +208,6 @@ input {
   border: 1px solid transparent;
   border-radius: 8px;
   color: rgb(39, 39, 39);
-  background-color: rgb(220, 220, 220);
 }
 
 input::placeholder {
@@ -83,8 +220,6 @@ button {
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
   border-radius: 8px;
-  color: rgb(39, 39, 39);
-  background-color: rgb(220, 220, 220);
 }
 
 .Header {
@@ -92,8 +227,7 @@ button {
   position: fixed;
   top: 0;
   z-index: 1000;
-  height: 50px;
-  background-color: rgba(255, 255, 255, 1);
+  height: 60px;
 }
 
 .Header .container {
@@ -138,6 +272,82 @@ button {
 .form-wrapper button {
   margin-top: 0;
   margin-bottom: 10px;
+}
+
+.color-btn {
+  margin-right: 10px;
+  outline: none;
+  position: relative;
+  padding: 9px 10px;
+  width: 70px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2) inset;
+}
+
+.color-btn.light {
+  background-color: rgb(255, 200, 97) !important;
+  transition: 0.5s all;
+}
+
+.color-btn.dark {
+  background-color: rgb(100, 100, 255) !important;
+  transition: 0.5s all;
+}
+
+.color-outline {
+  position: absolute;
+  z-index: 1;
+  padding: 10px;
+  border-radius: 100px;
+  background-color: white;
+  height: 14px;
+  width: 14px;
+  transition: 0.5s all;
+}
+
+.color-outline.dark {
+  left: 33.2px;
+  transition: 0.5s all;
+}
+
+.color-outline.light {
+  left: 3px;
+  transition: 0.5s all;
+}
+
+.dark-icon,
+.light-icon {
+  opacity: 0.2;
+  position: relative;
+  z-index: 0;
+  font-size: 20px;
+  transition: 0.5s all;
+}
+
+.dark-icon,
+.light-icon {
+  color: rgb(0, 0, 0);
+}
+
+.light-icon {
+  translate: 0.3px;
+}
+
+.dark-icon.active {
+  opacity: 1;
+  z-index: 2;
+  color: rgb(68, 68, 255);
+  transition: 0.5s all;
+}
+
+.light-icon.active {
+  opacity: 1;
+  z-index: 2;
+  color: rgb(249, 189, 77);
+  transition: 0.5s all;
 }
 
 @media (prefers-color-scheme: light) {
