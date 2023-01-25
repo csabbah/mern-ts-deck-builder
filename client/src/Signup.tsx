@@ -229,7 +229,11 @@ export default function Signup() {
           )}
           {verification.verified ? (
             <button
-              style={{ backgroundColor: "green", marginTop: "0" }}
+              style={{
+                backgroundColor: "green",
+                marginTop: "0",
+                cursor: "not-allowed",
+              }}
               onClick={(e) => e.preventDefault()}
             >
               Verified
@@ -271,10 +275,10 @@ export default function Signup() {
             </button>
           </>
         )}
-        {verification.verified ? (
+        {!verification.verified ? (
           <button
             onClick={(e) => e.preventDefault()}
-            style={{ opacity: "0.5" }}
+            style={{ opacity: "0.5", cursor: "not-allowed" }}
           >
             Sign up
           </button>
