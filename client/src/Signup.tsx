@@ -27,6 +27,7 @@ export default function Signup() {
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [phoneErr, setPhoneErr] = useState<boolean>(false);
+  const [userExists, setUserExists] = useState<boolean>(false);
 
   const [userData, setUserData] = useState<User>({
     username: "",
@@ -50,12 +51,15 @@ export default function Signup() {
     }
 
     try {
-      const user: User = await postUser(
-        userData.email,
-        userData.username,
+      const user = await postUser(
+        userData.email.toLowerCase(),
+        userData.username.toLowerCase(),
         userData.password
       );
 
+      if (user == "User exist!") {
+        return setUserExists(true);
+      }
       localStorage.setItem("token", user.token);
       localStorage.setItem("loggedIn", JSON.stringify(true));
 
@@ -134,6 +138,7 @@ export default function Signup() {
     setDisplayErr(false);
     setPostErr(false);
     setPhoneErr(false);
+    setUserExists(false);
   };
 
   return (
@@ -179,7 +184,7 @@ export default function Signup() {
             Missing data
           </p>
         )}
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password (Case sensitive)</label>
         <input
           style={{
             border: `1.5px solid ${
@@ -266,19 +271,24 @@ export default function Signup() {
             </button>
           </>
         )}
-        {!verification.verified ? (
+        {verification.verified ? (
           <button
             onClick={(e) => e.preventDefault()}
             style={{ opacity: "0.5" }}
           >
-            Submit
+            Sign up
           </button>
         ) : (
-          <button type="submit">Submit</button>
+          <button type="submit">Sign up</button>
         )}
         {postErr && (
           <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
             Something went wrong, try again
+          </p>
+        )}
+        {userExists && (
+          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+            Email already in use, use different credentials.
           </p>
         )}
       </form>

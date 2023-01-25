@@ -10,8 +10,6 @@ import { login } from "./api/userApi/login";
 import { loggedIn } from "./utils/auth";
 
 export default function Login() {
-  const [redirect, setRedirect] = useState<boolean>(false);
-
   const [postErr, setPostErr] = useState<boolean>(false);
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [incorrectPass, setIncorrectPass] = useState<boolean>(false);
@@ -30,7 +28,7 @@ export default function Login() {
     }
 
     try {
-      const user = await login(userData.email, userData.password);
+      const user = await login(userData.email.toLowerCase(), userData.password);
 
       if (user == "Password Incorrect") {
         setIncorrectPass(true);
@@ -89,7 +87,7 @@ export default function Login() {
             Missing data
           </p>
         )}
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password (Case sensitive)</label>
         <input
           style={{
             border: `1.5px solid ${

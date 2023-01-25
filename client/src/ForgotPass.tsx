@@ -11,7 +11,7 @@ export default function ForgotPass() {
     e.preventDefault();
     try {
       alert("If account exists, you should receive an email!");
-      await resetPass(email);
+      await resetPass(email.toLowerCase());
     } catch (err) {
       console.log(err);
     }
