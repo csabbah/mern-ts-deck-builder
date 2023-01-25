@@ -10,8 +10,8 @@ export default function ForgotPass() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await resetPass(email);
       alert("If account exists, you should receive an email!");
+      await resetPass(email);
     } catch (err) {
       console.log(err);
     }

@@ -28,7 +28,7 @@ export default function ResetPass() {
       } else {
         alert("Password successfully updated!");
       }
-      // window.location.href = "/login";
+      window.location.href = "/login";
     } catch (err) {
       setPostErr(true);
     }
