@@ -1,23 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { BsMoonFill } from "react-icons/bs";
+import { BsMoonFill, BsUiChecksGrid } from "react-icons/bs";
 import { RiSunFill } from "react-icons/ri";
 
 import { loggedIn, logout } from "./utils/auth";
 
 export function Header() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const colorMode = localStorage.getItem("colorMode");
+  const [darkMode, setDarkMode] = useState<boolean>(colorMode === "dark");
 
   useEffect(() => {
     const body = document.body;
-    if (darkMode) {
-      body?.classList.remove("light");
-
-      return body?.classList.add("dark");
-    }
-    body?.classList.remove("dark");
-    body?.classList.add("light");
-  });
+    body?.classList.remove(darkMode ? "light" : "dark");
+    body?.classList.add(darkMode ? "dark" : "light");
+    localStorage.setItem("colorMode", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   return (
     <div className="Header">

@@ -121,7 +121,6 @@ body.dark textarea::placeholder {
 
 body.dark input,
 body.dark textarea {
-  color: #333 !important;
   background-color: #333 !important;
   transition: 0.5s all ease-in-out;
 }
