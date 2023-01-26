@@ -15,7 +15,7 @@
 
 ## Description
 
-Introducing a user-friendly deck building application that empowers authorized users to effortlessly create and personalize their own decks. The application features robust security measures such as phone verification using Firebase, login authentication utilizing Bcrypt and JWT, and a reset password function utilizing Node Mailer to send unique links to users for changing their passwords. Optimized for both desktop and mobile devices, the application offers a smooth, seamless experience across platforms. Built using TypeScript, it is deployed on a secure domain hosted by Hostinger and features a custom-built REST API hosted on a VPS. Data is securely stored using a MongoDB Atlas cluster.
+Introducing a user-friendly deck building application that empowers authorized users to effortlessly create and personalize their own decks, including the ability to change the color scheme. The application features robust security measures such as phone verification using Firebase, login authentication utilizing Bcrypt and JWT, and a reset password function utilizing Node Mailer to send unique links to users for changing their passwords. Optimized for both desktop and mobile devices, the application offers a smooth, seamless experience across platforms. Built using TypeScript, it is deployed on a secure domain hosted by Hostinger and features a custom-built REST API hosted on a VPS. Data is securely stored using a MongoDB Atlas cluster.
 
 ## Installation
 
@@ -79,5 +79,6 @@ If you have questions about this application or general inquiry, please reach ou
 
 This project is covered under the MIT License.
 
-![Preview](https://user-images.githubusercontent.com/91699101/214469299-bc62b5f4-0f11-4fac-82d4-8a0ecc6e38df.png)
+![Preview](https://user-images.githubusercontent.com/91699101/214745635-01100aa6-098b-43d3-bc87-3dc607cd0663.png)
+
 
