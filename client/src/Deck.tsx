@@ -18,7 +18,7 @@ export type deck = {
 };
 
 export default function Deck() {
-  const [colors, setColors] = useState<string[]>([
+  const colors: string[] = [
     "default",
     "red",
     "blue",
@@ -27,7 +27,7 @@ export default function Deck() {
     "orange",
     "purple",
     "pink",
-  ]);
+  ];
   const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
 
   const [displayErr, setDisplayErr] = useState<boolean>(false);

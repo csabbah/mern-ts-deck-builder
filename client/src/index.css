@@ -425,11 +425,11 @@ body.light .orange {
 }
 
 body.dark .purple {
-  background-color: rgb(165, 61, 165) !important;
+  background-color: rgb(202, 93, 202) !important;
 }
 
 body.light .purple {
-  background-color: rgb(203, 75, 203) !important;
+  background-color: rgb(255, 93, 255) !important;
 }
 
 body.dark .cards li.default,

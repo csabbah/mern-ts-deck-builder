@@ -22,7 +22,7 @@ export type user = {
 import { getProfile } from "./utils/auth";
 
 function App() {
-  const [colors, setColors] = useState<string[]>([
+  const colors: string[] = [
     "default",
     "red",
     "blue",
@@ -31,7 +31,8 @@ function App() {
     "orange",
     "purple",
     "pink",
-  ]);
+  ];
+
   const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
 
   const [displayErr, setDisplayErr] = useState<boolean>(false);
@@ -118,6 +119,15 @@ function App() {
                             }}
                           >
                             &times;
+                          </div>
+                          <div
+                            className="edit-item"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleDeleteDeck(deck._id);
+                            }}
+                          >
+                            Edit
                           </div>
                         </li>
                       </Link>
