@@ -25,17 +25,17 @@ body.dark li,
 body.dark .user-data span,
 body.dark p {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.dark label {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light label {
   color: #333;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light a,
@@ -47,22 +47,22 @@ body.light li,
 body.light .user-data span,
 body.light p {
   color: #333;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light .form-wrapper p {
   color: #333;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.dark .form-wrapper p {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light .forgot a {
   color: #333;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 body.dark .forgot a {
   color: rgba(255, 255, 255, 0.87);
@@ -70,18 +70,17 @@ body.dark .forgot a {
 
 body.dark h1 {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light h1 {
   color: #333;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 body.dark .cards li {
   border: none;
   color: rgba(238, 238, 238, 0.87);
   background-color: #333;
-  transition: 0.5s all ease-in-out;
 }
 
 body.light .cards li {
@@ -89,7 +88,6 @@ body.light .cards li {
   color: #333;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.15);
   background-color: rgb(255, 255, 255);
-  transition: 0.5s all ease-in-out;
 }
 
 .cards li {
@@ -99,19 +97,19 @@ body.light .cards li {
 body.dark button {
   color: rgba(238, 238, 238, 0.87);
   background-color: #333;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 body.light button {
   color: #333;
   background-color: rgb(255, 255, 255);
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light input,
 body.light textarea {
   color: #333 !important;
   background-color: rgb(224, 224, 224);
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.dark input,
@@ -119,23 +117,23 @@ body.dark input::placeholder,
 body.dark textarea,
 body.dark textarea::placeholder {
   color: rgba(238, 238, 238, 0.87) !important;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.dark input,
 body.dark textarea {
   background-color: #333 !important;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.dark .Header .container {
   background-color: #333 !important;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light .Header .container {
   background-color: rgb(255, 255, 255) !important;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light .login-to-view a,
@@ -158,12 +156,12 @@ body {
 
 body.dark {
   background-color: #242424 !important;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 body.light {
   background-color: rgba(240, 240, 240, 0.37) !important;
-  transition: 0.5s all ease-in-out;
+  transition: 0.4s all ease-in-out;
 }
 
 h1 {

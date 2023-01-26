@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 
 const DeckSchema = new Schema({
   title: String,
-  cards: [String],
+  cards: [
+    {
+      title: { type: String },
+      bgColor: { type: String },
+    },
+  ],
   bgColor: String,
   tags: [String],
 });

@@ -1,9 +1,14 @@
 import { API_URL } from "../utils/config";
 
+export type card = {
+  title: string;
+  bgColor: string;
+};
+
 export type deck = {
   _id: string;
-  cards: string[];
   title: string;
+  cards: card[];
 };
 
 export async function deleteCard(

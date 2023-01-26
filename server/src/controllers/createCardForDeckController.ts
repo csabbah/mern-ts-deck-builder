@@ -4,11 +4,11 @@ import Deck from "../models/Deck";
 export async function createCardForDeckController(req: Request, res: Response) {
   const deckId: string = req.params.deckId;
 
-  const { text } = req.body;
+  const card = { title: req.body.title, bgColor: req.body.bgColor };
 
   const updatedDeck = await Deck.findByIdAndUpdate(
     { _id: deckId },
-    { $addToSet: { cards: text } },
+    { $addToSet: { cards: card } },
     { new: true }
   );
 

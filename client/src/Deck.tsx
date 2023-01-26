@@ -6,13 +6,30 @@ import { getDeck } from "./api/getDeck";
 import { deleteCard } from "./api/deleteCard";
 import { loggedIn } from "./utils/auth";
 
+export type card = {
+  title: string;
+  bgColor: string;
+};
+
 export type deck = {
   _id: string;
   title: string;
-  cards: string[];
+  cards: card[];
 };
 
 export default function Deck() {
+  const [colors, setColors] = useState<string[]>([
+    "default",
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "orange",
+    "purple",
+    "pink",
+  ]);
+  const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
+
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [postErr, setPostErr] = useState<boolean>(false);
 
@@ -30,7 +47,7 @@ export default function Deck() {
     }
 
     try {
-      const updatedDeck: deck = await postCard(deckId!, text);
+      const updatedDeck: deck = await postCard(deckId!, selectedColor, text);
       setDeck(updatedDeck);
 
       // Clear form data
@@ -76,8 +93,8 @@ export default function Deck() {
       <ul className="cards">
         {deck ? (
           deck.cards.map((card, index) => (
-            <li key={index}>
-              {card}
+            <li className={card.bgColor ? card.bgColor : "default"} key={index}>
+              {card.title}
               <span
                 className="delete-item"
                 onClick={() => handleDeleteCard(deck!._id, index)}
@@ -118,6 +135,25 @@ export default function Deck() {
             Missing data
           </p>
         )}
+        <div className="color-wrapper">
+          <p>Choose card color</p>
+          <div className="color-btns">
+            {colors.map((color, i) => {
+              return (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedColor(color);
+                  }}
+                  key={i}
+                  className={`${color} ${
+                    selectedColor == color ? "active" : ""
+                  }`}
+                ></button>
+              );
+            })}
+          </div>
+        </div>
         <button>Create Card</button>
         {postErr && (
           <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
