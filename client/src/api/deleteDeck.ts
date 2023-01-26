@@ -4,6 +4,7 @@ export type deck = {
   _id: string;
   title: string;
   cards: string[];
+  bgColor: string;
 };
 export type user = {
   _id: string;

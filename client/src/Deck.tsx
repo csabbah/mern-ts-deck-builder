@@ -70,6 +70,9 @@ export default function Deck() {
   return (
     <div className="Card-wrapper">
       <h1>{deck && deck.title}</h1>
+      {deck && deck.cards.length == 0 && (
+        <p style={{ margin: "auto" }}>No Cards</p>
+      )}
       <ul className="cards">
         {deck ? (
           deck.cards.map((card, index) => (

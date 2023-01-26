@@ -232,6 +232,7 @@ export default function Signup() {
           {verification.verified ? (
             <button
               style={{
+                color: "white",
                 backgroundColor: "green",
                 marginTop: "0",
                 cursor: "not-allowed",

@@ -60,13 +60,12 @@ body.dark .form-wrapper p {
   transition: 0.5s all ease-in-out;
 }
 
-body.light .forgot a,
-body.light .delete-item {
-  color: #333 !important;
+body.light .forgot a {
+  color: #333;
+  transition: 0.5s all ease-in-out;
 }
-body.dark .forgot a,
-body.dark .delete-item {
-  color: rgba(255, 255, 255, 0.87) !important;
+body.dark .forgot a {
+  color: rgba(255, 255, 255, 0.87);
 }
 
 body.dark h1 {
@@ -93,14 +92,18 @@ body.light .cards li {
   transition: 0.5s all ease-in-out;
 }
 
+.cards li {
+  font-weight: 800;
+}
+
 body.dark button {
-  color: rgba(238, 238, 238, 0.87) !important;
-  background-color: #333 !important;
+  color: rgba(238, 238, 238, 0.87);
+  background-color: #333;
   transition: 0.5s all ease-in-out;
 }
 body.light button {
   color: #333;
-  background-color: rgb(255, 255, 255) !important;
+  background-color: rgb(255, 255, 255);
   transition: 0.5s all ease-in-out;
 }
 
@@ -182,13 +185,6 @@ button:disabled {
   box-shadow: none;
   opacity: 0.5;
   cursor: not-allowed;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 input {
@@ -324,7 +320,7 @@ button {
 }
 
 .light-icon {
-  translate: 0.3px;
+  translate: 0.5px;
 }
 
 .dark-icon.active {
@@ -341,17 +337,152 @@ button {
   transition: 0.5s all;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.color-wrapper {
+  width: 100%;
+  max-width: 500px;
+  min-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.color-wrapper p {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.color-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.color-btns button {
+  padding: 16px 24px;
+  scale: 1;
+  transition: 0.2s all !important;
+}
+
+body.dark .color-btns button {
+  border: 2px solid transparent;
+}
+body.light .color-btns button {
+  border: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+body.dark .color-btns button.active {
+  border: 2px dashed rgba(255, 255, 255, 0.87);
+  scale: 1.1;
+}
+
+body.light .color-btns button.active {
+  scale: 1.1;
+  border: 2px dashed #333;
+}
+
+body.dark .red {
+  background-color: rgb(238, 81, 81) !important;
+}
+body.light .red {
+  background-color: #ff5858 !important;
+}
+
+body.dark .yellow {
+  background-color: rgb(238, 231, 93) !important;
+}
+
+body.light .yellow {
+  background-color: rgb(255, 242, 0) !important;
+}
+
+body.dark .blue {
+  background-color: rgb(100, 100, 255) !important;
+}
+body.light .blue {
+  background-color: rgb(55, 145, 255) !important;
+}
+
+body.dark .green {
+  background-color: rgb(71, 156, 71) !important;
+}
+
+body.light .green {
+  background-color: rgb(38, 167, 38) !important;
+}
+
+body.dark .pink {
+  background-color: rgb(247, 158, 173) !important;
+}
+
+body.light .pink {
+  background-color: rgb(255, 176, 206) !important;
+}
+
+body.dark .orange {
+  background-color: rgb(255, 179, 97) !important;
+}
+body.light .orange {
+  background-color: orange !important;
+}
+
+body.dark .purple {
+  background-color: rgb(165, 61, 165) !important;
+}
+
+body.light .purple {
+  background-color: rgb(203, 75, 203) !important;
+}
+
+body.dark .cards li.default,
+body.dark .cards li.default .delete-item {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+body.dark .cards li.pink,
+body.dark .cards li.pink .delete-item,
+body.dark .cards li.green,
+body.dark .cards li.green .delete-item,
+body.dark .cards li.orange,
+body.dark .cards li.orange .delete-item,
+body.dark .cards li.yellow,
+body.dark .cards li.yellow .delete-item,
+body.dark .cards li.blue,
+body.dark .cards li.blue .delete-item,
+body.dark .cards li.red,
+body.dark .cards li.red .delete-item,
+body.dark .cards li.purple,
+body.dark .cards li.purple .delete-item {
+  color: #333;
+}
+
+body.light .cards li.default,
+body.light .cards li.default .delete-item {
+  color: #333;
+}
+
+body.light .cards li.pink,
+body.light .cards li.pink .delete-item,
+body.light .cards li.green,
+body.light .cards li.green .delete-item,
+body.light .cards li.orange,
+body.light .cards li.orange .delete-item,
+body.light .cards li.yellow,
+body.light .cards li.yellow .delete-item,
+body.light .cards li.blue,
+body.light .cards li.blue .delete-item,
+body.light .cards li.red,
+body.light .cards li.red .delete-item,
+body.light .cards li.purple,
+body.light .cards li.purple .delete-item {
+  color: #333;
+}
+
+body.light .cards li {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+body.dark .cards li {
+  border: 1.5px solid transparent;
 }
 
 @media (max-width: 640px) {

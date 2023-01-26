@@ -10,6 +10,7 @@ export type deck = {
   _id: string;
   title: string;
   cards: string[];
+  bgColor: string;
 };
 export type user = {
   _id: string;
@@ -21,6 +22,18 @@ export type user = {
 import { getProfile } from "./utils/auth";
 
 function App() {
+  const [colors, setColors] = useState<string[]>([
+    "default",
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "orange",
+    "purple",
+    "pink",
+  ]);
+  const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
+
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [postErr, setPostErr] = useState<boolean>(false);
 
@@ -41,7 +54,7 @@ function App() {
 
     try {
       // Get the deck that was created
-      const newUser: user = await postDeck(title, userId);
+      const newUser: user = await postDeck(title, selectedColor, userId);
       // Update state array with the new deck
       setUser(newUser);
 
@@ -57,6 +70,8 @@ function App() {
     const newUser: user = await deleteDeck(deckId, userId);
     setUser(newUser);
   };
+
+  console.log(user);
 
   useEffect(() => {
     if (!loggedIn) return;
@@ -83,6 +98,9 @@ function App() {
         {loggedIn && (
           <>
             <h1>Your Decks</h1>
+            {user?.decks.length == 0 && (
+              <p style={{ margin: "auto" }}>No decks</p>
+            )}
             <ul className="cards">
               {user?.decks ? (
                 user?.decks.map(
@@ -90,9 +108,9 @@ function App() {
                   (deck) =>
                     deck.title && (
                       <Link key={deck._id} to={`decks/${deck._id}/${userId}`}>
-                        <li>
+                        <li className={deck.bgColor ? deck.bgColor : "default"}>
                           {deck.title}{" "}
-                          <span
+                          <div
                             className="delete-item"
                             onClick={(e) => {
                               e.preventDefault();
@@ -100,7 +118,7 @@ function App() {
                             }}
                           >
                             &times;
-                          </span>
+                          </div>
                         </li>
                       </Link>
                     )
@@ -149,6 +167,25 @@ function App() {
                 Missing data
               </p>
             )}
+            <div className="color-wrapper">
+              <p>Choose card color</p>
+              <div className="color-btns">
+                {colors.map((color, i) => {
+                  return (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedColor(color);
+                      }}
+                      key={i}
+                      className={`${color} ${
+                        selectedColor == color ? "active" : ""
+                      }`}
+                    ></button>
+                  );
+                })}
+              </div>
+            </div>
             <button>Create Deck</button>
             {postErr && (
               <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
