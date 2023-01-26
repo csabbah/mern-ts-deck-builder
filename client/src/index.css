@@ -9,11 +9,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
-  --var-text-body-light: #333;
-  --var-text-body-dark: rgba(255, 255, 255, 0.87);
-  --var-text-header-light: rgba(255, 255, 255, 0.87);
-  --var-text-header-dark: #333;
 }
 
 a {
@@ -27,10 +22,9 @@ body.dark h3,
 body.dark h4,
 body.dark h5,
 body.dark li,
-body.dark .cards span,
-body.light .user-data span,
+body.dark .user-data span,
 body.dark p {
-  color: #333;
+  color: rgba(255, 255, 255, 0.87);
   transition: 0.5s all ease-in-out;
 }
 
@@ -50,10 +44,9 @@ body.light h3,
 body.light h4,
 body.light h5,
 body.light li,
-body.light .cards span,
-body.dark .user-data span,
+body.light .user-data span,
 body.light p {
-  color: rgba(255, 255, 255, 0.87);
+  color: #333;
   transition: 0.5s all ease-in-out;
 }
 
@@ -67,10 +60,12 @@ body.dark .form-wrapper p {
   transition: 0.5s all ease-in-out;
 }
 
-body.light .forgot a {
+body.light .forgot a,
+body.dark .delete-item {
   color: #333 !important;
 }
-body.dark .forgot a {
+body.dark .forgot a,
+body.light .delete-item {
   color: rgba(255, 255, 255, 0.87) !important;
 }
 
@@ -85,12 +80,14 @@ body.light h1 {
 }
 body.dark .cards li {
   border: none;
+  color: #333;
   background-color: rgba(255, 255, 255, 0.87);
   transition: 0.5s all ease-in-out;
 }
 
 body.light .cards li {
   border: none;
+  color: rgba(255, 255, 255, 0.87);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   background-color: #333;
   transition: 0.5s all ease-in-out;
@@ -132,12 +129,12 @@ body.dark textarea {
 }
 
 body.dark .Header .container {
-  background-color: rgba(255, 255, 255, 0.87) !important;
+  background-color: #333 !important;
   transition: 0.5s all ease-in-out;
 }
 
 body.light .Header .container {
-  background-color: #333 !important;
+  background-color: rgb(255, 255, 255) !important;
   transition: 0.5s all ease-in-out;
 }
 
@@ -206,7 +203,6 @@ input {
   width: 450px;
   text-indent: 10px;
   border: 1px solid transparent;
-  border-radius: 8px;
   color: rgb(39, 39, 39);
 }
 

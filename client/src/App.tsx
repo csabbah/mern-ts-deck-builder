@@ -117,7 +117,7 @@ function App() {
             <div
               style={{ display: "flex", justifyContent: "center", gap: "15px" }}
             >
-              <Link to={`/login`}>Login</Link> /{" "}
+              <Link to={`/login`}>Login</Link>
               <Link to={`/signup`}>Sign up</Link>
             </div>
           </div>
