@@ -106,7 +106,7 @@ function App() {
                     )
                 )
               ) : (
-                <p style={{ color: "white" }}>Loading your decks...</p>
+                <p>Loading your decks...</p>
               )}
             </ul>
           </>

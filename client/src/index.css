@@ -61,11 +61,11 @@ body.dark .form-wrapper p {
 }
 
 body.light .forgot a,
-body.dark .delete-item {
+body.light .delete-item {
   color: #333 !important;
 }
 body.dark .forgot a,
-body.light .delete-item {
+body.dark .delete-item {
   color: rgba(255, 255, 255, 0.87) !important;
 }
 
@@ -80,36 +80,34 @@ body.light h1 {
 }
 body.dark .cards li {
   border: none;
-  color: #333;
-  background-color: rgba(255, 255, 255, 0.87);
+  color: rgba(238, 238, 238, 0.87);
+  background-color: #333;
   transition: 0.5s all ease-in-out;
 }
 
 body.light .cards li {
   border: none;
-  color: rgba(255, 255, 255, 0.87);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  background-color: #333;
+  color: #333;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.15);
+  background-color: rgb(255, 255, 255);
   transition: 0.5s all ease-in-out;
 }
 
 body.dark button {
-  color: #333 !important;
-  background-color: rgba(238, 238, 238, 0.87) !important;
+  color: rgba(238, 238, 238, 0.87) !important;
+  background-color: #333 !important;
   transition: 0.5s all ease-in-out;
 }
 body.light button {
-  color: rgba(238, 238, 238, 0.87);
-  background-color: #333 !important;
+  color: #333;
+  background-color: rgb(255, 255, 255) !important;
   transition: 0.5s all ease-in-out;
 }
 
 body.light input,
-body.light input::placeholder,
-body.light textarea,
-body.light textarea::placeholder {
+body.light textarea {
   color: #333 !important;
-  background-color: rgb(227, 227, 227);
+  background-color: rgb(224, 224, 224);
   transition: 0.5s all ease-in-out;
 }
 
@@ -117,14 +115,14 @@ body.dark input,
 body.dark input::placeholder,
 body.dark textarea,
 body.dark textarea::placeholder {
-  color: #333 !important;
+  color: rgba(238, 238, 238, 0.87) !important;
   transition: 0.5s all ease-in-out;
 }
 
 body.dark input,
 body.dark textarea {
   color: #333 !important;
-  background-color: rgba(255, 255, 255, 0.87) !important;
+  background-color: #333 !important;
   transition: 0.5s all ease-in-out;
 }
 
@@ -162,7 +160,7 @@ body.dark {
 }
 
 body.light {
-  background-color: rgba(255, 255, 255, 0.87) !important;
+  background-color: rgba(240, 240, 240, 0.37) !important;
   transition: 0.5s all ease-in-out;
 }
 
@@ -172,14 +170,11 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  color: black;
-  background-color: #fff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -213,13 +208,13 @@ input::placeholder {
 button {
   user-select: none;
   border: none;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
   border-radius: 8px;
 }
 
 .Header {
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.14);
   position: fixed;
   top: 0;
   z-index: 1000;

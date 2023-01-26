@@ -71,7 +71,7 @@ export default function Deck() {
     <div className="Card-wrapper">
       <h1>{deck && deck.title}</h1>
       <ul className="cards">
-        {deck &&
+        {deck ? (
           deck.cards.map((card, index) => (
             <li key={index}>
               {card}
@@ -82,7 +82,10 @@ export default function Deck() {
                 &times;
               </span>
             </li>
-          ))}
+          ))
+        ) : (
+          <p>Loading your cards...</p>
+        )}
       </ul>
 
       <form onSubmit={handleCreateCard}>
