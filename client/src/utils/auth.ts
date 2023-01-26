@@ -22,6 +22,7 @@ export const loggedIn = (): boolean => {
 };
 
 export const logout = () => {
-  localStorage.clear();
+  localStorage.removeItem("token");
+  localStorage.removeItem("loggedIn");
   window.location.href = "/login";
 };
