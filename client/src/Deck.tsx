@@ -33,6 +33,7 @@ export default function Deck() {
     "pink",
   ];
   const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
+  const [selectedNewColor, setSelectedNewColor] = useState<string>(colors[0]);
 
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [postErr, setPostErr] = useState<boolean>(false);
@@ -56,6 +57,8 @@ export default function Deck() {
 
       // Clear form data
       setText("");
+      // Revert to initial color choice
+      setSelectedColor(colors[0]);
     } catch (err) {
       setText("");
     }
@@ -98,20 +101,34 @@ export default function Deck() {
         {deck ? (
           deck.cards.map((card, index) => (
             <li
-              style={{
-                alignItems:
-                  editDeck[0] && editDeck[1] == index ? "flex-end" : "",
-              }}
-              className={card.bgColor ? card.bgColor : "default"}
+              className={`${card.bgColor ? card.bgColor : "default"} ${
+                editDeck[0] && editDeck[1] == index && "active-edit"
+              }`}
               key={index}
             >
               {editDeck[0] && editDeck[1] == index ? (
                 <div className="edit-wrapper">
                   <textarea
                     onChange={(e) => setUpdatedTitle(e.target.value)}
-                    className="update-deck"
-                    defaultValue={deck.title}
+                    className="update-card"
+                    defaultValue={card.title}
                   ></textarea>
+                  <div style={{ marginTop: "5px" }} className="color-btns">
+                    {colors.map((color, i) => {
+                      return (
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setSelectedNewColor(color);
+                          }}
+                          key={i}
+                          className={`${color} ${
+                            selectedNewColor == color ? "active" : ""
+                          }`}
+                        ></button>
+                      );
+                    })}
+                  </div>
                   <div className="edit-controls">
                     <button
                       onClick={(e) => {

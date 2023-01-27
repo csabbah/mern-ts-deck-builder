@@ -2,12 +2,14 @@ import express, { Express } from "express";
 require("dotenv").config();
 import path from "path";
 import { createCardForDeckController } from "./controllers/createCardForDeckController";
-
 import { createDeckController } from "./controllers/createDeckController";
+
 import { deleteCardOnDeckController } from "./controllers/deleteCardOnDeckController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
+
 import { getDeckController } from "./controllers/getDeckController";
 import { getDecksController } from "./controllers/getDecksController";
+import { updateDeckController } from "./controllers/updateDeckController";
 
 import { createUser } from "./controllers/userController/createUser";
 import { forgotPassword } from "./controllers/userController/forgotPassword";
@@ -32,6 +34,8 @@ app.post("/login-user", loginUser);
 
 app.post("/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", updatePassword);
+
+app.put("/:deckId/:userId", updateDeckController);
 
 app.delete("/decks/:deckId/:userId", deleteDeckController);
 app.get("/decks/:deckId/:userId", getDeckController);

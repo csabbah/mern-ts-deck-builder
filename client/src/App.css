@@ -2,7 +2,7 @@
   padding-top: 70px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
 }
 
 .Card-wrapper form {
@@ -21,14 +21,11 @@
 
 .cards {
   display: grid;
-  width: 85vw;
-  min-width: 700px;
-  max-width: 900px;
-  margin: 0 auto;
+  justify-content: center;
   gap: 20px;
   padding: 0;
-  grid-template-columns: repeat(3, 1fr);
-  color: black;
+  grid-template-columns: repeat(5, 1fr);
+  width: 90vw;
 }
 
 .cards li {
@@ -37,13 +34,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 150px;
+  min-width: 270px;
   background-color: white;
   border: 1px solid white;
   cursor: pointer;
   border-radius: 10px;
   padding: 20px 15px;
-  padding-top: 50px;
 }
 
 .delete-item {
@@ -63,20 +60,37 @@
   height: 25px;
 }
 
-@media (max-width: 740px) {
+.cards li.active-edit {
+  height: fit-content;
+}
+
+@media (max-width: 1620px) {
   .cards {
-    min-width: unset;
-    max-width: unset;
-    grid-template-columns: repeat(2, 1fr);
-    width: 90vw;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 375px;
+    min-width: 300px;
   }
 }
-@media (max-width: 480px) {
+
+@media (max-width: 1320px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 980px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 655px) {
   h1 {
     width: 100vw;
   }
   .cards {
     grid-template-columns: repeat(1, 1fr);
+    max-width: 375px;
+    width: 100%;
+    width: 90vw;
   }
 
   .Card-wrapper form {

@@ -366,10 +366,10 @@ button {
 }
 
 body.dark .color-btns button {
-  border: 2px solid transparent;
+  border: 2px solid rgba(0, 0, 0, 0.25);
 }
 body.light .color-btns button {
-  border: 2px solid rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(0, 0, 0, 0.25);
 }
 
 body.dark .color-btns button.active {
@@ -497,23 +497,32 @@ body.dark .edit-controls button {
 .edit-wrapper {
   width: 100%;
 }
+
 .edit-controls {
   display: flex;
-  margin-top: 6px;
+  margin-top: 11px;
   justify-content: center;
   gap: 10px;
 }
 
-.update-deck {
+.update-deck,
+.update-card {
   box-sizing: border-box;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-left: 10px;
   border: none;
   resize: none;
   border-radius: 10px;
   height: 80px;
   width: 100%;
-  max-width: 260px;
+}
+
+@media (max-width: 900px) {
+  .edit-wrapper .color-btns {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -528,5 +537,11 @@ body.dark .edit-controls button {
 
   input {
     width: 88vw;
+  }
+}
+
+@media (max-width: 625px) {
+  .edit-wrapper .color-btns {
+    width: 90%;
   }
 }

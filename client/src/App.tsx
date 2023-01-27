@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { deleteDeck } from "./api/deleteDeck";
 import { getDecks } from "./api/getDecks";
 import { postDeck } from "./api/postDeck";
+import { updateDeck } from "./api/updateDeck";
 
 import "./App.css";
 
@@ -39,6 +40,7 @@ function App() {
   ];
 
   const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
+  const [selectedNewColor, setSelectedNewColor] = useState<string>(colors[0]);
 
   const [displayErr, setDisplayErr] = useState<boolean>(false);
   const [postErr, setPostErr] = useState<boolean>(false);
@@ -66,9 +68,31 @@ function App() {
 
       // Clear form data
       setTitle("");
+      // Revert to initial color choice
+      setSelectedColor(colors[0]);
     } catch (err) {
       setPostErr(true);
       setTitle("");
+    }
+  };
+
+  const handleUpdateDeck = async (deckId: string) => {
+    try {
+      const updatedDeck: user = await updateDeck(
+        updatedTitle!,
+        selectedNewColor,
+        deckId,
+        userId
+      );
+      setUser(updatedDeck);
+
+      // Clear form data
+      setUpdatedTitle("");
+      // Revert to initial color choice
+      setSelectedColor(colors[0]);
+    } catch (err) {
+      setPostErr(true);
+      setUpdatedTitle("");
     }
   };
 
@@ -111,35 +135,57 @@ function App() {
                   // Only render valid data (deck.title)
                   (deck, i) =>
                     deck.title && (
-                      <Link
-                        onClick={(e) =>
-                          editDeck[0] && editDeck[i] == i
-                            ? e.preventDefault()
-                            : ""
-                        }
-                        key={deck._id}
-                        to={`decks/${deck._id}/${userId}`}
-                      >
+                      <Link key={deck._id} to={`decks/${deck._id}/${userId}`}>
                         <li
-                          style={{
-                            alignItems:
-                              editDeck[0] && editDeck[1] == i ? "flex-end" : "",
+                          onClick={(e) => {
+                            editDeck[0] &&
+                              editDeck[1] == i &&
+                              e.preventDefault();
                           }}
-                          className={deck.bgColor ? deck.bgColor : "default"}
+                          className={`${
+                            deck.bgColor ? deck.bgColor : "default"
+                          } ${
+                            editDeck[0] && editDeck[1] == i && "active-edit"
+                          }`}
                         >
                           {editDeck[0] && editDeck[1] == i ? (
                             <div className="edit-wrapper">
                               <textarea
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
                                 onChange={(e) =>
                                   setUpdatedTitle(e.target.value)
                                 }
                                 className="update-deck"
                                 defaultValue={deck.title}
                               ></textarea>
+                              <div
+                                style={{ marginTop: "5px" }}
+                                className="color-btns"
+                              >
+                                {colors.map((color, i) => {
+                                  return (
+                                    <button
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setSelectedNewColor(color);
+                                      }}
+                                      key={i}
+                                      className={`${color} ${
+                                        selectedNewColor == color
+                                          ? "active"
+                                          : ""
+                                      }`}
+                                    ></button>
+                                  );
+                                })}
+                              </div>
                               <div className="edit-controls">
                                 <button
                                   onClick={(e) => {
                                     e.preventDefault();
+                                    handleUpdateDeck(deck._id);
                                     return setEditDeck([false, null]);
                                   }}
                                 >
