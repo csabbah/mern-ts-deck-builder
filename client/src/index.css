@@ -21,21 +21,20 @@ body.dark h2,
 body.dark h3,
 body.dark h4,
 body.dark h5,
-body.dark li,
 body.dark .user-data span,
 body.dark p {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.dark label {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light label {
   color: #333;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light a,
@@ -43,26 +42,25 @@ body.light h2,
 body.light h3,
 body.light h4,
 body.light h5,
-body.light li,
 body.light .user-data span,
 body.light p {
   color: #333;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light .form-wrapper p {
   color: #333;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.dark .form-wrapper p {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light .forgot a {
   color: #333;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 body.dark .forgot a {
   color: rgba(255, 255, 255, 0.87);
@@ -70,12 +68,12 @@ body.dark .forgot a {
 
 body.dark h1 {
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light h1 {
   color: #333;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 body.dark .cards li {
   border: none;
@@ -91,25 +89,31 @@ body.light .cards li {
 }
 
 .cards li {
+  font-size: 18px;
   font-weight: 800;
 }
 
 body.dark button {
   color: rgba(238, 238, 238, 0.87);
   background-color: #333;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 body.light button {
   color: #333;
   background-color: rgb(255, 255, 255);
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
+textarea {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+}
 body.light input,
 body.light textarea {
   color: #333 !important;
   background-color: rgb(224, 224, 224);
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.dark input,
@@ -117,23 +121,22 @@ body.dark input::placeholder,
 body.dark textarea,
 body.dark textarea::placeholder {
   color: rgba(238, 238, 238, 0.87) !important;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
-body.dark input,
-body.dark textarea {
+body.dark input {
   background-color: #333 !important;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.dark .Header .container {
   background-color: #333 !important;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light .Header .container {
   background-color: rgb(255, 255, 255) !important;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light .login-to-view a,
@@ -156,12 +159,12 @@ body {
 
 body.dark {
   background-color: #242424 !important;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 body.light {
   background-color: rgba(240, 240, 240, 0.37) !important;
-  transition: 0.4s all ease-in-out;
+  transition: 0.4s all;
 }
 
 h1 {
@@ -432,6 +435,9 @@ body.light .purple {
   background-color: rgb(255, 93, 255) !important;
 }
 
+.delete-item {
+  transition: 0.4s all;
+}
 body.dark .cards li.default,
 body.dark .cards li.default .delete-item {
   color: rgba(255, 255, 255, 0.87);
@@ -480,7 +486,34 @@ body.light .cards li {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 body.dark .cards li {
-  border: 1.5px solid transparent;
+  border: 1px solid transparent;
+}
+
+body.dark textarea,
+body.dark .edit-controls button {
+  background-color: #242424 !important;
+}
+
+.edit-wrapper {
+  width: 100%;
+}
+.edit-controls {
+  display: flex;
+  margin-top: 6px;
+  justify-content: center;
+  gap: 10px;
+}
+
+.update-deck {
+  box-sizing: border-box;
+  padding-top: 5px;
+  padding-left: 10px;
+  border: none;
+  resize: none;
+  border-radius: 10px;
+  height: 80px;
+  width: 100%;
+  max-width: 260px;
 }
 
 @media (max-width: 640px) {

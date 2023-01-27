@@ -16,8 +16,12 @@ export type deck = {
   title: string;
   cards: card[];
 };
+export type EditDeckState = [boolean | null, number | null];
 
 export default function Deck() {
+  const [editDeck, setEditDeck] = useState<EditDeckState>([null, null]);
+  const [updatedTitle, setUpdatedTitle] = useState<string | null>(null);
+
   const colors: string[] = [
     "default",
     "red",
@@ -93,14 +97,66 @@ export default function Deck() {
       <ul className="cards">
         {deck ? (
           deck.cards.map((card, index) => (
-            <li className={card.bgColor ? card.bgColor : "default"} key={index}>
-              {card.title}
-              <span
-                className="delete-item"
-                onClick={() => handleDeleteCard(deck!._id, index)}
-              >
-                &times;
-              </span>
+            <li
+              style={{
+                alignItems:
+                  editDeck[0] && editDeck[1] == index ? "flex-end" : "",
+              }}
+              className={card.bgColor ? card.bgColor : "default"}
+              key={index}
+            >
+              {editDeck[0] && editDeck[1] == index ? (
+                <div className="edit-wrapper">
+                  <textarea
+                    onChange={(e) => setUpdatedTitle(e.target.value)}
+                    className="update-deck"
+                    defaultValue={deck.title}
+                  ></textarea>
+                  <div className="edit-controls">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        return setEditDeck([false, null]);
+                      }}
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        return setEditDeck([false, null]);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <span>{card.title}</span>
+              )}
+              {editDeck[0] && editDeck[1] == index ? (
+                ""
+              ) : (
+                <div
+                  className="delete-item"
+                  onClick={() => handleDeleteCard(deck!._id, index)}
+                >
+                  &times;
+                </div>
+              )}
+              {editDeck[0] && editDeck[1] == index ? (
+                ""
+              ) : (
+                <div
+                  className="edit-item"
+                  onClick={(e) => {
+                    setEditDeck([true, index]);
+                    e.preventDefault();
+                  }}
+                >
+                  Edit
+                </div>
+              )}
             </li>
           ))
         ) : (

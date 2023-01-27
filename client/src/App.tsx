@@ -19,9 +19,14 @@ export type user = {
   decks: deck[];
 };
 
+export type EditDeckState = [boolean | null, number | null];
+
 import { getProfile } from "./utils/auth";
 
 function App() {
+  const [editDeck, setEditDeck] = useState<EditDeckState>([null, null]);
+  const [updatedTitle, setUpdatedTitle] = useState<string | null>(null);
+
   const colors: string[] = [
     "default",
     "red",
@@ -72,8 +77,6 @@ function App() {
     setUser(newUser);
   };
 
-  console.log(user);
-
   useEffect(() => {
     if (!loggedIn) return;
 
@@ -106,29 +109,81 @@ function App() {
               {user?.decks ? (
                 user?.decks.map(
                   // Only render valid data (deck.title)
-                  (deck) =>
+                  (deck, i) =>
                     deck.title && (
-                      <Link key={deck._id} to={`decks/${deck._id}/${userId}`}>
-                        <li className={deck.bgColor ? deck.bgColor : "default"}>
-                          {deck.title}{" "}
-                          <div
-                            className="delete-item"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleDeleteDeck(deck._id);
-                            }}
-                          >
-                            &times;
-                          </div>
-                          <div
-                            className="edit-item"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleDeleteDeck(deck._id);
-                            }}
-                          >
-                            Edit
-                          </div>
+                      <Link
+                        onClick={(e) =>
+                          editDeck[0] && editDeck[i] == i
+                            ? e.preventDefault()
+                            : ""
+                        }
+                        key={deck._id}
+                        to={`decks/${deck._id}/${userId}`}
+                      >
+                        <li
+                          style={{
+                            alignItems:
+                              editDeck[0] && editDeck[1] == i ? "flex-end" : "",
+                          }}
+                          className={deck.bgColor ? deck.bgColor : "default"}
+                        >
+                          {editDeck[0] && editDeck[1] == i ? (
+                            <div className="edit-wrapper">
+                              <textarea
+                                onChange={(e) =>
+                                  setUpdatedTitle(e.target.value)
+                                }
+                                className="update-deck"
+                                defaultValue={deck.title}
+                              ></textarea>
+                              <div className="edit-controls">
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    return setEditDeck([false, null]);
+                                  }}
+                                >
+                                  Update
+                                </button>
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    return setEditDeck([false, null]);
+                                  }}
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <span>{deck.title}</span>
+                          )}
+                          {editDeck[0] && editDeck[1] == i ? (
+                            ""
+                          ) : (
+                            <div
+                              className="delete-item"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleDeleteDeck(deck._id);
+                              }}
+                            >
+                              &times;
+                            </div>
+                          )}
+                          {editDeck[0] && editDeck[1] == i ? (
+                            ""
+                          ) : (
+                            <div
+                              className="edit-item"
+                              onClick={(e) => {
+                                setEditDeck([true, i]);
+                                e.preventDefault();
+                              }}
+                            >
+                              Edit
+                            </div>
+                          )}
                         </li>
                       </Link>
                     )
