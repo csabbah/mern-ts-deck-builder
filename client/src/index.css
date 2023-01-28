@@ -163,7 +163,7 @@ body.dark .edit-wrapper textarea {
 }
 
 body.light {
-  background-color: rgba(240, 240, 240, 0.37) !important;
+  background-color: rgba(240, 240, 240, 1) !important;
   transition: 0.4s all;
 }
 
@@ -359,7 +359,7 @@ button {
 }
 
 .color-wrapper p {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 5px;
 }
 

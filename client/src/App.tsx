@@ -277,28 +277,26 @@ function App() {
                           {editDeck[0] && editDeck[1] == i ? (
                             ""
                           ) : (
-                            <div
-                              className="delete-item"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleDeleteDeck(deck._id);
-                              }}
-                            >
-                              &times;
-                            </div>
-                          )}
-                          {editDeck[0] && editDeck[1] == i ? (
-                            ""
-                          ) : (
-                            <div
-                              className="edit-item"
-                              onClick={(e) => {
-                                setEditDeck([true, i]);
-                                setUpdatedTitle(deck.title);
-                                e.preventDefault();
-                              }}
-                            >
-                              Edit
+                            <div>
+                              <div
+                                className="delete-item"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleDeleteDeck(deck._id);
+                                }}
+                              >
+                                &times;
+                              </div>
+                              <div
+                                className="edit-item"
+                                onClick={(e) => {
+                                  setEditDeck([true, i]);
+                                  setUpdatedTitle(deck.title);
+                                  e.preventDefault();
+                                }}
+                              >
+                                Edit
+                              </div>
                             </div>
                           )}
                         </li>

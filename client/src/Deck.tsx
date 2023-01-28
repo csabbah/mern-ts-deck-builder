@@ -21,6 +21,8 @@ export type deck = {
 export type EditDeckState = [boolean | null, number | null];
 
 export default function Deck() {
+  const [hideControls, setHideControls] = useState<boolean>(false);
+
   const [editDeck, setEditDeck] = useState<EditDeckState>([null, null]);
   const [updatedText, setUpdatedText] = useState<string | null>(null);
 
@@ -242,25 +244,27 @@ export default function Deck() {
               {editDeck[0] && editDeck[1] == index ? (
                 ""
               ) : (
-                <div
-                  className="delete-item"
-                  onClick={() => handleDeleteCard(deck!._id, index)}
-                >
-                  &times;
-                </div>
-              )}
-              {editDeck[0] && editDeck[1] == index ? (
-                ""
-              ) : (
-                <div
-                  className="edit-item"
-                  onClick={(e) => {
-                    setEditDeck([true, index]);
-                    setUpdatedText(card.title);
-                    e.preventDefault();
-                  }}
-                >
-                  Edit
+                <div>
+                  {!hideControls && (
+                    <>
+                      <div
+                        className="delete-item"
+                        onClick={() => handleDeleteCard(deck!._id, index)}
+                      >
+                        &times;
+                      </div>
+                      <div
+                        className="edit-item"
+                        onClick={(e) => {
+                          setEditDeck([true, index]);
+                          setUpdatedText(card.title);
+                          e.preventDefault();
+                        }}
+                      >
+                        Edit
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
             </li>
@@ -269,84 +273,88 @@ export default function Deck() {
           <p>Loading your cards...</p>
         )}
       </ul>
-
-      <form onSubmit={handleCreateCard}>
-        <label htmlFor="card-text">Card Text</label>
-        <textarea
-          style={{
-            border: `1.5px solid ${displayErr ? "red" : "transparent"}`,
-          }}
-          id="card-text"
-          value={text}
-          placeholder="Add text"
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            resetState();
-            setText(e.target.value);
-          }}
-        />
-        {displayErr && (
-          <p
+      <button onClick={() => setHideControls(!hideControls)}>
+        Hide Controls
+      </button>
+      {!hideControls && (
+        <form onSubmit={handleCreateCard}>
+          <label htmlFor="card-text">Card Text</label>
+          <textarea
             style={{
-              color: "red",
-              marginTop: "0",
-              marginBottom: "0",
+              border: `1.5px solid ${displayErr ? "red" : "transparent"}`,
             }}
-          >
-            {text == ""
-              ? "Missing data"
-              : text.length > 150
-              ? "Text must be under 150 characters"
-              : "Something went wrong, try again"}
-          </p>
-        )}
-        {!displayErr && (
-          <div>
-            {text.length > 140 && text.length <= 149 && (
-              <p
-                style={{
-                  color: "green",
-                  marginTop: "0",
-                  marginBottom: "0",
-                }}
-              >
-                Remaining letters: {10 - text.length + 140}
-              </p>
-            )}
-            {text.length >= 151 ? (
-              <p style={{ color: "red", marginTop: "0", marginBottom: "0" }}>
-                Over character count: {1 + text.length - 151}
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-        )}
-        <div className="color-wrapper">
-          <p>Choose card color</p>
-          <div className="color-btns">
-            {colors.map((color, i) => {
-              return (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedColor(color);
+            id="card-text"
+            value={text}
+            placeholder="Add text"
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              resetState();
+              setText(e.target.value);
+            }}
+          />
+          {displayErr && (
+            <p
+              style={{
+                color: "red",
+                marginTop: "0",
+                marginBottom: "0",
+              }}
+            >
+              {text == ""
+                ? "Missing data"
+                : text.length > 150
+                ? "Text must be under 150 characters"
+                : "Something went wrong, try again"}
+            </p>
+          )}
+          {!displayErr && (
+            <div>
+              {text.length > 140 && text.length <= 149 && (
+                <p
+                  style={{
+                    color: "green",
+                    marginTop: "0",
+                    marginBottom: "0",
                   }}
-                  key={i}
-                  className={`${color} ${
-                    selectedColor == color ? "active" : ""
-                  }`}
-                ></button>
-              );
-            })}
+                >
+                  Remaining letters: {10 - text.length + 140}
+                </p>
+              )}
+              {text.length >= 151 ? (
+                <p style={{ color: "red", marginTop: "0", marginBottom: "0" }}>
+                  Over character count: {1 + text.length - 151}
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
+          <div className="color-wrapper">
+            <p>Choose card color</p>
+            <div className="color-btns">
+              {colors.map((color, i) => {
+                return (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelectedColor(color);
+                    }}
+                    key={i}
+                    className={`${color} ${
+                      selectedColor == color ? "active" : ""
+                    }`}
+                  ></button>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <button>Create Card</button>
-        {postErr && (
-          <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
-            Something went wrong, try again
-          </p>
-        )}
-      </form>
+          <button>Create Card</button>
+          {postErr && (
+            <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+              Something went wrong, try again
+            </p>
+          )}
+        </form>
+      )}
     </div>
   );
 }
