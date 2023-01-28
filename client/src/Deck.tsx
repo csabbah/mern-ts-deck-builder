@@ -5,8 +5,10 @@ import { postCard } from "./api/postCard";
 import { getDeck } from "./api/getDeck";
 import { deleteCard } from "./api/deleteCard";
 import { loggedIn } from "./utils/auth";
+import { updateCard } from "./api/updateCard";
 
 export type card = {
+  _id: string;
   title: string;
   bgColor: string;
 };
@@ -64,6 +66,30 @@ export default function Deck() {
     }
   };
 
+  const handleUpdateCard = async (deckId: string, cardId: string) => {
+    if (updatedTitle == "") {
+      return setDisplayErr(true);
+    }
+    try {
+      const updatedDeck: deck = await updateCard(
+        updatedTitle!,
+        selectedNewColor,
+        deckId,
+        cardId
+      );
+
+      setDeck(updatedDeck);
+
+      // Clear form data
+      setUpdatedTitle("");
+      // Revert to initial color choice
+      setSelectedNewColor(colors[0]);
+    } catch (err) {
+      setPostErr(true);
+      setUpdatedTitle("");
+    }
+  };
+
   const handleDeleteCard = async (deckId: string, cardIndex: number) => {
     if (!deckId) return;
     const newDeck = await deleteCard(deckId, cardIndex);
@@ -97,7 +123,10 @@ export default function Deck() {
       {deck && deck.cards.length == 0 && (
         <p style={{ margin: "auto" }}>No Cards</p>
       )}
-      <ul className="cards">
+      <ul
+        style={{ display: deck && deck.cards.length == 1 ? "flex" : "grid" }}
+        className="cards"
+      >
         {deck ? (
           deck.cards.map((card, index) => (
             <li
@@ -133,6 +162,7 @@ export default function Deck() {
                     <button
                       onClick={(e) => {
                         e.preventDefault();
+                        handleUpdateCard(deck._id, card._id);
                         return setEditDeck([false, null]);
                       }}
                     >

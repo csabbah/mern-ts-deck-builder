@@ -11,18 +11,20 @@ export type deck = {
   title: string;
   cards: card[];
 };
-export async function postCard(
-  deckId: string,
+export async function updateCard(
+  title: string,
   bgColor: string,
-  title: string
+  deckId: string,
+  cardId: string
 ): Promise<deck> {
-  const response = await fetch(`${API_URL}/decks/${deckId}/cards`, {
-    method: "POST",
-    body: JSON.stringify({ title, bgColor }),
+  const response = await fetch(`${API_URL}/cards/${deckId}`, {
+    method: "PUT",
+    body: JSON.stringify({ title, bgColor, cardId }),
     headers: {
       "Content-Type": "application/json",
     },
   });
+  console.log(deckId);
 
   return response.json();
 }

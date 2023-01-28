@@ -89,7 +89,7 @@ function App() {
       // Clear form data
       setUpdatedTitle("");
       // Revert to initial color choice
-      setSelectedColor(colors[0]);
+      setSelectedNewColor(colors[0]);
     } catch (err) {
       setPostErr(true);
       setUpdatedTitle("");
@@ -129,7 +129,12 @@ function App() {
             {user?.decks.length == 0 && (
               <p style={{ margin: "auto" }}>No decks</p>
             )}
-            <ul className="cards">
+            <ul
+              style={{
+                display: user?.decks.length == 1 ? "flex" : "grid",
+              }}
+              className="cards"
+            >
               {user?.decks ? (
                 user?.decks.map(
                   // Only render valid data (deck.title)

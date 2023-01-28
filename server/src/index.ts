@@ -9,6 +9,7 @@ import { deleteDeckController } from "./controllers/deleteDeckController";
 
 import { getDeckController } from "./controllers/getDeckController";
 import { getDecksController } from "./controllers/getDecksController";
+import { updateCardController } from "./controllers/updateCardController";
 import { updateDeckController } from "./controllers/updateDeckController";
 
 import { createUser } from "./controllers/userController/createUser";
@@ -35,6 +36,7 @@ app.post("/login-user", loginUser);
 app.post("/forgot-password", forgotPassword);
 app.post("/reset-password/:id/:token", updatePassword);
 
+app.put("/cards/:deckId", updateCardController);
 app.put("/:deckId/:userId", updateDeckController);
 
 app.delete("/decks/:deckId/:userId", deleteDeckController);

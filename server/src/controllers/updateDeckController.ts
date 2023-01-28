@@ -8,7 +8,7 @@ export async function updateDeckController(req: Request, res: Response) {
   const bgColor: string = req.body.bgColor;
   const userId: string = req.params.userId;
 
-  const updateDeck = await Deck.findByIdAndUpdate(
+  await Deck.findByIdAndUpdate(
     { _id: deckId },
     { $set: { title: title, bgColor: bgColor } },
     { new: true }
