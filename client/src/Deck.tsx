@@ -49,7 +49,7 @@ export default function Deck() {
   const handleCreateCard = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (text == "" || text.length > 100) {
+    if (text == "" || text.length > 150) {
       return setDisplayErr(true);
     }
 
@@ -229,7 +229,7 @@ export default function Deck() {
             setText(e.target.value);
           }}
         />
-        {displayErr && (text == "" || text.length > 100) && (
+        {displayErr && (text == "" || text.length > 150) && (
           <p
             style={{
               color: "red",
@@ -239,14 +239,14 @@ export default function Deck() {
           >
             {text == ""
               ? "Missing data"
-              : text.length > 100
-              ? "Title must be under 100 characters"
+              : text.length > 150
+              ? "Text must be under 100 characters"
               : ""}
           </p>
         )}
         {!displayErr && (
           <div>
-            {text.length > 90 && text.length <= 99 && (
+            {text.length > 140 && text.length <= 149 && (
               <p
                 style={{
                   color: "green",
@@ -254,12 +254,12 @@ export default function Deck() {
                   marginBottom: "0",
                 }}
               >
-                Remaining letters: {10 - text.length + 90}
+                Remaining letters: {10 - text.length + 140}
               </p>
             )}
-            {text.length >= 101 ? (
+            {text.length >= 151 ? (
               <p style={{ color: "red", marginTop: "0", marginBottom: "0" }}>
-                Over character count: {1 + text.length - 101}
+                Over character count: {1 + text.length - 151}
               </p>
             ) : (
               ""
