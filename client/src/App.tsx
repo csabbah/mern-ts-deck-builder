@@ -91,7 +91,6 @@ function App() {
       // Revert to initial color choice
       setSelectedNewColor(colors[0]);
     } catch (err) {
-      setPostErr(true);
       setUpdatedTitle("");
     }
   };
@@ -131,7 +130,8 @@ function App() {
             )}
             <ul
               style={{
-                display: user?.decks.length == 1 ? "flex" : "grid",
+                gridTemplateColumns:
+                  user?.decks.length == 1 ? "repeat(1, 1fr)" : "",
               }}
               className="cards"
             >

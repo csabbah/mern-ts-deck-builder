@@ -22,7 +22,7 @@ export type EditDeckState = [boolean | null, number | null];
 
 export default function Deck() {
   const [editDeck, setEditDeck] = useState<EditDeckState>([null, null]);
-  const [updatedTitle, setUpdatedTitle] = useState<string | null>(null);
+  const [updatedText, setUpdatedText] = useState<string | null>(null);
 
   const colors: string[] = [
     "default",
@@ -67,12 +67,12 @@ export default function Deck() {
   };
 
   const handleUpdateCard = async (deckId: string, cardId: string) => {
-    if (updatedTitle == "") {
+    if (updatedText == "") {
       return setDisplayErr(true);
     }
     try {
       const updatedDeck: deck = await updateCard(
-        updatedTitle!,
+        updatedText!,
         selectedNewColor,
         deckId,
         cardId
@@ -81,12 +81,11 @@ export default function Deck() {
       setDeck(updatedDeck);
 
       // Clear form data
-      setUpdatedTitle("");
+      setUpdatedText("");
       // Revert to initial color choice
       setSelectedNewColor(colors[0]);
     } catch (err) {
-      setPostErr(true);
-      setUpdatedTitle("");
+      setUpdatedText("");
     }
   };
 
@@ -124,7 +123,10 @@ export default function Deck() {
         <p style={{ margin: "auto" }}>No Cards</p>
       )}
       <ul
-        style={{ display: deck && deck.cards.length == 1 ? "flex" : "grid" }}
+        style={{
+          gridTemplateColumns:
+            deck && deck.cards.length == 1 ? "repeat(1, 1fr)" : "",
+        }}
         className="cards"
       >
         {deck ? (
@@ -138,7 +140,7 @@ export default function Deck() {
               {editDeck[0] && editDeck[1] == index ? (
                 <div className="edit-wrapper">
                   <textarea
-                    onChange={(e) => setUpdatedTitle(e.target.value)}
+                    onChange={(e) => setUpdatedText(e.target.value)}
                     className="update-card"
                     defaultValue={card.title}
                   ></textarea>
