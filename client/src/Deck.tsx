@@ -38,6 +38,8 @@ export default function Deck() {
   const [selectedNewColor, setSelectedNewColor] = useState<string>(colors[0]);
 
   const [displayErr, setDisplayErr] = useState<boolean>(false);
+  const [updateDisplayErr, setUpdateDisplayErr] = useState<boolean>(false);
+
   const [postErr, setPostErr] = useState<boolean>(false);
 
   const [deck, setDeck] = useState<deck | null>(null);
@@ -62,13 +64,14 @@ export default function Deck() {
       // Revert to initial color choice
       setSelectedColor(colors[0]);
     } catch (err) {
+      setPostErr(true);
       setText("");
     }
   };
 
   const handleUpdateCard = async (deckId: string, cardId: string) => {
-    if (updatedText == "") {
-      return setDisplayErr(true);
+    if (updatedText == "" || updatedText!.length > 150) {
+      return setUpdateDisplayErr(true);
     }
     try {
       const updatedDeck: deck = await updateCard(
@@ -84,7 +87,10 @@ export default function Deck() {
       setUpdatedText("");
       // Revert to initial color choice
       setSelectedNewColor(colors[0]);
+      // And close off edit wrapper
+      return setEditDeck([false, null]);
     } catch (err) {
+      setUpdateDisplayErr(true);
       setUpdatedText("");
     }
   };
@@ -133,14 +139,20 @@ export default function Deck() {
           deck.cards.map((card, index) => (
             <li
               className={`${card.bgColor ? card.bgColor : "default"} ${
-                editDeck[0] && editDeck[1] == index && "active-edit"
+                editDeck[0] && editDeck[1] == index && "active-edit-card"
               }`}
               key={index}
             >
               {editDeck[0] && editDeck[1] == index ? (
                 <div className="edit-wrapper">
                   <textarea
-                    onChange={(e) => setUpdatedText(e.target.value)}
+                    style={{
+                      border: updateDisplayErr ? "1.5px solid red" : "",
+                    }}
+                    onChange={(e) => {
+                      setUpdateDisplayErr(false);
+                      setUpdatedText(e.target.value);
+                    }}
                     className="update-card"
                     defaultValue={card.title}
                   ></textarea>
@@ -160,12 +172,56 @@ export default function Deck() {
                       );
                     })}
                   </div>
+                  {updateDisplayErr && (
+                    <p
+                      style={{
+                        backgroundColor: "rgba(255,255,255, 0.8)",
+                        color: "red",
+                        marginTop: "10px",
+                        marginBottom: "0",
+                      }}
+                    >
+                      {updatedText == ""
+                        ? "Missing data"
+                        : updatedText!.length > 150
+                        ? "Text must be under 150 characters"
+                        : "Something went wrong, try again."}
+                    </p>
+                  )}
+                  {!updateDisplayErr && (
+                    <div style={{ backgroundColor: "rgba(255,255,255, 0.8)" }}>
+                      {updatedText!.length > 140 &&
+                        updatedText!.length <= 149 && (
+                          <p
+                            style={{
+                              color: "green",
+                              marginTop: "10px",
+                              marginBottom: "0",
+                            }}
+                          >
+                            Remaining letters: {10 - updatedText!.length + 140}
+                          </p>
+                        )}
+                      {updatedText!.length >= 151 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            marginTop: "10px",
+                            marginBottom: "0",
+                          }}
+                        >
+                          Over character count: {1 + updatedText!.length - 151}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  )}
                   <div className="edit-controls">
                     <button
                       onClick={(e) => {
                         e.preventDefault();
                         handleUpdateCard(deck._id, card._id);
-                        return setEditDeck([false, null]);
                       }}
                     >
                       Update
@@ -200,6 +256,7 @@ export default function Deck() {
                   className="edit-item"
                   onClick={(e) => {
                     setEditDeck([true, index]);
+                    setUpdatedText(card.title);
                     e.preventDefault();
                   }}
                 >
@@ -217,9 +274,7 @@ export default function Deck() {
         <label htmlFor="card-text">Card Text</label>
         <textarea
           style={{
-            border: `1.5px solid ${
-              displayErr && text == "" ? "red" : "transparent"
-            }`,
+            border: `1.5px solid ${displayErr ? "red" : "transparent"}`,
           }}
           id="card-text"
           value={text}
@@ -229,7 +284,7 @@ export default function Deck() {
             setText(e.target.value);
           }}
         />
-        {displayErr && (text == "" || text.length > 150) && (
+        {displayErr && (
           <p
             style={{
               color: "red",
@@ -240,8 +295,8 @@ export default function Deck() {
             {text == ""
               ? "Missing data"
               : text.length > 150
-              ? "Text must be under 100 characters"
-              : ""}
+              ? "Text must be under 150 characters"
+              : "Something went wrong, try again"}
           </p>
         )}
         {!displayErr && (

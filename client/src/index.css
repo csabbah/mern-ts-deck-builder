@@ -194,7 +194,7 @@ textarea {
   margin: auto;
   height: 38px;
   font-size: 18px;
-  width: 500px;
+  width: 600px;
   padding-left: 10px;
   border: 1px solid transparent;
   color: rgb(39, 39, 39);
@@ -208,7 +208,7 @@ textarea::placeholder {
 textarea {
   resize: none;
   padding-top: 10px;
-  height: 150px;
+  height: 140px;
   font-family: inherit;
   font-size: 18px;
 }
@@ -503,8 +503,21 @@ body.dark .edit-controls button {
   background-color: #242424 !important;
 }
 
+.cards li.active-edit {
+  padding-top: 20px;
+  height: fit-content;
+}
+.cards li.active-edit-card {
+  padding-top: 20px;
+  height: fit-content;
+}
+
 .edit-wrapper {
   width: 100%;
+}
+
+.edit-wrapper p {
+  text-align: center;
 }
 
 .edit-controls {
@@ -524,6 +537,10 @@ body.dark .edit-controls button {
   border-radius: 10px;
   height: 80px;
   width: 100%;
+}
+
+.update-card {
+  height: 160px;
 }
 
 @media (max-width: 900px) {
@@ -547,6 +564,9 @@ body.dark .edit-controls button {
   input,
   textarea {
     width: 88vw;
+  }
+  textarea {
+    height: 150px;
   }
 }
 

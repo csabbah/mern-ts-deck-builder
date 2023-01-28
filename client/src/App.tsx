@@ -44,6 +44,8 @@ function App() {
   const [selectedNewColor, setSelectedNewColor] = useState<string>(colors[0]);
 
   const [displayErr, setDisplayErr] = useState<boolean>(false);
+  const [updateDisplayErr, setUpdateDisplayErr] = useState<boolean>(false);
+
   const [postErr, setPostErr] = useState<boolean>(false);
 
   const [user, setUser] = useState<user | null>(null);
@@ -78,6 +80,10 @@ function App() {
   };
 
   const handleUpdateDeck = async (deckId: string) => {
+    if (updatedTitle == "" || updatedTitle!.length > 50) {
+      return setUpdateDisplayErr(true);
+    }
+
     try {
       const updatedDeck: user = await updateDeck(
         updatedTitle!,
@@ -91,8 +97,10 @@ function App() {
       setUpdatedTitle("");
       // Revert to initial color choice
       setSelectedNewColor(colors[0]);
+      return setEditDeck([false, null]);
     } catch (err) {
       setUpdatedTitle("");
+      setUpdateDisplayErr(true);
     }
   };
 
@@ -157,12 +165,18 @@ function App() {
                           {editDeck[0] && editDeck[1] == i ? (
                             <div className="edit-wrapper">
                               <textarea
+                                style={{
+                                  border: updateDisplayErr
+                                    ? "1.5px solid red"
+                                    : "",
+                                }}
                                 onClick={(e) => {
                                   e.preventDefault();
                                 }}
-                                onChange={(e) =>
-                                  setUpdatedTitle(e.target.value)
-                                }
+                                onChange={(e) => {
+                                  setUpdateDisplayErr(false);
+                                  setUpdatedTitle(e.target.value);
+                                }}
                                 className="update-deck"
                                 defaultValue={deck.title}
                               ></textarea>
@@ -187,12 +201,62 @@ function App() {
                                   );
                                 })}
                               </div>
+                              {updateDisplayErr && (
+                                <p
+                                  style={{
+                                    backgroundColor: "rgba(255,255,255, 0.8)",
+                                    color: "red",
+                                    marginTop: "10px",
+                                    marginBottom: "0",
+                                  }}
+                                >
+                                  {updatedTitle == ""
+                                    ? "Missing data"
+                                    : updatedTitle!.length > 50
+                                    ? "Text must be under 50 characters"
+                                    : "Something went wrong, try again"}
+                                </p>
+                              )}
+                              {!updateDisplayErr && (
+                                <div
+                                  style={{
+                                    backgroundColor: "rgba(255,255,255, 0.8)",
+                                  }}
+                                >
+                                  {updatedTitle!.length > 40 &&
+                                    updatedTitle!.length <= 49 && (
+                                      <p
+                                        style={{
+                                          color: "green",
+                                          marginTop: "10px",
+                                          marginBottom: "0",
+                                        }}
+                                      >
+                                        Remaining letters:{" "}
+                                        {10 - updatedTitle!.length + 40}
+                                      </p>
+                                    )}
+                                  {updatedTitle!.length >= 51 ? (
+                                    <p
+                                      style={{
+                                        color: "red",
+                                        marginTop: "10px",
+                                        marginBottom: "0",
+                                      }}
+                                    >
+                                      Over character count:{" "}
+                                      {1 + updatedTitle!.length - 51}
+                                    </p>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              )}
                               <div className="edit-controls">
                                 <button
                                   onClick={(e) => {
                                     e.preventDefault();
                                     handleUpdateDeck(deck._id);
-                                    return setEditDeck([false, null]);
                                   }}
                                 >
                                   Update
@@ -230,6 +294,7 @@ function App() {
                               className="edit-item"
                               onClick={(e) => {
                                 setEditDeck([true, i]);
+                                setUpdatedTitle(deck.title);
                                 e.preventDefault();
                               }}
                             >
@@ -261,9 +326,7 @@ function App() {
             <label htmlFor="deck-title">Deck Title</label>
             <input
               style={{
-                border: `1.5px solid ${
-                  displayErr && title == "" ? "red" : "transparent"
-                }`,
+                border: `1.5px solid ${displayErr ? "red" : "transparent"}`,
               }}
               id="deck-title"
               value={title}
@@ -273,7 +336,7 @@ function App() {
                 setTitle(e.target.value);
               }}
             />
-            {displayErr && (title == "" || title.length > 50) && (
+            {displayErr && (
               <p
                 style={{
                   color: "red",
@@ -285,7 +348,7 @@ function App() {
                   ? "Missing data"
                   : title.length > 50
                   ? "Title must be under 50 characters"
-                  : ""}
+                  : "Something went wrong, try again."}
               </p>
             )}
             {!displayErr && (

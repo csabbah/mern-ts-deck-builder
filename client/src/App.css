@@ -64,11 +64,6 @@
   height: 25px;
 }
 
-.cards li.active-edit {
-  padding-top: 20px;
-  height: fit-content;
-}
-
 @media (max-width: 900px) {
   .Card-wrapper h1 {
     font-size: 25px;
