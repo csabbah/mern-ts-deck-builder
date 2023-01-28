@@ -49,7 +49,7 @@ export default function Deck() {
   const handleCreateCard = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (text == "" || text.length > 50) {
+    if (text == "" || text.length > 100) {
       return setDisplayErr(true);
     }
 
@@ -120,7 +120,7 @@ export default function Deck() {
     <div className="Card-wrapper">
       <h1>{deck && deck.title}</h1>
       {deck && deck.cards.length == 0 && (
-        <p style={{ margin: "auto" }}>No Cards</p>
+        <p style={{ marginTop: "25px", marginBottom: "0" }}>No Cards</p>
       )}
       <ul
         style={{
@@ -215,7 +215,7 @@ export default function Deck() {
 
       <form onSubmit={handleCreateCard}>
         <label htmlFor="card-text">Card Text</label>
-        <input
+        <textarea
           style={{
             border: `1.5px solid ${
               displayErr && text == "" ? "red" : "transparent"
@@ -224,12 +224,12 @@ export default function Deck() {
           id="card-text"
           value={text}
           placeholder="Add text"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             resetState();
             setText(e.target.value);
           }}
         />
-        {displayErr && (text == "" || text.length > 50) && (
+        {displayErr && (text == "" || text.length > 100) && (
           <p
             style={{
               color: "red",
@@ -239,14 +239,14 @@ export default function Deck() {
           >
             {text == ""
               ? "Missing data"
-              : text.length > 50
-              ? "Title must be under 50 characters"
+              : text.length > 100
+              ? "Title must be under 100 characters"
               : ""}
           </p>
         )}
         {!displayErr && (
           <div>
-            {text.length > 40 && text.length <= 49 && (
+            {text.length > 90 && text.length <= 99 && (
               <p
                 style={{
                   color: "green",
@@ -254,12 +254,12 @@ export default function Deck() {
                   marginBottom: "0",
                 }}
               >
-                Remaining letters: {10 - text.length + 40}
+                Remaining letters: {10 - text.length + 90}
               </p>
             )}
-            {text.length >= 51 ? (
+            {text.length >= 101 ? (
               <p style={{ color: "red", marginTop: "0", marginBottom: "0" }}>
-                Over character count: {1 + text.length - 51}
+                Over character count: {1 + text.length - 101}
               </p>
             ) : (
               ""

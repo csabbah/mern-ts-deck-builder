@@ -15,8 +15,11 @@
 }
 
 .Card-wrapper h1 {
-  font-size: 32px;
+  font-size: 30px;
+  word-break: break-all;
   text-align: center;
+  width: 80vw;
+  max-width: 500px;
 }
 
 .cards {
@@ -64,11 +67,15 @@
   height: fit-content;
 }
 
-@media (max-width: 655px) {
-  h1 {
-    width: 95vw;
+@media (max-width: 900px) {
+  .Card-wrapper h1 {
+    font-size: 25px;
+    width: 70vw;
+    word-break: break-all;
   }
+}
 
+@media (max-width: 655px) {
   .Card-wrapper form {
     display: flex;
     flex-direction: column;

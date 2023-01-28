@@ -104,11 +104,6 @@ body.light button {
   transition: 0.4s all;
 }
 
-textarea {
-  font-family: inherit;
-  font-size: 18px;
-  font-weight: 800;
-}
 body.light input,
 body.light textarea {
   color: #333 !important;
@@ -127,6 +122,10 @@ body.dark textarea::placeholder {
 body.dark input {
   background-color: #333 !important;
   transition: 0.4s all;
+}
+
+body.dark textarea {
+  background-color: #333;
 }
 
 body.dark .Header .container {
@@ -157,7 +156,8 @@ body {
   min-height: 100vh;
 }
 
-body.dark {
+body.dark,
+body.dark .edit-wrapper textarea {
   background-color: #242424 !important;
   transition: 0.4s all;
 }
@@ -188,18 +188,29 @@ button:disabled {
   cursor: not-allowed;
 }
 
-input {
+input,
+textarea {
+  box-sizing: border-box;
   margin: auto;
   height: 38px;
   font-size: 18px;
   width: 450px;
-  text-indent: 10px;
+  padding-left: 10px;
   border: 1px solid transparent;
   color: rgb(39, 39, 39);
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: rgb(39, 39, 39);
+}
+
+textarea {
+  resize: none;
+  padding-top: 10px;
+  height: 100px;
+  font-family: inherit;
+  font-size: 18px;
 }
 
 button {
@@ -488,7 +499,6 @@ body.dark .cards li {
   border: 1px solid transparent;
 }
 
-body.dark textarea,
 body.dark .edit-controls button {
   background-color: #242424 !important;
 }
@@ -525,9 +535,6 @@ body.dark .edit-controls button {
 }
 
 @media (max-width: 640px) {
-  .Card-wrapper h1 {
-    font-size: 28px;
-  }
   .Header .container {
     padding: 0;
     width: 100vw;
@@ -537,7 +544,8 @@ body.dark .edit-controls button {
     width: 100vw;
   }
 
-  input {
+  input,
+  textarea {
     width: 88vw;
   }
 }

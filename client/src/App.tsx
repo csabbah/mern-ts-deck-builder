@@ -127,7 +127,7 @@ function App() {
           <>
             <h1>Your Decks</h1>
             {user?.decks.length == 0 && (
-              <p style={{ margin: "auto" }}>No decks</p>
+              <p style={{ marginTop: "25px", marginBottom: "0" }}>No decks</p>
             )}
             <ul
               style={{
