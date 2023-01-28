@@ -20,22 +20,22 @@
 }
 
 .cards {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   padding: 0;
-  grid-template-columns: repeat(5, 1fr);
-  width: 90vw;
 }
 
 .cards li {
+  word-break: break-all;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 150px;
-  min-width: 270px;
+  width: 300px;
   background-color: white;
   border: 1px solid white;
   cursor: pointer;
@@ -64,33 +64,9 @@
   height: fit-content;
 }
 
-@media (max-width: 1620px) {
-  .cards {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 375px;
-    min-width: 300px;
-  }
-}
-
-@media (max-width: 1320px) {
-  .cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 980px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 @media (max-width: 655px) {
   h1 {
-    width: 100vw;
-  }
-  .cards {
-    grid-template-columns: repeat(1, 1fr);
-    max-width: 375px;
-    width: 100%;
-    width: 90vw;
+    width: 95vw;
   }
 
   .Card-wrapper form {

@@ -49,7 +49,7 @@ export default function Deck() {
   const handleCreateCard = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (text == "") {
+    if (text == "" || text.length > 50) {
       return setDisplayErr(true);
     }
 
@@ -229,7 +229,7 @@ export default function Deck() {
             setText(e.target.value);
           }}
         />
-        {displayErr && text == "" && (
+        {displayErr && (text == "" || text.length > 50) && (
           <p
             style={{
               color: "red",
@@ -237,8 +237,34 @@ export default function Deck() {
               marginBottom: "0",
             }}
           >
-            Missing data
+            {text == ""
+              ? "Missing data"
+              : text.length > 50
+              ? "Title must be under 50 characters"
+              : ""}
           </p>
+        )}
+        {!displayErr && (
+          <div>
+            {text.length > 40 && text.length <= 49 && (
+              <p
+                style={{
+                  color: "green",
+                  marginTop: "0",
+                  marginBottom: "0",
+                }}
+              >
+                Remaining letters: {10 - text.length + 40}
+              </p>
+            )}
+            {text.length >= 51 ? (
+              <p style={{ color: "red", marginTop: "0", marginBottom: "0" }}>
+                Over character count: {1 + text.length - 51}
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
         )}
         <div className="color-wrapper">
           <p>Choose card color</p>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BsUiChecksGrid } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { deleteDeck } from "./api/deleteDeck";
 import { getDecks } from "./api/getDecks";
@@ -56,7 +57,7 @@ function App() {
   const handleCreateDeck = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (title == "") {
+    if (title == "" || title.length > 50) {
       return setDisplayErr(true);
     }
 
@@ -272,7 +273,7 @@ function App() {
                 setTitle(e.target.value);
               }}
             />
-            {displayErr && title == "" && (
+            {displayErr && (title == "" || title.length > 50) && (
               <p
                 style={{
                   color: "red",
@@ -280,8 +281,36 @@ function App() {
                   marginBottom: "0",
                 }}
               >
-                Missing data
+                {title == ""
+                  ? "Missing data"
+                  : title.length > 50
+                  ? "Title must be under 50 characters"
+                  : ""}
               </p>
+            )}
+            {!displayErr && (
+              <div>
+                {title.length > 40 && title.length <= 49 && (
+                  <p
+                    style={{
+                      color: "green",
+                      marginTop: "0",
+                      marginBottom: "0",
+                    }}
+                  >
+                    Remaining letters: {10 - title.length + 40}
+                  </p>
+                )}
+                {title.length >= 51 ? (
+                  <p
+                    style={{ color: "red", marginTop: "0", marginBottom: "0" }}
+                  >
+                    Over character count: {1 + title.length - 51}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
             )}
             <div className="color-wrapper">
               <p>Choose card color</p>
