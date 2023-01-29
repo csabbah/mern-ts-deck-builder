@@ -102,13 +102,13 @@
   width: 43px;
   height: 25px;
 }
-.flip-item {
-  font-size: 18px;
+
+.flip-item img {
   position: absolute;
   right: 10px;
-  bottom: 12px;
-  width: 43px;
-  height: 25px;
+  bottom: 5px;
+  object-fit: contain;
+  width: 25px;
 }
 
 body.dark .flip-card-front,
@@ -138,4 +138,12 @@ body.dark .flip-card-wrapper li.active-edit-card {
 body.light .flip-card-wrapper li.active-edit,
 body.light .flip-card-wrapper li.active-edit-card {
   background-color: rgba(255, 255, 255, 0.85);
+}
+
+.flip-card-back.dark img {
+  filter: invert(1);
+}
+
+body.dark .flip-card-front.default img {
+  filter: invert(1) !important;
 }

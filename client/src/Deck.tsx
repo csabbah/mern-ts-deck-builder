@@ -195,7 +195,7 @@ export default function Deck() {
                             e.preventDefault();
                           }}
                         >
-                          Flip
+                          <img src="/images/flip.png" alt="image" />
                         </div>
                       )}
                     </div>
@@ -215,12 +215,13 @@ export default function Deck() {
                       e.preventDefault();
                     }}
                   >
-                    Flip
+                    <img src="/images/flip.png" alt="image" />
                   </div>
                 </div>
               </div>
             </li>
           ))}
+
         {deck &&
           !singleView &&
           deck.cards.map((card, index) => (
@@ -373,7 +374,7 @@ export default function Deck() {
               ) : (
                 <div className={`flip-card-inner `}>
                   <div
-                    className={`flip-card-front  ${
+                    className={`flip-card-front ${
                       card.bgColor ? card.bgColor : "default"
                     } `}
                   >
@@ -424,7 +425,7 @@ export default function Deck() {
                               e.preventDefault();
                             }}
                           >
-                            Flip
+                            <img src="/images/flip.png" alt="image" />
                           </div>
                         )}
                       </div>
@@ -432,7 +433,7 @@ export default function Deck() {
                     <span>{card.title && card.title}</span>
                   </div>
                   <div
-                    className={`flip-card-back  ${
+                    className={`flip-card-back ${
                       card.bgColor ? card.bgColor : "default"
                     } dark`}
                   >
@@ -444,7 +445,7 @@ export default function Deck() {
                         e.preventDefault();
                       }}
                     >
-                      Flip
+                      <img src="/images/flip.png" alt="image" />
                     </div>
                   </div>
                 </div>
