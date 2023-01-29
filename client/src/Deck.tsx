@@ -21,6 +21,7 @@ export type deck = {
 export type EditDeckState = [boolean | null, number | null];
 
 export default function Deck() {
+  const [flipCard, setFlipCard] = useState<EditDeckState>([null, null]);
   const [hideControls, setHideControls] = useState<boolean>(false);
 
   const [editDeck, setEditDeck] = useState<EditDeckState>([null, null]);
@@ -140,8 +141,10 @@ export default function Deck() {
         {deck ? (
           deck.cards.map((card, index) => (
             <li
-              className={`${card.bgColor ? card.bgColor : "default"} ${
-                editDeck[0] && editDeck[1] == index && "active-edit-card"
+              className={`flip-card ${
+                card.bgColor ? card.bgColor : "default"
+              } ${editDeck[0] && editDeck[1] == index && "active-edit-card"} ${
+                flipCard[0] && flipCard[1] == index && "flip"
               }`}
               key={index}
             >
@@ -239,14 +242,46 @@ export default function Deck() {
                   </div>
                 </div>
               ) : (
-                <span>{card.title}</span>
+                <div className="flip-card-inner">
+                  <div
+                    className={`${
+                      card.bgColor ? card.bgColor : "default"
+                    } flip-card-front`}
+                  >
+                    <span>{card.title}</span>
+                  </div>
+                  <div className={`flip-card-back`}>
+                    <span>Test</span>
+                    <div
+                      style={{ bottom: "-8px", right: "-4px" }}
+                      className="flip-item"
+                      onClick={(e) => {
+                        setFlipCard([null, null]);
+                        e.preventDefault();
+                      }}
+                    >
+                      Flip
+                    </div>
+                  </div>
+                </div>
               )}
               {editDeck[0] && editDeck[1] == index ? (
                 ""
               ) : (
-                <div>
+                <div
+                  style={{
+                    transition:
+                      flipCard[0] && flipCard[1] == index
+                        ? ""
+                        : // add a 0.3s delay before the original controls show up (after you flip back)
+                          "0.1s opacity 0.3s",
+                    opacity: flipCard[0] && flipCard[1] == index ? "0" : "1",
+                    pointerEvents:
+                      flipCard[0] && flipCard[1] == index ? "none" : "all",
+                  }}
+                >
                   {!hideControls && (
-                    <>
+                    <div>
                       <div
                         className="delete-item"
                         onClick={() => handleDeleteCard(deck!._id, index)}
@@ -263,8 +298,17 @@ export default function Deck() {
                       >
                         Edit
                       </div>
-                    </>
+                    </div>
                   )}
+                  <div
+                    className="flip-item"
+                    onClick={(e) => {
+                      setFlipCard([true, index]);
+                      e.preventDefault();
+                    }}
+                  >
+                    Flip
+                  </div>
                 </div>
               )}
             </li>

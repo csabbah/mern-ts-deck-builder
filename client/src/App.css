@@ -63,6 +63,14 @@
   width: 43px;
   height: 25px;
 }
+.flip-item {
+  font-size: 18px;
+  position: absolute;
+  right: 5px;
+  bottom: 12px;
+  width: 43px;
+  height: 25px;
+}
 
 @media (max-width: 900px) {
   .Card-wrapper h1 {
