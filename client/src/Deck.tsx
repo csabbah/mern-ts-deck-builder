@@ -23,6 +23,8 @@ export type deck = {
 export type EditDeckState = [boolean | null, number | null];
 
 export default function Deck() {
+  const [singleView, setSingleView] = useState<boolean>(false);
+
   const [flipCard, setFlipCard] = useState<EditDeckState>([null, null]);
   const [hideControls, setHideControls] = useState<boolean>(false);
 
@@ -152,9 +154,75 @@ export default function Deck() {
           gridTemplateColumns:
             deck && deck.cards.length == 1 ? "repeat(1, 1fr)" : "",
         }}
-        className="flip-card-wrapper"
+        className={`flip-card-wrapper`}
       >
-        {deck ? (
+        {deck &&
+          singleView &&
+          deck.cards.map((card, index) => (
+            <li
+              className={`flip-card  ${
+                editDeck[0] && editDeck[1] == index && "active-edit-card"
+              } ${flipCard[0] && flipCard[1] == index && "flip"}`}
+              key={index}
+            >
+              <div className={`flip-card-inner `}>
+                <div
+                  className={`flip-card-front  ${
+                    card.bgColor ? card.bgColor : "default"
+                  } `}
+                >
+                  {editDeck[0] && editDeck[1] == index ? (
+                    ""
+                  ) : (
+                    <div
+                      style={{
+                        transition:
+                          flipCard[0] && flipCard[1] == index
+                            ? ""
+                            : // add a 0.3s delay before the original controls show up (after you flip back)
+                              "0.5s opacity 0.3s",
+                        opacity:
+                          flipCard[0] && flipCard[1] == index ? "0" : "1",
+                        pointerEvents:
+                          flipCard[0] && flipCard[1] == index ? "none" : "all",
+                      }}
+                    >
+                      {card.text && (
+                        <div
+                          className="flip-item"
+                          onClick={(e) => {
+                            setFlipCard([true, index]);
+                            e.preventDefault();
+                          }}
+                        >
+                          Flip
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <span>{card.title && card.title}</span>
+                </div>
+                <div
+                  className={`flip-card-back  ${
+                    card.bgColor ? card.bgColor : "default"
+                  } dark`}
+                >
+                  <span>{card.text && card.text}</span>
+                  <div
+                    className="flip-item"
+                    onClick={(e) => {
+                      setFlipCard([null, null]);
+                      e.preventDefault();
+                    }}
+                  >
+                    Flip
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        {deck &&
+          !singleView &&
           deck.cards.map((card, index) => (
             <li
               className={`flip-card  ${
@@ -366,7 +434,7 @@ export default function Deck() {
                   <div
                     className={`flip-card-back  ${
                       card.bgColor ? card.bgColor : "default"
-                    }`}
+                    } dark`}
                   >
                     <span>{card.text && card.text}</span>
                     <div
@@ -382,14 +450,28 @@ export default function Deck() {
                 </div>
               )}
             </li>
-          ))
-        ) : (
-          <p>Loading your cards...</p>
-        )}
+          ))}
+        {deck ? "" : <p>Loading your cards...</p>}
       </ul>
-      <button onClick={() => setHideControls(!hideControls)}>
-        Hide Controls
-      </button>
+      <div style={{ display: "flex", gap: "10px", margin: "10px" }}>
+        <button
+          onClick={() => {
+            if (singleView) {
+              setSingleView(false);
+              return setHideControls(false);
+            }
+            setSingleView(true);
+            setHideControls(true);
+          }}
+        >
+          View {singleView ? "All" : "Single"} Cards
+        </button>
+        {!singleView && (
+          <button onClick={() => setHideControls(!hideControls)}>
+            Hide Controls
+          </button>
+        )}
+      </div>
       {!hideControls && (
         <div style={{ marginTop: "10px" }}>
           <form onSubmit={postCardText}>

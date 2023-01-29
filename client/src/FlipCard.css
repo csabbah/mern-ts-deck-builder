@@ -1,3 +1,4 @@
+/* All card view */
 .flip-card-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -8,7 +9,7 @@
 }
 
 .flip-card-wrapper li {
-  font-weight: 500;
+  font-weight: 800;
   word-break: break-all;
   word-wrap: break-word;
   position: relative;

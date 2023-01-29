@@ -96,7 +96,7 @@ body.light .cards li {
 
 .cards li {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 800;
 }
 
 body.dark button {
@@ -383,27 +383,33 @@ button {
 }
 
 body.dark .color-btns button {
-  border: 2px solid rgba(0, 0, 0, 0.25);
+  border: 2.5px solid rgba(0, 0, 0, 0.25);
 }
 body.light .color-btns button {
-  border: 2px solid rgba(0, 0, 0, 0.25);
+  border: 2.5px solid rgba(0, 0, 0, 0.25);
 }
 
 body.dark .color-btns button.active {
-  border: 2px dashed rgba(255, 255, 255, 0.87);
+  border: 2.5px dashed rgba(255, 255, 255, 0.87);
   scale: 1.1;
 }
 
 body.light .color-btns button.active {
   scale: 1.1;
-  border: 2px dashed #333;
+  border: 2.5px dashed #333;
 }
 
 body.dark .red {
   background-color: rgb(238, 81, 81) !important;
 }
+
 body.light .red {
   background-color: #ff5858 !important;
+}
+body.light .red.dark,
+body.dark .red.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(183, 59, 59) !important;
 }
 
 body.dark .yellow {
@@ -414,11 +420,25 @@ body.light .yellow {
   background-color: rgb(255, 242, 0) !important;
 }
 
+body.light .yellow.dark,
+body.dark .yellow.dark {
+  background-color: rgb(176, 167, 0) !important;
+}
+
 body.dark .blue {
-  background-color: rgb(100, 100, 255) !important;
+  background-color: rgb(91, 131, 231) !important;
 }
 body.light .blue {
   background-color: rgb(55, 145, 255) !important;
+}
+
+body.light .blue.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(44, 115, 201) !important;
+}
+body.dark .blue.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(66, 96, 174) !important;
 }
 
 body.dark .green {
@@ -429,6 +449,12 @@ body.light .green {
   background-color: rgb(38, 167, 38) !important;
 }
 
+body.light .green.dark,
+body.dark .green.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(28, 111, 28) !important;
+}
+
 body.dark .pink {
   background-color: rgb(247, 158, 173) !important;
 }
@@ -437,11 +463,27 @@ body.light .pink {
   background-color: rgb(255, 176, 206) !important;
 }
 
+body.light .pink.dark,
+body.dark .pink.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(164, 90, 118) !important;
+}
+
 body.dark .orange {
   background-color: rgb(255, 179, 97) !important;
 }
 body.light .orange {
-  background-color: orange !important;
+  background-color: rgb(255, 179, 39) !important;
+}
+
+body.dark .orange.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(185, 128, 66) !important;
+}
+
+body.light .orange.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(187, 137, 45) !important;
 }
 
 body.dark .purple {
@@ -450,6 +492,20 @@ body.dark .purple {
 
 body.light .purple {
   background-color: rgb(255, 93, 255) !important;
+}
+
+body.light .purple.dark,
+body.dark .purple.dark {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(163, 64, 163) !important;
+}
+
+body.light .default.dark {
+  background-color: rgba(180, 180, 180, 0.87);
+}
+
+body.dark .default.dark {
+  background-color: rgba(15, 15, 15, 0.87);
 }
 
 .delete-item {
@@ -533,7 +589,7 @@ body.light li.active-edit {
 
 .edit-controls {
   display: flex;
-  margin-top: 11px;
+  margin-top: 13px;
   justify-content: center;
   gap: 10px;
 }
