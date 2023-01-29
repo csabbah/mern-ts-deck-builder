@@ -10,6 +10,7 @@ import { updateCard } from "./api/updateCard";
 export type card = {
   _id: string;
   title: string;
+  text: string;
   bgColor: string;
 };
 
@@ -26,6 +27,7 @@ export default function Deck() {
 
   const [editDeck, setEditDeck] = useState<EditDeckState>([null, null]);
   const [updatedText, setUpdatedText] = useState<string | null>(null);
+  const [updatedTitle, setUpdatedTitle] = useState<string | null>(null);
 
   const colors: string[] = [
     "default",
@@ -47,37 +49,50 @@ export default function Deck() {
 
   const [deck, setDeck] = useState<deck | null>(null);
   const [text, setText] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
 
   const { deckId } = useParams();
   const { userId } = useParams();
 
-  const handleCreateCard = async (e: React.FormEvent) => {
+  const postCardText = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (text == "" || text.length > 150) {
+    if (title == "" || text.length > 150 || title.length > 50) {
       return setDisplayErr(true);
     }
 
     try {
-      const updatedDeck: deck = await postCard(deckId!, selectedColor, text);
+      const updatedDeck: deck = await postCard(
+        deckId!,
+        selectedColor,
+        title,
+        text
+      );
       setDeck(updatedDeck);
 
       // Clear form data
       setText("");
+      setTitle("");
       // Revert to initial color choice
       setSelectedColor(colors[0]);
     } catch (err) {
       setPostErr(true);
       setText("");
+      setTitle("");
     }
   };
 
   const handleUpdateCard = async (deckId: string, cardId: string) => {
-    if (updatedText == "" || updatedText!.length > 150) {
+    if (
+      updatedTitle == "" ||
+      updatedTitle!.length > 50 ||
+      updatedText!.length > 150
+    ) {
       return setUpdateDisplayErr(true);
     }
     try {
       const updatedDeck: deck = await updateCard(
+        updatedTitle!,
         updatedText!,
         selectedNewColor,
         deckId,
@@ -152,16 +167,93 @@ export default function Deck() {
                 <div className="edit-wrapper">
                   <textarea
                     style={{
-                      border: updateDisplayErr ? "1.5px solid red" : "",
+                      border:
+                        (updateDisplayErr && updatedTitle!.length > 50) ||
+                        updatedTitle == ""
+                          ? "1.5px solid red"
+                          : "",
+                    }}
+                    onChange={(e) => {
+                      setUpdateDisplayErr(false);
+                      setUpdatedTitle(e.target.value);
+                    }}
+                    className="update-card title"
+                    defaultValue={card.title}
+                  ></textarea>
+                  {!updateDisplayErr && updatedTitle && (
+                    <div style={{ backgroundColor: "rgba(255,255,255, 0.8)" }}>
+                      {updatedTitle!.length > 40 &&
+                        updatedTitle!.length <= 49 && (
+                          <p
+                            style={{
+                              color: "green",
+                              marginTop: "10px",
+                              marginBottom: "0",
+                            }}
+                          >
+                            Remaining letters: {10 - updatedTitle!.length + 40}
+                          </p>
+                        )}
+                      {updatedTitle!.length >= 51 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            marginTop: "10px",
+                            marginBottom: "0",
+                          }}
+                        >
+                          Over character count: {1 + updatedTitle!.length - 51}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  )}
+                  <textarea
+                    style={{
+                      border:
+                        updateDisplayErr && updatedText!.length > 150
+                          ? "1.5px solid red"
+                          : "",
                     }}
                     onChange={(e) => {
                       setUpdateDisplayErr(false);
                       setUpdatedText(e.target.value);
                     }}
-                    className="update-card"
-                    defaultValue={card.title}
+                    className="update-card text"
+                    defaultValue={card.text}
                   ></textarea>
-                  <div style={{ marginTop: "5px" }} className="color-btns">
+
+                  {!updateDisplayErr && (
+                    <div style={{ backgroundColor: "rgba(255,255,255, 0.8)" }}>
+                      {updatedText!.length > 140 &&
+                        updatedText!.length <= 149 && (
+                          <p
+                            style={{
+                              color: "green",
+                              marginTop: "10px",
+                              marginBottom: "0",
+                            }}
+                          >
+                            Remaining letters: {10 - updatedText!.length + 140}
+                          </p>
+                        )}
+                      {updatedText!.length >= 151 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            marginTop: "10px",
+                            marginBottom: "0",
+                          }}
+                        >
+                          Over character count: {1 + updatedText!.length - 151}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  )}
+                  <div style={{ marginTop: "15px" }} className="color-btns">
                     {colors.map((color, i) => {
                       return (
                         <button
@@ -193,35 +285,6 @@ export default function Deck() {
                         : "Something went wrong, try again."}
                     </p>
                   )}
-                  {!updateDisplayErr && (
-                    <div style={{ backgroundColor: "rgba(255,255,255, 0.8)" }}>
-                      {updatedText!.length > 140 &&
-                        updatedText!.length <= 149 && (
-                          <p
-                            style={{
-                              color: "green",
-                              marginTop: "10px",
-                              marginBottom: "0",
-                            }}
-                          >
-                            Remaining letters: {10 - updatedText!.length + 140}
-                          </p>
-                        )}
-                      {updatedText!.length >= 151 ? (
-                        <p
-                          style={{
-                            color: "red",
-                            marginTop: "10px",
-                            marginBottom: "0",
-                          }}
-                        >
-                          Over character count: {1 + updatedText!.length - 151}
-                        </p>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  )}
                   <div className="edit-controls">
                     <button
                       onClick={(e) => {
@@ -248,10 +311,10 @@ export default function Deck() {
                       card.bgColor ? card.bgColor : "default"
                     } flip-card-front`}
                   >
-                    <span>{card.title}</span>
+                    <span>{card.title && card.title}</span>
                   </div>
                   <div className={`flip-card-back`}>
-                    <span>Test</span>
+                    <span>{card.text && card.text}</span>
                     <div
                       style={{ bottom: "-8px", right: "-4px" }}
                       className="flip-item"
@@ -274,7 +337,7 @@ export default function Deck() {
                       flipCard[0] && flipCard[1] == index
                         ? ""
                         : // add a 0.3s delay before the original controls show up (after you flip back)
-                          "0.1s opacity 0.3s",
+                          "0.5s opacity 0.3s",
                     opacity: flipCard[0] && flipCard[1] == index ? "0" : "1",
                     pointerEvents:
                       flipCard[0] && flipCard[1] == index ? "none" : "all",
@@ -292,7 +355,8 @@ export default function Deck() {
                         className="edit-item"
                         onClick={(e) => {
                           setEditDeck([true, index]);
-                          setUpdatedText(card.title);
+                          setUpdatedTitle(card.title);
+                          setUpdatedText(card.text);
                           e.preventDefault();
                         }}
                       >
@@ -300,15 +364,17 @@ export default function Deck() {
                       </div>
                     </div>
                   )}
-                  <div
-                    className="flip-item"
-                    onClick={(e) => {
-                      setFlipCard([true, index]);
-                      e.preventDefault();
-                    }}
-                  >
-                    Flip
-                  </div>
+                  {card.text && (
+                    <div
+                      className="flip-item"
+                      onClick={(e) => {
+                        setFlipCard([true, index]);
+                        e.preventDefault();
+                      }}
+                    >
+                      Flip
+                    </div>
+                  )}
                 </div>
               )}
             </li>
@@ -321,83 +387,141 @@ export default function Deck() {
         Hide Controls
       </button>
       {!hideControls && (
-        <form onSubmit={handleCreateCard}>
-          <label htmlFor="card-text">Card Text</label>
-          <textarea
-            style={{
-              border: `1.5px solid ${displayErr ? "red" : "transparent"}`,
-            }}
-            id="card-text"
-            value={text}
-            placeholder="Add text"
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              resetState();
-              setText(e.target.value);
-            }}
-          />
-          {displayErr && (
-            <p
+        <div style={{ marginTop: "10px" }}>
+          <form onSubmit={postCardText}>
+            <label htmlFor="card-Title">Front of Card</label>
+            <input
               style={{
-                color: "red",
-                marginTop: "0",
-                marginBottom: "0",
+                border:
+                  displayErr && (title.length > 50 || title == "")
+                    ? `1.5px solid red`
+                    : "",
               }}
-            >
-              {text == ""
-                ? "Missing data"
-                : text.length > 150
-                ? "Text must be under 150 characters"
-                : "Something went wrong, try again"}
-            </p>
-          )}
-          {!displayErr && (
-            <div>
-              {text.length > 140 && text.length <= 149 && (
-                <p
-                  style={{
-                    color: "green",
-                    marginTop: "0",
-                    marginBottom: "0",
-                  }}
-                >
-                  Remaining letters: {10 - text.length + 140}
-                </p>
-              )}
-              {text.length >= 151 ? (
-                <p style={{ color: "red", marginTop: "0", marginBottom: "0" }}>
-                  Over character count: {1 + text.length - 151}
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
-          )}
-          <div className="color-wrapper">
-            <p>Choose card color</p>
-            <div className="color-btns">
-              {colors.map((color, i) => {
-                return (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setSelectedColor(color);
+              id="card-Title"
+              value={title}
+              placeholder="Add Title"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                resetState();
+                setTitle(e.target.value);
+              }}
+            />
+            {displayErr && (
+              <p
+                style={{
+                  color: "red",
+                  marginTop: "0",
+                  marginBottom: "0",
+                }}
+              >
+                {title == ""
+                  ? "Missing data"
+                  : title.length > 50
+                  ? "Title must be under 50 characters"
+                  : ""}
+              </p>
+            )}
+            {!displayErr && (
+              <div>
+                {title.length > 40 && title.length <= 49 && (
+                  <p
+                    style={{
+                      color: "green",
+                      marginTop: "0",
+                      marginBottom: "0",
                     }}
-                    key={i}
-                    className={`${color} ${
-                      selectedColor == color ? "active" : ""
-                    }`}
-                  ></button>
-                );
-              })}
+                  >
+                    Remaining letters: {10 - title.length + 40}
+                  </p>
+                )}
+                {title.length >= 51 ? (
+                  <p
+                    style={{ color: "red", marginTop: "0", marginBottom: "0" }}
+                  >
+                    Over character count: {1 + title.length - 51}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+            )}
+            <hr style={{ opacity: "0.2", width: "100%" }}></hr>
+            <label htmlFor="card-text">Back of Card (Optional Field)</label>
+            <textarea
+              style={{
+                border: `1.5px solid ${
+                  text.length > 150 ? "red" : "transparent"
+                }`,
+              }}
+              id="card-text"
+              value={text}
+              placeholder="Add text"
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                resetState();
+                setText(e.target.value);
+              }}
+            />
+            {displayErr && text.length > 150 && (
+              <p
+                style={{
+                  color: "red",
+                  marginTop: "0",
+                  marginBottom: "0",
+                }}
+              >
+                Text must be under 150 characters
+              </p>
+            )}
+            {!displayErr && (
+              <div>
+                {text.length > 140 && text.length <= 149 && (
+                  <p
+                    style={{
+                      color: "green",
+                      marginTop: "0",
+                      marginBottom: "0",
+                    }}
+                  >
+                    Remaining letters: {10 - text.length + 140}
+                  </p>
+                )}
+                {text.length >= 151 ? (
+                  <p
+                    style={{ color: "red", marginTop: "0", marginBottom: "0" }}
+                  >
+                    Over character count: {1 + text.length - 151}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+            )}
+            <div className="color-wrapper">
+              <p>Choose card color</p>
+              <div className="color-btns">
+                {colors.map((color, i) => {
+                  return (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedColor(color);
+                      }}
+                      key={i}
+                      className={`${color} ${
+                        selectedColor == color ? "active" : ""
+                      }`}
+                    ></button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-          <button>Create Card</button>
-          {postErr && (
-            <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
-              Something went wrong, try again
-            </p>
-          )}
-        </form>
+            <button>Create Card</button>
+            {postErr && (
+              <p style={{ margin: "10px 0", marginTop: "0", color: "red" }}>
+                Something went wrong, try again
+              </p>
+            )}
+          </form>
+        </div>
       )}
     </div>
   );

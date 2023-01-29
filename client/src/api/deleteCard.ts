@@ -3,6 +3,7 @@ import { API_URL } from "../utils/config";
 export type card = {
   _id: string;
   title: string;
+  text: string;
   bgColor: string;
 };
 

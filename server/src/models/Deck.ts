@@ -8,6 +8,7 @@ const DeckSchema = new Schema({
   cards: [
     {
       title: { type: String },
+      text: { type: String },
       bgColor: { type: String },
     },
   ],

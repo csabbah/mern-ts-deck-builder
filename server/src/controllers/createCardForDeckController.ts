@@ -4,7 +4,11 @@ import Deck from "../models/Deck";
 export async function createCardForDeckController(req: Request, res: Response) {
   const deckId: string = req.params.deckId;
 
-  const card = { title: req.body.title, bgColor: req.body.bgColor };
+  const card = {
+    title: req.body.title,
+    bgColor: req.body.bgColor,
+    text: req.body.text,
+  };
 
   const updatedDeck = await Deck.findByIdAndUpdate(
     { _id: deckId },

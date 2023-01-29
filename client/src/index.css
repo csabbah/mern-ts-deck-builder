@@ -1,7 +1,6 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
-  line-height: 24px;
   font-weight: 400;
 
   font-synthesis: none;
@@ -25,6 +24,13 @@ body.dark .user-data span,
 body.dark p {
   color: rgba(255, 255, 255, 0.87);
   transition: 0.4s all;
+}
+
+body.dark hr {
+  border-color: unset;
+}
+body.light hr {
+  border-color: rgba(51, 51, 51, 0.47);
 }
 
 body.dark label {
@@ -79,7 +85,6 @@ body.dark .cards li {
   border: none;
   color: rgba(238, 238, 238, 0.87);
   background-color: #333;
-  transition: 0.4s all;
 }
 
 body.light .cards li {
@@ -87,7 +92,6 @@ body.light .cards li {
   color: #333;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.15);
   background-color: rgb(255, 255, 255);
-  transition: 0.4s all;
 }
 
 .cards li {
@@ -159,7 +163,8 @@ body {
 }
 
 body.dark,
-body.dark .edit-wrapper textarea {
+body.dark .edit-wrapper textarea,
+body.dark .edit-wrapper input {
   background-color: #242424 !important;
   transition: 0.4s all;
 }
@@ -192,11 +197,12 @@ button:disabled {
 
 input,
 textarea {
+  font-family: inherit;
   box-sizing: border-box;
   margin: auto;
   height: 38px;
   font-size: 18px;
-  width: 600px;
+  width: 500px;
   padding-left: 10px;
   border: 1px solid transparent;
   color: rgb(39, 39, 39);
@@ -210,8 +216,7 @@ textarea::placeholder {
 textarea {
   resize: none;
   padding-top: 10px;
-  height: 140px;
-  font-family: inherit;
+  height: 120px;
   font-size: 18px;
 }
 
@@ -539,9 +544,11 @@ body.dark .edit-controls button {
   border-radius: 10px;
   height: 80px;
   width: 100%;
+  padding-right: 10px;
 }
 
-.update-card {
+.update-card.text {
+  margin-top: 12px;
   height: 160px;
 }
 
@@ -571,6 +578,7 @@ body.dark .edit-controls button {
   position: absolute;
   width: 100%;
   height: 100%;
+  background-color: transparent !important;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
@@ -579,6 +587,12 @@ body.dark .edit-controls button {
 .flip-card-back {
   transform: rotateY(180deg);
 }
+/* 
+body.dark .cards li.flip {
+  background-color: red !important;
+}
+body.dark .cards li {
+} */
 
 @media (max-width: 900px) {
   .edit-wrapper .color-btns {
