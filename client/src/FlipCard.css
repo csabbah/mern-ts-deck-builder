@@ -1,0 +1,140 @@
+.flip-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.flip-card-wrapper li {
+  font-weight: 500;
+  word-break: break-all;
+  word-wrap: break-word;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 332px;
+  cursor: pointer;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card.flip .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+  word-break: break-all;
+  word-wrap: break-word;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-back span,
+.flip-card-front span {
+  word-break: break-all;
+  word-wrap: break-word;
+  width: 90%;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+}
+
+/* Style the back side */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card-wrapper li.active-edit,
+.flip-card-wrapper li.active-edit-card {
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  padding-top: 20px;
+  padding: 20px;
+  width: 292px;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.delete-item {
+  color: black;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-weight: 800;
+  font-size: 25px;
+}
+.edit-item {
+  font-size: 18px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  width: 43px;
+  height: 25px;
+}
+.flip-item {
+  font-size: 18px;
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  width: 43px;
+  height: 25px;
+}
+
+body.dark .flip-card-front,
+.flip-card-back {
+  border: none;
+  background-color: #333;
+}
+
+body.dark .flip-card-front.default,
+body.dark .flip-card-back.default,
+body.dark .default .delete-item {
+  color: rgba(238, 238, 238, 0.87);
+}
+
+body.light .flip-card-back,
+body.light .flip-card-front {
+  border: none;
+  color: #333;
+  background-color: rgb(255, 255, 255);
+}
+
+body.dark .flip-card-wrapper li.active-edit,
+body.dark .flip-card-wrapper li.active-edit-card {
+  background-color: #333;
+}
+
+body.light .flip-card-wrapper li.active-edit,
+body.light .flip-card-wrapper li.active-edit-card {
+  background-color: rgba(255, 255, 255, 0.85);
+}

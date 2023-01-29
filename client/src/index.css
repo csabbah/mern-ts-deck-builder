@@ -96,7 +96,7 @@ body.light .cards li {
 
 .cards li {
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 body.dark button {
@@ -510,13 +510,17 @@ body.dark .edit-controls button {
   background-color: #242424 !important;
 }
 
-.cards li.active-edit {
-  padding-top: 20px;
-  height: fit-content;
-}
+.cards li.active-edit,
 .cards li.active-edit-card {
   padding-top: 20px;
   height: fit-content;
+}
+
+body.dark li.active-edit {
+  background-color: #333 !important;
+}
+body.light li.active-edit {
+  background-color: white !important;
 }
 
 .edit-wrapper {
@@ -549,50 +553,8 @@ body.dark .edit-controls button {
 
 .update-card.text {
   margin-top: 12px;
-  height: 160px;
+  height: 170px;
 }
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transform-style: preserve-3d;
-}
-
-.cards li {
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-.cards li.flip {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front,
-.flip-card-back {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: transparent !important;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-
-/* Style the back side */
-.flip-card-back {
-  transform: rotateY(180deg);
-}
-/* 
-body.dark .cards li.flip {
-  background-color: red !important;
-}
-body.dark .cards li {
-} */
 
 @media (max-width: 900px) {
   .edit-wrapper .color-btns {

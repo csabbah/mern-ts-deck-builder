@@ -7,6 +7,7 @@ import { deleteCard } from "./api/deleteCard";
 import { loggedIn } from "./utils/auth";
 import { updateCard } from "./api/updateCard";
 
+import "./FlipCard.css";
 export type card = {
   _id: string;
   title: string;
@@ -151,16 +152,14 @@ export default function Deck() {
           gridTemplateColumns:
             deck && deck.cards.length == 1 ? "repeat(1, 1fr)" : "",
         }}
-        className="cards"
+        className="flip-card-wrapper"
       >
         {deck ? (
           deck.cards.map((card, index) => (
             <li
-              className={`flip-card ${
-                card.bgColor ? card.bgColor : "default"
-              } ${editDeck[0] && editDeck[1] == index && "active-edit-card"} ${
-                flipCard[0] && flipCard[1] == index && "flip"
-              }`}
+              className={`flip-card  ${
+                editDeck[0] && editDeck[1] == index && "active-edit-card"
+              } ${flipCard[0] && flipCard[1] == index && "flip"}`}
               key={index}
             >
               {editDeck[0] && editDeck[1] == index ? (
@@ -223,7 +222,6 @@ export default function Deck() {
                     className="update-card text"
                     defaultValue={card.text}
                   ></textarea>
-
                   {!updateDisplayErr && (
                     <div style={{ backgroundColor: "rgba(255,255,255, 0.8)" }}>
                       {updatedText!.length > 140 &&
@@ -253,7 +251,7 @@ export default function Deck() {
                       )}
                     </div>
                   )}
-                  <div style={{ marginTop: "15px" }} className="color-btns">
+                  <div style={{ marginTop: "13px" }} className="color-btns">
                     {colors.map((color, i) => {
                       return (
                         <button
@@ -305,18 +303,73 @@ export default function Deck() {
                   </div>
                 </div>
               ) : (
-                <div className="flip-card-inner">
+                <div className={`flip-card-inner `}>
                   <div
-                    className={`${
+                    className={`flip-card-front  ${
                       card.bgColor ? card.bgColor : "default"
-                    } flip-card-front`}
+                    } `}
                   >
+                    {editDeck[0] && editDeck[1] == index ? (
+                      ""
+                    ) : (
+                      <div
+                        style={{
+                          transition:
+                            flipCard[0] && flipCard[1] == index
+                              ? ""
+                              : // add a 0.3s delay before the original controls show up (after you flip back)
+                                "0.5s opacity 0.3s",
+                          opacity:
+                            flipCard[0] && flipCard[1] == index ? "0" : "1",
+                          pointerEvents:
+                            flipCard[0] && flipCard[1] == index
+                              ? "none"
+                              : "all",
+                        }}
+                      >
+                        {!hideControls && (
+                          <div>
+                            <div
+                              className="delete-item"
+                              onClick={() => handleDeleteCard(deck!._id, index)}
+                            >
+                              &times;
+                            </div>
+                            <div
+                              className="edit-item"
+                              onClick={(e) => {
+                                setEditDeck([true, index]);
+                                setUpdatedTitle(card.title);
+                                setUpdatedText(card.text);
+                                e.preventDefault();
+                              }}
+                            >
+                              Edit
+                            </div>
+                          </div>
+                        )}
+                        {card.text && (
+                          <div
+                            className="flip-item"
+                            onClick={(e) => {
+                              setFlipCard([true, index]);
+                              e.preventDefault();
+                            }}
+                          >
+                            Flip
+                          </div>
+                        )}
+                      </div>
+                    )}
                     <span>{card.title && card.title}</span>
                   </div>
-                  <div className={`flip-card-back`}>
+                  <div
+                    className={`flip-card-back  ${
+                      card.bgColor ? card.bgColor : "default"
+                    }`}
+                  >
                     <span>{card.text && card.text}</span>
                     <div
-                      style={{ bottom: "-8px", right: "-4px" }}
                       className="flip-item"
                       onClick={(e) => {
                         setFlipCard([null, null]);
@@ -326,55 +379,6 @@ export default function Deck() {
                       Flip
                     </div>
                   </div>
-                </div>
-              )}
-              {editDeck[0] && editDeck[1] == index ? (
-                ""
-              ) : (
-                <div
-                  style={{
-                    transition:
-                      flipCard[0] && flipCard[1] == index
-                        ? ""
-                        : // add a 0.3s delay before the original controls show up (after you flip back)
-                          "0.5s opacity 0.3s",
-                    opacity: flipCard[0] && flipCard[1] == index ? "0" : "1",
-                    pointerEvents:
-                      flipCard[0] && flipCard[1] == index ? "none" : "all",
-                  }}
-                >
-                  {!hideControls && (
-                    <div>
-                      <div
-                        className="delete-item"
-                        onClick={() => handleDeleteCard(deck!._id, index)}
-                      >
-                        &times;
-                      </div>
-                      <div
-                        className="edit-item"
-                        onClick={(e) => {
-                          setEditDeck([true, index]);
-                          setUpdatedTitle(card.title);
-                          setUpdatedText(card.text);
-                          e.preventDefault();
-                        }}
-                      >
-                        Edit
-                      </div>
-                    </div>
-                  )}
-                  {card.text && (
-                    <div
-                      className="flip-item"
-                      onClick={(e) => {
-                        setFlipCard([true, index]);
-                        e.preventDefault();
-                      }}
-                    >
-                      Flip
-                    </div>
-                  )}
                 </div>
               )}
             </li>
