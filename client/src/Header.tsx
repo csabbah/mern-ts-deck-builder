@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { BsMoonFill, BsUiChecksGrid } from "react-icons/bs";
+import { BsMoonFill } from "react-icons/bs";
 import { RiSunFill } from "react-icons/ri";
 
 import { loggedIn, logout } from "./utils/auth";

@@ -535,6 +535,9 @@ export default function Deck() {
           <button
             onClick={() => {
               setSingleIndex(0);
+              setFlipCard([null, null]);
+              setFlipSingleCard([null, null]);
+
               if (singleView) {
                 setSingleView(false);
                 return setHideControls(false);
