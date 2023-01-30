@@ -23,8 +23,6 @@ export type deck = {
 export type EditDeckState = [boolean | null, number | null];
 
 export default function Deck() {
-  const [singleView, setSingleView] = useState<boolean>(false);
-
   const [flipCard, setFlipCard] = useState<EditDeckState>([null, null]);
   const [hideControls, setHideControls] = useState<boolean>(false);
 
@@ -51,6 +49,8 @@ export default function Deck() {
   const [postErr, setPostErr] = useState<boolean>(false);
 
   const [deck, setDeck] = useState<deck | null>(null);
+  const [shuffledCards, setShuffledCards] = useState<card[] | null>(null);
+
   const [text, setText] = useState<string>("");
   const [title, setTitle] = useState<string>("");
 
@@ -84,6 +84,22 @@ export default function Deck() {
       setTitle("");
     }
   };
+
+  const [singleView, setSingleView] = useState<boolean>(false);
+  const [singleIndex, setSingleIndex] = useState<number>(0);
+  const [flipSingleCard, setFlipSingleCard] = useState<EditDeckState>([
+    null,
+    null,
+  ]);
+
+  function shuffleArray(array: card[]) {
+    let newArray = array.slice();
+    for (let i = newArray.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  }
 
   const handleUpdateCard = async (deckId: string, cardId: string) => {
     if (
@@ -149,49 +165,53 @@ export default function Deck() {
       {deck && deck.cards.length == 0 && (
         <p style={{ marginTop: "25px", marginBottom: "0" }}>No Cards</p>
       )}
-      <ul
-        style={{
-          gridTemplateColumns:
-            deck && deck.cards.length == 1 ? "repeat(1, 1fr)" : "",
-        }}
-        className={`flip-card-wrapper`}
-      >
-        {deck &&
-          singleView &&
-          deck.cards.map((card, index) => (
+      <div className={`flip-card-wrapper`}>
+        {shuffledCards && singleView && (
+          <div>
+            <p>
+              Card: {singleIndex + 1} of {shuffledCards.length}
+            </p>
             <li
-              className={`flip-card  ${
-                editDeck[0] && editDeck[1] == index && "active-edit-card"
-              } ${flipCard[0] && flipCard[1] == index && "flip"}`}
-              key={index}
+              className={`flip-card ${
+                flipSingleCard[0] && flipSingleCard[1] == singleIndex && "flip"
+              }`}
             >
-              <div className={`flip-card-inner `}>
+              <div className={`flip-card-inner`}>
                 <div
                   className={`flip-card-front  ${
-                    card.bgColor ? card.bgColor : "default"
+                    shuffledCards[singleIndex].bgColor
+                      ? shuffledCards[singleIndex].bgColor
+                      : "default"
                   } `}
                 >
-                  {editDeck[0] && editDeck[1] == index ? (
+                  {editDeck[0] ? (
                     ""
                   ) : (
                     <div
                       style={{
                         transition:
-                          flipCard[0] && flipCard[1] == index
+                          flipSingleCard[0] && flipSingleCard[1] == singleIndex
                             ? ""
                             : // add a 0.3s delay before the original controls show up (after you flip back)
                               "0.5s opacity 0.3s",
                         opacity:
-                          flipCard[0] && flipCard[1] == index ? "0" : "1",
+                          flipSingleCard[0] && flipSingleCard[1] == singleIndex
+                            ? "0"
+                            : "1",
                         pointerEvents:
-                          flipCard[0] && flipCard[1] == index ? "none" : "all",
+                          flipSingleCard[0] && flipSingleCard[1] == singleIndex
+                            ? "none"
+                            : "all",
                       }}
                     >
-                      {card.text && (
+                      {shuffledCards[singleIndex].text && (
                         <div
                           className="flip-item"
                           onClick={(e) => {
-                            setFlipCard([true, index]);
+                            setFlipSingleCard([
+                              !flipSingleCard[0],
+                              singleIndex,
+                            ]);
                             e.preventDefault();
                           }}
                         >
@@ -200,18 +220,26 @@ export default function Deck() {
                       )}
                     </div>
                   )}
-                  <span>{card.title && card.title}</span>
+                  <span>
+                    {shuffledCards[singleIndex].title &&
+                      shuffledCards[singleIndex].title}
+                  </span>
                 </div>
                 <div
                   className={`flip-card-back  ${
-                    card.bgColor ? card.bgColor : "default"
+                    shuffledCards[singleIndex].bgColor
+                      ? shuffledCards[singleIndex].bgColor
+                      : "default"
                   } dark`}
                 >
-                  <span>{card.text && card.text}</span>
+                  <span>
+                    {shuffledCards[singleIndex].text &&
+                      shuffledCards[singleIndex].text}
+                  </span>
                   <div
                     className="flip-item"
                     onClick={(e) => {
-                      setFlipCard([null, null]);
+                      setFlipSingleCard([!flipSingleCard[0], singleIndex]);
                       e.preventDefault();
                     }}
                   >
@@ -220,7 +248,8 @@ export default function Deck() {
                 </div>
               </div>
             </li>
-          ))}
+          </div>
+        )}
 
         {deck &&
           !singleView &&
@@ -453,20 +482,71 @@ export default function Deck() {
             </li>
           ))}
         {deck ? "" : <p>Loading your cards...</p>}
-      </ul>
-      <div style={{ display: "flex", gap: "10px", margin: "10px" }}>
-        <button
-          onClick={() => {
-            if (singleView) {
-              setSingleView(false);
-              return setHideControls(false);
-            }
-            setSingleView(true);
-            setHideControls(true);
-          }}
-        >
-          View {singleView ? "All" : "Single"} Cards
-        </button>
+      </div>
+      <div style={{ display: "flex", gap: "10px", marginTop: "30px" }}>
+        {shuffledCards && shuffledCards.length < 2 ? (
+          ""
+        ) : singleView ? (
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button
+              onClick={() => {
+                let flipped = flipSingleCard[0] ? 550 : 0;
+
+                setFlipSingleCard([null, null]);
+                setTimeout(() => {
+                  if (shuffledCards) {
+                    setSingleIndex(
+                      singleIndex !== 0
+                        ? singleIndex - 1
+                        : shuffledCards.length - 1
+                    );
+                  }
+                }, flipped);
+              }}
+            >
+              Prev
+            </button>
+            <button
+              onClick={() => {
+                // Checked if flipped, if so, add a timeout so it gives time for
+                // card to flip back before proceeding to the next card
+                let flipped = flipSingleCard[0] ? 550 : 0;
+
+                setFlipSingleCard([null, null]);
+                setTimeout(() => {
+                  if (shuffledCards) {
+                    setSingleIndex(
+                      singleIndex !== shuffledCards.length - 1
+                        ? singleIndex + 1
+                        : 0
+                    );
+                  }
+                }, flipped);
+              }}
+            >
+              Next
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {deck && deck.cards.length > 0 && (
+          <button
+            onClick={() => {
+              setSingleIndex(0);
+              if (singleView) {
+                setSingleView(false);
+                return setHideControls(false);
+              }
+              setShuffledCards(shuffleArray(deck!.cards));
+              setSingleView(true);
+              setHideControls(true);
+            }}
+          >
+            View {singleView ? "All" : "Single"} Cards
+          </button>
+        )}
         {!singleView && (
           <button onClick={() => setHideControls(!hideControls)}>
             Hide Controls
