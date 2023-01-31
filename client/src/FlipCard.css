@@ -29,6 +29,11 @@
   z-index: -1 !important;
 }
 
+.flip-card.single {
+  position: relative;
+  z-index: 0 !important;
+}
+
 /* This container is needed to position the front and back side */
 .flip-card-inner {
   display: flex;
