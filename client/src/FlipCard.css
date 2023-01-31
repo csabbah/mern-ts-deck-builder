@@ -69,8 +69,6 @@
 
 .flip-card-back span,
 .flip-card-front span {
-  word-break: break-all;
-  word-wrap: break-word;
   width: 90%;
 }
 
